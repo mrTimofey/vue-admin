@@ -2,7 +2,7 @@
 	import { mapGetters } from 'vuex';
 
 	function itemHref(item) {
-		return item.path || item.entity && ('/entity/' + item.entity);
+		return item.path || item.route || item.entity && ('/entity/' + item.entity);
 	}
 
 	export default {
@@ -40,7 +40,11 @@
 </script>
 <template lang="pug">
 	li.header(v-if="typeof item === 'string'" v-html="item")
-	router-link(v-else-if="item.path" tag="li" ':to'="href"): a
+	li(v-else-if="item.path"): a(':href'="href")
+		i.fa(v-if="item.fa" ':class'="'fa-' + item.fa")
+		!=' '
+		span(v-html="item.title")
+	router-link(v-else-if="item.route" tag="li" ':to'="href"): a
 		i.fa(v-if="item.fa" ':class'="'fa-' + item.fa")
 		!=' '
 		span(v-html="item.title")
