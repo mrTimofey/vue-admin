@@ -139,7 +139,7 @@
 					})
 					.catch(err => {
 						const title = this.$t('errors.saveElement');
-						let text;
+						let text, jsonData;
 						if (err.response && err.response.status === 422) {
 							this.fieldErrors = err.response.data.errors;
 							text = '<ul><li>' +
@@ -151,8 +151,10 @@
 						else {
 							this.error = err.response.status;
 							text = '<p>' + this.$t('httpCodes.' + err.response.status) + '</p>';
+							if (process.env.NODE_ENV !== 'production')
+								jsonData = err.response.data;
 						}
-						this.$modal.open('error', { title, text });
+						this.$modal.open('error', { title, text, jsonData });
 					})
 					.then(() => {
 						this.loading = false;

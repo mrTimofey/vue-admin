@@ -3,7 +3,8 @@
 		props: {
 			title: String,
 			text: String,
-			button: String
+			button: String,
+			jsonData: Object
 		}
 	};
 </script>
@@ -12,7 +13,9 @@
 		.modal-header
 			button.close('@click'="$modal.close()"): span ×
 			h4.text-danger.modal-title {{ title || $t('error') }}
-		.modal-body(v-if="text" v-html="text")
+		.modal-body(v-if="text || jsonData")
+			div(v-if="text" v-html="text")
+			pre(v-if="jsonData") {{ jsonData | json }}
 		.modal-footer
 			button.btn.btn-default(v-focus '@click'="$modal.close()") {{ button || $t('ok') }}
 </template>

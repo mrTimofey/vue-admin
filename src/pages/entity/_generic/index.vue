@@ -108,7 +108,8 @@
 								((err.response && err.response.status === 422) ?
 									Object.keys(err.response.data.errors)
 										.map(k => err.response.data.errors[k].join(', ')) :
-									this.$t('statusCodes.' + err.response.status))
+									this.$t('statusCodes.' + err.response.status)),
+								jsonData: process.env.NODE_ENV === 'production' ? err.response.data : null
 							});
 						});
 				}, 300);
