@@ -6,7 +6,7 @@ const path = require('path'),
 
 const basePath = process.env.ADMIN_PATH || '/admin',
 	dev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development',
-	buildDest = process.env.BUILD_DEST || 'dist';
+	buildDest = process.env.BUILD_DEST || path.resolve(process.cwd(), 'dist');
 
 // allows options to represent both object and query string
 class Options {
