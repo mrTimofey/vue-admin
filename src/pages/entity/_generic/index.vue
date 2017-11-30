@@ -42,7 +42,7 @@
 				return this.$store.getters.entitiesData[this.entity];
 			},
 			title() {
-				return this.meta && this.meta.title || this.$t('list');
+				return this.meta && this.meta.title || this.$t('elementList');
 			}
 		},
 		methods: {

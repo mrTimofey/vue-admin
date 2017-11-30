@@ -47,7 +47,7 @@ export default {
 		delete: 'Удалить',
 		back: 'Назад',
 		noMetaMessage: 'Для редактирования или создания элементов необходимо задать мета-данные модели',
-		list: 'Список',
+		elementList: 'Список',
 		nothingFound: 'Ничего не найдено'
 	},
 	dateTime: {
