@@ -1,0 +1,24 @@
+.modal
+	display block
+	overflow auto
+.modal-enter-active
+	opacity 1
+	transition opacity 0.2s ease-out
+	.modal-dialog, .modal-close
+		transform none
+		transition transform 0.2s ease-out
+.modal-enter
+	opacity 0
+	.modal-dialog, .modal-close
+		transform scale(0.98) translateY(-15px)
+.modal-header
+	position relative
+	box-sizing border-box
+	min-height 56px
+	padding-right @min-height
+	.close
+		absolute 0 0 false false
+		line-height @min-height
+		width @min-height
+		text-align center
+		margin-top 0

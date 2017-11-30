@@ -1,0 +1,1 @@
+Administrative interface frontend built with Webpack and Vue.js.

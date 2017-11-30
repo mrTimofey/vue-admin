@@ -1,0 +1,66 @@
+.styled-checkbox
+	display inline-block
+	vertical-align top
+	position relative
+	padding-left 30px
+	margin-bottom 5px
+	cursor pointer
+	line-height 22px
+	height 22px
+	user-select none
+	input
+		position absolute
+		z-index -1
+		opacity 0
+	.table &
+		margin-bottom 0
+.styled-checkbox-indicator
+	position absolute
+	top 2px
+	left 0
+	height 20px
+	width 20px
+	background $c-light-grey
+	.styled-checkbox.radio &
+		border-radius 50%
+	.styled-checkbox:hover input ~ &,
+	.styled-checkbox input:focus ~ &
+		background $c-grey
+	.styled-checkbox input:checked ~ &
+		background $c-primary
+	.styled-checkbox:hover input:not([disabled]):checked ~ &,
+	.styled-checkbox input:checked:focus ~ &
+		background $c-secondary
+	.styled-checkbox input:disabled ~ &
+		background $c-light-grey
+		opacity 0.6
+		pointer-events none
+	&:after
+		content ''
+		position absolute
+		display none // Hide check
+		.styled-checkbox input:checked ~ &
+			display block // Show check
+		.styled-checkbox:not(.radio) &
+			left 8px
+			top 4px
+			width 5px
+			height 10px
+			border solid $c-white
+			border-width 0 2px 2px 0
+			transform rotate(45deg)
+		.styled-checkbox:not(.radio) input:disabled ~ &
+			border-color $c-dark-grey
+		.styled-checkbox.radio &
+			left 7px
+			top 7px
+			height 6px
+			width 6px
+			border-radius 50%
+			background $c-white
+		.styled-checkbox.radio input:disabled ~ &
+			background $c-dark-grey
+.readonly .styled-checkbox input:checked ~ .styled-checkbox-indicator:after
+	border-color $c-black !important
+.styled-checkbox-label
+	relative 1px false false false
