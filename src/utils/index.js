@@ -93,7 +93,7 @@ export function asFormData(data, formData, ns) {
 				formData.append('files__' + fieldName + '[' + i + ']', data[field][i]);
 		else if (typeof data[field] === 'boolean') formData.append(fieldName, data[field] ? '1' : '0');
 		else if (data[field] === null) formData.append(fieldName, '');
-		else if (typeof data[field] === 'object') asFormData(data[field], formData, field);
+		else if (typeof data[field] === 'object') asFormData(data[field], formData, ns ? (ns + '[' + field + ']') : field);
 		else formData.append(fieldName, data[field]);
 	}
 	return formData;
