@@ -14,6 +14,7 @@ export default {
 		authenticateMessage: 'Войдите, чтобы продолжить',
 		login: 'Логин',
 		password: 'Пароль',
+		rememberMe: 'Запомнить меня',
 		httpCodes: {
 			401: 'Требуется авторизация',
 			403: 'Доступ запрещён',

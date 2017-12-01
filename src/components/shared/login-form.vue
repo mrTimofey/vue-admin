@@ -7,7 +7,8 @@
 		data: () => ({
 			form: {
 				login: '',
-				password: ''
+				password: '',
+				remember: true
 			},
 			error: '',
 			loading: false
@@ -18,7 +19,7 @@
 		methods: {
 			login() {
 				this.loading = true;
-				authenticate(this.form.login, this.form.password)
+				authenticate(this.form.login, this.form.password, this.form.remember)
 					.then(() => this.$emit('done'))
 					.catch(err => {
 						this.error = err.response ? err.response.status : 500;
@@ -43,6 +44,7 @@
 					input.form-control(':placeholder'="$t('login')" v-model="form.login")
 				.form-group.has-feedback
 					input.form-control(type="password" ':placeholder'="$t('password')" v-model="form.password")
+				field(type="checkbox" v-model="form.remember" ':label'="$t('rememberMe')")
 				.row
 					.col-xs-4
 						button.btn.btn-primary.btn-block.btn-flat(type='submit' v-bind:class="{disabled: loading}") {{ $t('login') }}

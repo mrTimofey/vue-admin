@@ -42,9 +42,9 @@ export function logout() {
 	delete http.defaults.headers['Authorization'];
 }
 
-export function authenticate(login, password) {
+export function authenticate(login, password, remember = false) {
 	return new Promise((resolve, reject) => {
-		http.post('auth', { email: login, password })
+		http.post('auth', { email: login, password, remember })
 			.then(res => {
 				authorize(res.data);
 				resolve(res);
@@ -58,7 +58,7 @@ export function authenticate(login, password) {
 
 export function recallToken() {
 	if (!window.localStorage.adminRememberToken) return Promise.reject();
-	return http.post('auth/remember', { token: window.localStorage.adminRememberToken })
+	return http.post('auth', { remember_token: window.localStorage.adminRememberToken, remember: true })
 		.then(res => {
 			authorize(res.data);
 			return res;

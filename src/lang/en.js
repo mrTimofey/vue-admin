@@ -14,6 +14,7 @@ export default {
 		authenticateMessage: 'Authenticate to continue',
 		login: 'Login',
 		password: 'Password',
+		rememberMe: 'Remember me',
 		httpCodes: {
 			401: 'Authorization required',
 			403: 'Access denied',
