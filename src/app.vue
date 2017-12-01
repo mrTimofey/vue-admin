@@ -1,6 +1,6 @@
 <script>
 	import http from 'src/http';
-	import { mapActions, mapGetters } from 'vuex';
+	import { mapActions, mapGetters, mapMutations } from 'vuex';
 	import { MasterComponent as Modal } from 'src/plugins/modal';
 	import SidebarMenu from 'src/components/sidebar-menu.vue';
 	import 'src/styles/common.styl';
@@ -13,15 +13,21 @@
 		}),
 		methods: {
 			...mapActions(['fetchLocaleData', 'fetchUser', 'fetchMetaData', 'logout']),
-			init() {
-				this.fetchUser().then(() => {
+			...mapMutations(['setUser']),
+			init(user) {
+				const fetchMeta = () => {
 					this.fetchMetaData();
 					// logout on 401 unauthorized response
 					http.interceptors.response.use(null, err => {
 						if (err.response.status === 401) this.logout();
 						throw err;
 					});
-				});
+				};
+				if (user) {
+					this.setUser(user);
+					fetchMeta();
+				}
+				else this.fetchUser().then(fetchMeta);
 			}
 		},
 		created() {

@@ -20,7 +20,7 @@
 			login() {
 				this.loading = true;
 				authenticate(this.form.login, this.form.password, this.form.remember)
-					.then(() => this.$emit('done'))
+					.then(res => this.$emit('done', res.data.user))
 					.catch(err => {
 						this.error = err.response ? err.response.status : 500;
 					})
