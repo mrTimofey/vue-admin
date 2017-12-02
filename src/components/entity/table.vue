@@ -120,7 +120,7 @@
 						':value'="item[field.name]"
 						title=""
 						'@input'="$emit('update', item, field.name, $event)")
-					display(v-else ':value'="item[field.name]" ':type'="field.type")
+					display(v-else ':value'="item[field.name]" v-bind="field")
 			td.table-item-actions(v-if="showActions")
 				.btn-group.btn-group-xs
 					router-link.btn.btn-primary(v-if="permitted('update')" ':to'="path + '/item/' + item.id")

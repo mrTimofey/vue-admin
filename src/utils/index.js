@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import i18n from 'src/i18n';
 
 /**
  * Converts
@@ -161,7 +162,7 @@ export function parsePlaceholders(str, obj, def = '') {
 
 export function httpErrorModalData(err) {
 	let jsonData, text;
-	if (!err.response) text = Vue.t('errors.noResponse');
+	if (!err.response) text = i18n.t('errors.noResponse');
 	else {
 		jsonData = process.env.NODE_ENV === 'production' ? null : err.response.data;
 		if (err.response === 400)
@@ -169,9 +170,9 @@ export function httpErrorModalData(err) {
 		else if (err.response.status === 422)
 			text = Object.keys(err.response.data.errors).map(k => err.response.data.errors[k].join(', ')).join(', ');
 		else if (err.response.status >= 400 && err.response.status < 500)
-			text = Vue.t('statusCodes.' + err.response.status);
+			text = i18n.t('statusCodes.' + err.response.status);
 		else
-			text = Vue.t('statusCodes.500');
+			text = i18n.t('statusCodes.500');
 	}
 	return { text, jsonData };
 }
