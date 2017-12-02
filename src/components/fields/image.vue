@@ -1,5 +1,7 @@
 <script>
+	import { mapGetters } from 'vuex';
 	import BaseFileField from './file.vue';
+
 	export default {
 		components: { BaseFileField },
 		props: {
@@ -14,8 +16,9 @@
 			src: null
 		}),
 		computed: {
+			...mapGetters(['imagePath']),
 			fileValue() {
-				return typeof this.value === 'string' ? ('/storage/images/' + this.value) : this.value;
+				return typeof this.value === 'string' ? (this.imagePath + '/' + this.value) : this.value;
 			}
 		},
 		watch: {
@@ -26,7 +29,7 @@
 						this.src = null;
 						return;
 					}
-					if (typeof v === 'string') this.src = '/storage/images/' +
+					if (typeof v === 'string') this.src = this.imagePath + '/' +
 						(v.endsWith('.svg') ? '' : 'admin-thumb/') + v;
 					else {
 						const reader = new FileReader();

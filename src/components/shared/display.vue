@@ -14,13 +14,13 @@
 	span(v-else-if!="props.type === 'array'")
 		div(v-if="props.value && props.value.length" v-for="(item, i) in props.value"): display(':value'="item" type="props.itemType")
 	span(v-else-if="props.type === 'file'")
-		a(v-if="props.value" target="_blank" ':href'="'/storage/images/' + props.value"): i.fa.fa-download
+		a(v-if="props.value" target="_blank" ':href'="parent.$store.getters.imagePath + '/' + props.value"): i.fa.fa-download
 	span(v-else-if="props.type === 'image'")
-		a.img-thumbnail(v-if="props.value" target="_blank" ':href'="'/storage/images/' + props.value")
-			img(':src'!="`/storage/images/${props.value.endsWith('.svg') ? '' : (props.pipe || 'admin-thumb')}/${props.value}`" height="120")
+		a.img-thumbnail(v-if="props.value" target="_blank" ':href'="parent.$store.getters.imagePath + '/' + props.value")
+			img(':src'!="parent.$store.getters.imagePath + '/' + (props.value.endsWith('.svg') ? '' : (props.pipe || 'admin-thumb')) + '/' + props.value")
 	span(v-else-if="props.type === 'gallery'")
-		a.img-thumbnail(v-for="item in props.value" target="_blank" ':href'="'/storage/images/' + item.id")
-			img(':src'!="`/storage/images/${item.id.endsWith('.svg') ? '' : (props.pipe || 'admin-thumb')}/${item.id}`" height="120")
+		a.img-thumbnail(v-for="item in props.value" target="_blank" ':href'="parent.$store.getters.imagePath + '/' + item.id")
+			img(':src'!="parent.$store.getters.imagePath + '/' + (item.id.endsWith('.svg') ? '' : (props.pipe || 'admin-thumb')) + '/' + item.id")
 	span(v-else-if="props.type === 'relation'")
 		template(v-if="props.value.length" v-for="(item, i) in props.value")
 			span(v-if="i !== 0")!='&nbsp; '

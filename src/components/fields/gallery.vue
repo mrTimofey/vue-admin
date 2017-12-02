@@ -1,4 +1,5 @@
 <script>
+	import { mapGetters } from 'vuex';
 	import Draggable from 'vuedraggable';
 	import http from 'src/http';
 
@@ -14,6 +15,7 @@
 			updating: false
 		}),
 		computed: {
+			...mapGetters(['imagePath']),
 			images: {
 				get() {
 					return this.value;
@@ -30,11 +32,19 @@
 				this.updating = true;
 				const data = new FormData();
 				for (let file of e.target.files) data.append('images[]', file);
-				http.post('gallery', data).then(res => {
-					this.updating = false;
-					e.target.form.reset();
-					this.$emit('input', value.concat(res.data));
-				});
+				http.post('gallery', data)
+					.then(res => {
+						e.target.form.reset();
+						this.$emit('input', value.concat(res.data));
+					})
+					.catch(err => {
+						this.$modal.open('error', {
+							jsonData: err.response.data
+						});
+					})
+					.then(() => {
+						this.updating = false;
+					});
 			},
 			remove(item) {
 				const value = this.value.slice();
@@ -51,8 +61,8 @@
 			.image(v-for="id in images" ':key'="id")
 				.btn-group
 					button.btn.btn-danger.btn-xs('@mousedown.stop.prevent'="remove(id)"): i.fa.fa-remove
-					a.btn.btn-default.btn-xs(':href'="'/storage/images/' + id" target="_blank"): i.fa.fa-eye
-				img(':src'="'/storage/images/admin-thumb/' + id")
+					a.btn.btn-default.btn-xs(':href'="imagePath + '/' + id" target="_blank"): i.fa.fa-eye
+				img(':src'="imagePath + '/admin-thumb/' + id")
 		form: label
 			a.btn.btn-default.btn-sm(':class'="{ disabled: updating || disabled }") {{ $t('uploadImages') }}
 			input.hidden(type="file" multiple accept="image/*" v-on:change="fileInputChanged" ':disabled'="disabled")
