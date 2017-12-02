@@ -26,7 +26,8 @@ export default {
 			login: 'Wrong login or password',
 			createRelation: 'Item creating error',
 			deleteElement: 'Element delete failed',
-			saveElement: 'Element save failed'
+			saveElement: 'Element save failed',
+			noResponse: 'No server response'
 		},
 		undefined: 'undefined',
 		chooseFile: 'Choose file',

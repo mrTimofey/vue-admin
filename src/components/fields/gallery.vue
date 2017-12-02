@@ -1,5 +1,6 @@
 <script>
 	import { mapGetters } from 'vuex';
+	import { httpErrorModalData } from 'src/utils';
 	import Draggable from 'vuedraggable';
 	import http from 'src/http';
 
@@ -38,9 +39,7 @@
 						this.$emit('input', value.concat(res.data));
 					})
 					.catch(err => {
-						this.$modal.open('error', {
-							jsonData: err.response.data
-						});
+						this.$modal.open('error', httpErrorModalData(err));
 					})
 					.then(() => {
 						this.updating = false;

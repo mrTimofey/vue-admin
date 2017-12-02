@@ -1,6 +1,6 @@
 <script>
 	import http from 'src/http';
-	import { asFormData, parsePlaceholders } from 'src/utils';
+	import { asFormData, parsePlaceholders, httpErrorModalData } from 'src/utils';
 	import { components } from 'src/utils/entities';
 
 	function defaultFieldValue(field) {
@@ -121,8 +121,11 @@
 							.then(() => {
 								this.back();
 							})
-							.catch(() => {
-								this.$modal.open('error', { text: this.$t('errors.deleteElement') }, 'sm');
+							.catch(err => {
+								this.$modal.open('error', {
+									...httpErrorModalData(err),
+									text: this.$t('errors.deleteElement')
+								});
 								this.loading = false;
 							});
 					}
@@ -138,23 +141,10 @@
 						if (cb) cb();
 					})
 					.catch(err => {
-						const title = this.$t('errors.saveElement');
-						let text, jsonData;
-						if (err.response && err.response.status === 422) {
-							this.fieldErrors = err.response.data.errors;
-							text = '<ul><li>' +
-								Object.keys(this.fieldErrors).map(k =>
-									this.fieldErrors[k].join('</li><li>')
-								).join('</li><li>') +
-							'</li></ul>';
-						}
-						else {
-							this.error = err.response.status;
-							text = '<p>' + this.$t('httpCodes.' + err.response.status) + '</p>';
-							if (process.env.NODE_ENV !== 'production')
-								jsonData = err.response.data;
-						}
-						this.$modal.open('error', { title, text, jsonData });
+						this.$modal.open('error', {
+							...httpErrorModalData(err),
+							title: this.$t('errors.saveElement')
+						});
 					})
 					.then(() => {
 						this.loading = false;

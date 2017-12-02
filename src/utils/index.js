@@ -158,3 +158,20 @@ export function parsePlaceholders(str, obj, def = '') {
 		return obj[field] && applyFilters(obj[field], filters) || localDef || def;
 	});
 }
+
+export function httpErrorModalData(err) {
+	let jsonData, text;
+	if (!err.response) text = Vue.t('errors.noResponse');
+	else {
+		jsonData = process.env.NODE_ENV === 'production' ? null : err.response.data;
+		if (err.response === 400)
+			text = err.response.data.message || err.response.data;
+		else if (err.response.status === 422)
+			text = Object.keys(err.response.data.errors).map(k => err.response.data.errors[k].join(', '));
+		else if (err.response.status >= 400 && err.response.status < 500)
+			text = Vue.t('statusCodes.' + err.response.status);
+		else
+			text = Vue.t('statusCodes.500');
+	}
+	return { text, jsonData };
+}

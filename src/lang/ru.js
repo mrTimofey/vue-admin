@@ -26,7 +26,8 @@ export default {
 			login: 'Неверный логин или пароль',
 			createRelation: 'Ошибка при создании элемента',
 			deleteElement: 'Не удалось удалить элемент',
-			saveElement: 'Ошибка при сохранении'
+			saveElement: 'Ошибка при сохранении',
+			noResponse: 'Нет ответа сервера'
 		},
 		undefined: 'нет значения',
 		chooseFile: 'Выбрать файл',

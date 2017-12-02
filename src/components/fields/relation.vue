@@ -1,6 +1,6 @@
 <script>
 	import http from 'src/http';
-	import { parsePlaceholders } from 'src/utils';
+	import { parsePlaceholders, httpErrorModalData } from 'src/utils';
 	import FieldSelect from './select.vue';
 
 	const fetchPromisePool = {};
@@ -145,11 +145,8 @@
 					})
 					.catch(err => {
 						this.$modal.open('error', {
-							title: this.$t('errors.createRelation'),
-							text: ((err.response && err.response.status === 422) ?
-								Object.keys(err.response.data.errors)
-									.map(k => err.response.data.errors[k].join(', ')) :
-								this.$t('httpCodes.' + err.response.status))
+							...httpErrorModalData(err),
+							title: this.$t('errors.createRelation')
 						});
 						this.creating = false;
 					});

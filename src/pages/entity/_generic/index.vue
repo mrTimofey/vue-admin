@@ -1,6 +1,6 @@
 <script>
 	import http from 'src/http';
-	import { asFormData } from 'src/utils';
+	import { asFormData, httpErrorModalData } from 'src/utils';
 	import { components } from 'src/utils/entities';
 
 	export default {
@@ -83,8 +83,11 @@
 							.then(() => {
 								this.update();
 							})
-							.catch(() => {
-								this.$modal.open('error', { text: this.$t('errors.deleteElement') }, 'sm');
+							.catch(err => {
+								this.$modal.open('error', {
+									...httpErrorModalData(err),
+									title: this.$t('errors.deleteElement')
+								});
 								this.loading = false;
 							});
 					}
@@ -103,13 +106,8 @@
 						})
 						.catch(err => {
 							this.$modal.open('error', {
-								title: this.$t('errors.saveElement'),
-								text: '<b>' + (item.name || item.title || item.label || item.id) + '</b><br><br>' +
-								((err.response && err.response.status === 422) ?
-									Object.keys(err.response.data.errors)
-										.map(k => err.response.data.errors[k].join(', ')) :
-									this.$t('statusCodes.' + err.response.status)),
-								jsonData: process.env.NODE_ENV === 'production' ? err.response.data : null
+								...httpErrorModalData(err),
+								title: this.$t('errors.saveElement')
 							});
 						});
 				}, 300);
