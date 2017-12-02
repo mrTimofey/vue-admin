@@ -14,7 +14,7 @@
 			query(search) {
 				clearTimeout(this.staggerTimeout);
 				this.staggerTimeout = setTimeout(() => {
-					if (search && search.length > 2) {
+					if (search && search.length > 0) {
 						this.$router.replace({ query: { ...this.$route.query, search } });
 					}
 					else {

@@ -167,7 +167,7 @@ export function httpErrorModalData(err) {
 		if (err.response === 400)
 			text = err.response.data.message || err.response.data;
 		else if (err.response.status === 422)
-			text = Object.keys(err.response.data.errors).map(k => err.response.data.errors[k].join(', '));
+			text = Object.keys(err.response.data.errors).map(k => err.response.data.errors[k].join(', ')).join(', ');
 		else if (err.response.status >= 400 && err.response.status < 500)
 			text = Vue.t('statusCodes.' + err.response.status);
 		else

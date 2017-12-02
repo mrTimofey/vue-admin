@@ -22,10 +22,11 @@
 		a.img-thumbnail(v-for="item in props.value" target="_blank" ':href'="parent.$store.getters.imagePath + '/' + item.id")
 			img(':src'!="parent.$store.getters.imagePath + '/' + (item.id.endsWith('.svg') ? '' : (props.pipe || 'admin-thumb')) + '/' + item.id")
 	span(v-else-if="props.type === 'relation'")
-		template(v-if="props.value.length" v-for="(item, i) in props.value")
-			span(v-if="i !== 0")!='&nbsp; '
-			span.label.label-info {{ (props.display || '\{\{ name \}\} [\{\{ id \}\}]') | placeholders(item) }}
-		span.label.label-info(v-else) {{ (props.display || '\{\{ name \}\} [\{\{ id \}\}]') | placeholders(props.value) }}
+		template(v-if="Array.isArray(props.value)")
+			span(v-for="(item, i) in props.value")
+				span(v-if="i !== 0")!='&nbsp; '
+				span.label.label-info {{ (props.display || '\{\{ name \}\} [\{\{ id \}\}]') | placeholders(item) }}
+		span(v-else-if="props.value") {{ (props.display || '\{\{ name \}\} [\{\{ id \}\}]') | placeholders(props.value) }}
 	div(v-else-if="props.type === 'html'" v-html="props.value")
 	span(v-else) {{ props.value }}
 </template>
