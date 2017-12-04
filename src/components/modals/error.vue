@@ -17,7 +17,7 @@
 			div(v-if="text" v-html="text")
 			pre.modal-json-data(v-if="jsonData") {{ jsonData | json }}
 		.modal-footer
-			button.btn.btn-default(v-focus '@click'="$modal.close()") {{ button || $t('ok') }}
+			button.btn.btn-default('@click'="$modal.close()") {{ button || $t('ok') }}
 </template>
 <style lang="stylus">
 	.modal-json-data

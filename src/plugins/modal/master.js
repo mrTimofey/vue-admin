@@ -23,6 +23,13 @@ export default {
 			this.comp = name;
 			this.compProps = props;
 			this.$emit('opened', this.$data);
+			const onEscape = e => {
+				if (e.keyCode === 27 || e.key === 'Escape' || e.key === 'Esc') {
+					window.removeEventListener('keydown', onEscape);
+					this.close();
+				}
+			};
+			window.addEventListener('keydown', onEscape);
 			return new Promise(resolve => {
 				this.$once('closed', result => resolve(result));
 			});

@@ -1,6 +1,7 @@
 <script>
 	import { mapGetters } from 'vuex';
 	import { authenticate } from 'src/http';
+	import { httpErrorModalData } from 'src/utils';
 
 	export default {
 		name: 'LoginForm',
@@ -23,6 +24,8 @@
 					.then(res => this.$emit('done', res.data.user))
 					.catch(err => {
 						this.error = err.response ? err.response.status : 500;
+						if (process.env.NODE_ENV !== 'production' && this.error === 500)
+							this.$modal.open('error', httpErrorModalData(err));
 					})
 					.then(() => {
 						this.loading = false;
