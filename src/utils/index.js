@@ -168,7 +168,7 @@ export function httpErrorModalData(err) {
 		if (err.response === 400)
 			text = err.response.data.message || err.response.data;
 		else if (err.response.status === 422)
-			text = Object.keys(err.response.data.errors).map(k => err.response.data.errors[k].join(', ')).join(', ');
+			text = Object.keys(err.response.data.errors).map(k => err.response.data.errors[k].join(' ')).join('<br>');
 		else if (err.response.status >= 400 && err.response.status < 500)
 			text = i18n.t('httpCodes.' + err.response.status);
 		else
