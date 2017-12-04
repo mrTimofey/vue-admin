@@ -50,7 +50,8 @@ export default {
 		back: 'Back',
 		noMetaMessage: 'Model meta data is required to edit or create new elements',
 		elementList: 'List',
-		nothingFound: 'Nothing found'
+		nothingFound: 'Nothing found',
+		noSelectOptions: 'Nothing to select'
 	},
 	dateTime: {
 		short: {

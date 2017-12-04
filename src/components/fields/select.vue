@@ -95,6 +95,7 @@
 		':searchable'="searchable"
 		':disable-search-filter'="!!onSearch"
 		'@search'="searchRemote")
+		span(slot="no-options") {{ $t('noSelectOptions') }}
 </template>
 <style lang="stylus">
 	.field.v-select

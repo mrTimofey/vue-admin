@@ -50,7 +50,8 @@ export default {
 		back: 'Назад',
 		noMetaMessage: 'Для редактирования или создания элементов необходимо задать мета-данные модели',
 		elementList: 'Список',
-		nothingFound: 'Ничего не найдено'
+		nothingFound: 'Ничего не найдено',
+		noSelectOptions: 'Нет вариантов'
 	},
 	dateTime: {
 		short: {
