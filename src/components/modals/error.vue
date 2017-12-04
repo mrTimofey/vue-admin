@@ -15,8 +15,11 @@
 			h4.text-danger.modal-title {{ title || $t('error') }}
 		.modal-body(v-if="text || jsonData")
 			div(v-if="text" v-html="text")
-			pre(v-if="jsonData") {{ jsonData | json }}
+			pre.modal-json-data(v-if="jsonData") {{ jsonData | json }}
 		.modal-footer
 			button.btn.btn-default(v-focus '@click'="$modal.close()") {{ button || $t('ok') }}
 </template>
-<style lang="stylus"></style>
+<style lang="stylus">
+	.modal-json-data
+		margin-top 1.5em
+</style>

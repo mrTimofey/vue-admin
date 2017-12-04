@@ -141,6 +141,8 @@
 						if (cb) cb();
 					})
 					.catch(err => {
+						if (err.response && err.response.status === 422)
+							this.fieldErrors = err.response.data.errors;
 						this.$modal.open('error', {
 							...httpErrorModalData(err),
 							title: this.$t('errors.saveElement')

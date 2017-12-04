@@ -170,9 +170,9 @@ export function httpErrorModalData(err) {
 		else if (err.response.status === 422)
 			text = Object.keys(err.response.data.errors).map(k => err.response.data.errors[k].join(', ')).join(', ');
 		else if (err.response.status >= 400 && err.response.status < 500)
-			text = i18n.t('statusCodes.' + err.response.status);
+			text = i18n.t('httpCodes.' + err.response.status);
 		else
-			text = i18n.t('statusCodes.500');
+			text = i18n.t('httpCodes.500');
 	}
 	return { text, jsonData };
 }
