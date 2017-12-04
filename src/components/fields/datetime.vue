@@ -37,7 +37,7 @@
 		created() {
 			if (this.value === 'now') {
 				let now = new Date();
-				this.$emit('input', now.toISOString().replace('T', ' '));
+				this.$emit('input', now.toISOString().replace('T', ' ').substr(0, 19));
 			}
 		}
 	};
