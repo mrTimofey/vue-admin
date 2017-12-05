@@ -26,7 +26,8 @@
 				fieldErrors: {},
 				loading: false,
 				item: null,
-				initialState: null
+				initialState: null,
+				actionsOpen: false
 			};
 		},
 		computed: {
@@ -175,6 +176,16 @@
 			},
 			fieldDisabled(name) {
 				return this.disabledFields && this.disabledFields.indexOf(name) !== -1;
+			},
+			closeActions() {
+				this.toggleActions(false);
+			},
+			toggleActions(to) {
+				if (to === undefined) to = !this.actionsOpen;
+				this.actionsOpen = to;
+				this.$nextTick(() => {
+					window[(to ? 'add' : 'remove') + 'EventListener']('click', this.closeActions);
+				});
 			}
 		},
 		created() {
@@ -190,6 +201,9 @@
 			this.$nextTick(() => {
 				this.update();
 			});
+		},
+		beforeDestroy() {
+			window.removeEventListener('click', this.closeActions);
 		}
 	};
 </script>
@@ -210,10 +224,14 @@
 						':errors'="fieldErrors[field.name]")
 					.btn-group
 						button.btn.btn-success {{ $t('saveAndReturn') }}
-						button.btn.btn-success(type="button" '@click'="save()") {{ $t('save') }}
-						button.btn.btn-warning(type="button" '@click'="reset()") {{ $t('reset') }}
-						button.btn.btn-danger(v-if="!creating && permitted('destroy')" type="button" '@click'="destroy()") {{ $t('delete') }}
-						button.btn.btn-default(type="button" '@click'="back()") {{ $t('back') }}
+						button.btn.btn-success('@click.prevent'="save()") {{ $t('save') }}
+					!=' '
+					.btn-group.dropup(':class'="{ open: actionsOpen }")
+						button.btn.btn-default.dropdown-toggle(type="button" '@click.stop'="toggleActions()"): span.caret
+						ul.dropdown-menu
+							li: a(type="button" '@click'="toggleActions(), reset()") {{ $t('reset') }}
+							li(v-if="!creating && permitted('destroy')"): a(type="button" '@click'="toggleActions(), destroy()"): span.text-danger {{ $t('delete') }}
+							li: a('@click'="toggleActions(), back()") {{ $t('back') }}
 		.content(v-else): .callout.callout-warning
 			h4 {{ $t('noMetaMessage') }}
 			code.
