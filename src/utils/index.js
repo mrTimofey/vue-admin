@@ -84,19 +84,17 @@ export function convert2date(str, fixTimezone) {
 	return date;
 }
 
-export function asFormData(data, formData, ns) {
-	if (!formData) formData = new FormData();
+export function asFormData(data) {
+	const formData = new FormData(),
+		json = {};
 	for (let field of Object.keys(data)) {
-		const fieldName = ns ? (ns + '[' + field + ']') : field;
-		if (data[field] instanceof File) formData.append('files__' + fieldName, data[field]);
+		if (data[field] instanceof File) formData.append('files__' + field, data[field]);
 		else if (data[field] instanceof FileList)
 			for (let i = 0; i < data[field].length; ++i)
-				formData.append('files__' + fieldName + '[' + i + ']', data[field][i]);
-		else if (typeof data[field] === 'boolean') formData.append(fieldName, data[field] ? '1' : '0');
-		else if (data[field] === null) formData.append(fieldName, '');
-		else if (typeof data[field] === 'object') asFormData(data[field], formData, ns ? (ns + '[' + field + ']') : field);
-		else formData.append(fieldName, data[field]);
+				formData.append('files__' + field + '[' + i + ']', data[field][i]);
+		else json[field] = data[field];
 	}
+	formData.append('__json_data', JSON.stringify(json));
 	return formData;
 }
 
