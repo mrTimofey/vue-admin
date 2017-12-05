@@ -37,6 +37,7 @@
 		created() {
 			if (this.value === 'now') {
 				let now = new Date();
+				now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
 				this.$emit('input', now.toISOString().replace('T', ' ').substr(0, 19));
 			}
 		}
