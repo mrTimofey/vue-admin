@@ -31,7 +31,8 @@ export default new Vuex.Store({
 		locale: state => state.locale,
 		fallbackLocale: state => state.fallbackLocale,
 		mainNav: state => state.metaData && state.metaData.nav,
-		imagePath: state => state.metaData && state.metaData.image_path
+		imagePath: state => state.metaData && state.metaData.image_path,
+		wysiwygCss: state => state.metaData && state.metaData.wysiwyg && state.metaData.wysiwyg.css
 	},
 	mutations: {
 		setUser(state, user) {

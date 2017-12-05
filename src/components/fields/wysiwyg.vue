@@ -1,4 +1,5 @@
 <script>
+	import { mapGetters } from 'vuex';
 	import ckeStyle from '!css-loader!stylus-loader?compress!src/styles/wysiwyg.styl';
 	import ckeConfig from 'src/utils/ckeditor-config';
 	import { loadScript } from 'src/utils';
@@ -15,6 +16,9 @@
 				type: Number,
 				default: 100
 			}
+		},
+		computed: {
+			...mapGetters(['wysiwygCss'])
 		},
 		methods: {
 			addListeners() {
@@ -46,7 +50,7 @@
 				this.ckeInstance = CKEDITOR.replace(this.$el, {
 					filebrowserBrowseUrl: http.defaults.baseURL + 'wysiwyg/images/browse?api_token=' + getApiToken(),
 					filebrowserUploadUrl: http.defaults.baseURL + 'wysiwyg/images/upload?api_token=' + getApiToken(),
-					contentsCss: ckeStyle.toString(),
+					contentsCss: this.wysiwygCss || ckeStyle.toString(),
 					stylesSet: 'admin',
 					...ckeConfig.instanceConfig
 				});
