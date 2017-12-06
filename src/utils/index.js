@@ -165,7 +165,7 @@ export function httpErrorModalData(err) {
 	if (!err.response) text = i18n.t('errors.noResponse');
 	else {
 		jsonData = process.env.NODE_ENV === 'production' ? null : err.response.data;
-		if (err.response === 400)
+		if (err.response.status === 400)
 			text = err.response.data.message || err.response.data;
 		else if (err.response.status === 422)
 			text = Object.keys(err.response.data.errors).map(k => err.response.data.errors[k].join(' ')).join('<br>');
