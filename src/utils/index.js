@@ -87,11 +87,13 @@ export function convert2date(str, fixTimezone) {
 export function asFormData(data) {
 	const formData = new FormData(),
 		json = {};
+
+	const addFile = (name, file) => formData.append(name, file, file.name.replace(/\.[^.]*$/, ext => ext.toLowerCase()));
 	for (let field of Object.keys(data)) {
-		if (data[field] instanceof File) formData.append('files__' + field, data[field]);
+		if (data[field] instanceof File) addFile('files__' + field, data[field]);
 		else if (data[field] instanceof FileList)
 			for (let i = 0; i < data[field].length; ++i)
-				formData.append('files__' + field + '[' + i + ']', data[field][i]);
+				addFile('files__' + field + '[]', data[field][i]);
 		else json[field] = data[field];
 	}
 	formData.append('__json_data', JSON.stringify(json));
