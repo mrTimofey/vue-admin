@@ -186,7 +186,7 @@ if (dev) {
 }
 else {
 	config.output.path = buildDest;
-	htmlConfig.filename = buildDest + '/app.html';
+	htmlConfig.filename = buildDest + '/index.html';
 	config.plugins.push(
 		new ExtractText('styles.css?[hash:6]'),
 		new webpack.optimize.UglifyJsPlugin({
