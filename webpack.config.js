@@ -61,10 +61,6 @@ const vueConfig = {
 	}
 };
 
-const htmlConfig = {
-	template: 'src/layout.pug'
-};
-
 // noinspection JSUnresolvedFunction
 const config = {
 	entry: {
@@ -150,6 +146,9 @@ const config = {
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
 			names: ['vendor']
+		}),
+		new HTMLPlugin({
+			template: 'src/layout.pug'
 		})
 	]
 };
@@ -186,7 +185,6 @@ if (dev) {
 }
 else {
 	config.output.path = buildDest;
-	htmlConfig.filename = buildDest + '/index.html';
 	config.plugins.push(
 		new ExtractText('styles.css?[hash:6]'),
 		new webpack.optimize.UglifyJsPlugin({
@@ -228,7 +226,5 @@ else {
 		}
 	);
 }
-
-config.plugins.push(new HTMLPlugin(htmlConfig));
 
 module.exports = config;
