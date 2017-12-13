@@ -150,8 +150,7 @@ const config = {
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
 			names: ['vendor']
-		}),
-		new HTMLPlugin(htmlConfig)
+		})
 	]
 };
 
@@ -229,5 +228,7 @@ else {
 		}
 	);
 }
+
+config.plugins.push(new HTMLPlugin(htmlConfig));
 
 module.exports = config;
