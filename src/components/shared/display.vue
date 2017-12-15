@@ -14,7 +14,7 @@
 	span(v-else-if!="props.type === 'array'")
 		div(v-if="props.value && props.value.length" v-for="(item, i) in props.value"): display(':value'="item" type="props.itemType")
 	span(v-else-if="props.type === 'file'")
-		a(v-if="props.value" target="_blank" ':href'="parent.$store.getters.imagePath + '/' + props.value"): i.fa.fa-download
+		a(v-if="props.value" target="_blank" ':href'="props.value"): i.fa.fa-download
 	span(v-else-if="props.type === 'image'")
 		a.img-thumbnail(v-if="props.value" target="_blank" ':href'="parent.$store.getters.imagePath + '/' + props.value")
 			img(':src'!="parent.$store.getters.imagePath + '/' + (props.value.endsWith('.svg') ? '' : (props.pipe || 'admin-thumb')) + '/' + props.value")
