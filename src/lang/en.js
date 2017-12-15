@@ -18,6 +18,8 @@ export default {
 		httpCodes: {
 			401: 'Authorization required',
 			403: 'Access denied',
+			408: 'Request timeout (probably bad connection)',
+			413: 'File or request body is too large',
 			422: 'Validation error, check form fields',
 			429: 'Too many attempts, try again later',
 			500: 'Something went wrong...'

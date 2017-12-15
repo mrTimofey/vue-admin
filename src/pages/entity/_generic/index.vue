@@ -66,6 +66,7 @@
 						this.lastPage = res.data.pagination.last_page;
 					})
 					.catch(err => {
+						this.$modal.open('error', httpErrorModalData(err));
 						this.error = err.response.status;
 					})
 					.then(() => {
