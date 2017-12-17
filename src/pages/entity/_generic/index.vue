@@ -73,6 +73,9 @@
 						this.loading = false;
 					});
 			},
+			onFilterChange(data) {
+				this.$router.replace({ query: { ...this.$route.query, ...data } });
+			},
 			destroy(item) {
 				this.$modal.open('confirm', {
 					title: this.$t('deleteElement') + '?',
@@ -142,7 +145,7 @@
 							entity-actions(':permissions'="meta.permissions" ':path'="basePath")
 						.col-md-2.col-sm-4
 							entity-search(v-if="meta.searchable")
-					entity-filters(':fields'="meta.filter_fields")
+					entity-filters(':fields'="meta.filter_fields" '@change'="onFilterChange")
 				.box-body(v-if="items")
 					entity-table(v-if="items.length"
 						':items'="items"
