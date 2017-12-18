@@ -58,7 +58,7 @@
 							return this.$emit('input', newValue);
 				}
 				else {
-					if (!v) {
+					if (v === null || v === undefined) {
 						if (this.required) {
 							this.$refs.vueSelect.mutableValue = this.$refs.vueSelect.filteredOptions.find(
 								opt => opt.value === this.value
