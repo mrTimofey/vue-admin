@@ -29,8 +29,22 @@
 			perPage() {
 				return parseInt(this.$route.query.per_page) || 25;
 			},
+			filterParams() {
+				const def = {
+					scopes: {},
+					filters: {}
+				};
+				try {
+					return this.$route.query.params ? JSON.parse(this.$route.query.params) : def;
+				}
+				catch (e) {
+					return def;
+				}
+			},
 			apiParams() {
-				return this.$route.query;
+				const data = { ...this.$route.query, ...this.filterParams };
+				delete data.params;
+				return data;
 			},
 			apiPath() {
 				return 'entity/' + this.entity;
@@ -74,7 +88,7 @@
 					});
 			},
 			onFilterChange(data) {
-				this.$router.replace({ query: { ...this.$route.query, ...data } });
+				this.$router.replace({ query: { ...this.$route.query, params: JSON.stringify(data) } });
 			},
 			destroy(item) {
 				this.$modal.open('confirm', {
@@ -145,7 +159,7 @@
 							entity-actions(':permissions'="meta.permissions" ':path'="basePath")
 						.col-md-2.col-sm-4
 							entity-search(v-if="meta.searchable")
-					entity-filters(':fields'="meta.filter_fields" '@change'="onFilterChange")
+					entity-filters(':fields'="meta.filter_fields" ':value'="filterParams" '@input'="onFilterChange")
 				.box-body(v-if="items")
 					entity-table(v-if="items.length"
 						':items'="items"

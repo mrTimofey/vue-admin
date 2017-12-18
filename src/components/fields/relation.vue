@@ -23,6 +23,7 @@
 			},
 			entity: String,
 			name: String,
+			placeholder: String,
 			display: {
 				type: [String, Function],
 				default: () => function(item) {
@@ -161,6 +162,7 @@
 	field-select(v-if="options"
 		':requried'="required"
 		':disabled'="disabled || creating"
+		':placeholder'="placeholder"
 		':multiple'="multiple"
 		':options'="options"
 		':on-search'="update"
