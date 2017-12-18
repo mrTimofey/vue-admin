@@ -22,13 +22,26 @@
 		methods: {
 			onChange(field, value) {
 				const data = { filters: { ...this.value.filters }, scopes: { ...this.value.scopes } };
+				if (Array.isArray(value)) value = value.length ? value.slice().sort() : null;
 				if (value === null) {
-					if (field.scope) delete data.scopes[field.scope];
-					else delete data.filters[field.name];
+					if (field.scope) {
+						if (data.scopes[field.scope] === undefined) return;
+						delete data.scopes[field.scope];
+					}
+					else {
+						if (data.filters[field.name] === undefined) return;
+						delete data.filters[field.name];
+					}
 				}
 				else {
-					if (field.scope) data.scopes[field.scope] = value;
-					else data.filters[field.name] = value;
+					if (field.scope) {
+						if (data.scopes[field.scope] === value) return;
+						data.scopes[field.scope] = value;
+					}
+					else {
+						if (data.filters[field.name] === value) return;
+						data.filters[field.name] = value;
+					}
 				}
 				clearTimeout(this.staggerTimeout);
 				this.staggerTimeout = setTimeout(() => {
