@@ -211,7 +211,7 @@
 	.entity-item-page(':class'="entity + '-item-page'")
 		entity-header(':title'="title" ':subtitle'="subtitle")
 			template(slot="breadcrumbs")
-				li: router-link(':to'="basePath") {{ title }}
+				li: router-link(':to'="basePath") {{ meta && meta.title || $t('elementList') }}
 				li.active: span {{ subtitle }}
 		.content(v-if="fields")
 			.box

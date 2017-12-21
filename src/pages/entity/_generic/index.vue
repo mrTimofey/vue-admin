@@ -9,6 +9,7 @@
 			entity: {
 				type: String,
 				default() {
+					// try to guess entity name by route path ("/entity/{name}") if not explicitly provided
 					return this.$route.path.split('/')[2];
 				}
 			}
@@ -30,28 +31,38 @@
 				return parseInt(this.$route.query.per_page) || 25;
 			},
 			filterParams() {
-				const def = {
+				const def = () => ({
 					scopes: {},
 					filters: {}
-				};
+				});
+				// entity-filter value persists within a query string "params" argument as a JSON
+				// try to parse this JSON or return default object
 				try {
-					return this.$route.query.params ? JSON.parse(this.$route.query.params) : def;
+					return this.$route.query.params ? JSON.parse(this.$route.query.params) : def();
 				}
 				catch (e) {
-					return def;
+					return def();
 				}
 			},
 			apiParams() {
+				// mix existing query params with filters and scopes from computed.filterParams
 				const data = { ...this.$route.query, ...this.filterParams };
+				// "params" key defines scopes and filters in JSON format so it is unnecessary
+				// since it is exposed by computed.filterParams
 				delete data.params;
 				return data;
 			},
 			apiPath() {
 				return 'entity/' + this.entity;
 			},
+			// base path for routes like editing or creating item of the same entity
 			basePath() {
 				return '/' + this.apiPath;
 			},
+			bulkDestroyApiPath() {
+				return this.apiPath;
+			},
+			// meta data containing information about fields, permissions, etc.
 			meta() {
 				return this.$store.getters.entitiesData[this.entity];
 			},
@@ -65,10 +76,6 @@
 			},
 			updateApiPath(item) {
 				return this.apiPath + '/' + item.id + '/fast';
-			},
-			updatePage(page) {
-				if (page === 1) page = undefined;
-				this.$router.replace({ query: { ...this.$route.query, page } });
 			},
 			update() {
 				this.error = null;
@@ -88,13 +95,19 @@
 					});
 			},
 			onFilterChange(data) {
+				// just update route, all the list updating routine is made in beforeRouteUpdate hook
 				this.$router.replace({ query: { ...this.$route.query, params: JSON.stringify(data) } });
+			},
+			updatePage(page) {
+				if (page === 1) page = undefined;
+				// just update route, all the list updating routine is made in beforeRouteUpdate hook
+				this.$router.replace({ query: { ...this.$route.query, page } });
 			},
 			destroy(item) {
 				this.$modal.open('confirm', {
 					title: this.$t('deleteElement') + '?',
 					text: item.title || item.name
-				}, 'sm').then(result => {
+				}).then(result => {
 					if (result === true) {
 						this.loading = true;
 						http.delete(this.destroyApiPath(item))
@@ -111,6 +124,28 @@
 					}
 				});
 			},
+			bulkDestroy(keys) {
+				this.$modal.open('confirm', {
+					title: this.$t('deleteSelection') + '?',
+					text: this.$t('count') + ': ' + keys.length
+				}).then(result => {
+					if (result === true) {
+						this.loading = true;
+						http.delete(this.bulkDestroyApiPath, { data: { keys } })
+							.then(() => {
+								this.update();
+							})
+							.catch(err => {
+								this.$modal.open('error', {
+									...httpErrorModalData(err),
+									title: this.$t('errors.deleteElement')
+								});
+								this.loading = false;
+							});
+					}
+				});
+			},
+			// process inline editable fields updates
 			updateItem(item, field, value) {
 				let data = { [field]: value, __field: field };
 				if (value instanceof File || value instanceof FileList)
@@ -131,7 +166,7 @@
 				}, 300);
 			}
 		},
-		created() {
+		beforeMount() {
 			this.update();
 		},
 		beforeRouteUpdate(to, old, next) {
@@ -162,11 +197,13 @@
 					entity-filters(':fields'="meta.filter_fields" ':value'="filterParams" '@input'="onFilterChange")
 				.box-body(v-if="items")
 					entity-table(v-if="items.length"
+						bulk
 						':items'="items"
 						':fields'="meta.index_fields"
 						':permissions'="meta.permissions"
 						':entity'="entity"
 						'@destroy'="destroy"
+						'@bulk-destroy'="bulkDestroy"
 						'@update'="updateItem")
 					.well.well-sm(v-else style="margin-bottom:0") {{ $t('nothingFound') }}
 					pager(':page'="page" '@input'="updatePage" ':last-page'="lastPage" ':loading'="loading")

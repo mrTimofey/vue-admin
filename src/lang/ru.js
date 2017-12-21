@@ -11,6 +11,7 @@ export default {
 		ok: 'OK',
 		error: 'Ошибка',
 		done: 'Готово',
+		count: 'Количество',
 		authenticateMessage: 'Войдите, чтобы продолжить',
 		login: 'Логин',
 		password: 'Пароль',
@@ -44,6 +45,7 @@ export default {
 		loading: 'Загрузка',
 		newElement: 'Новый элемент',
 		deleteElement: 'Удалить элемент',
+		deleteSelection: 'Удалить выбранные элементы',
 		savedMessage: 'Изменения сохранены',
 		save: 'Сохранить',
 		saveAndReturn: 'Сохранить и вернуться',
@@ -53,7 +55,8 @@ export default {
 		noMetaMessage: 'Для редактирования или создания элементов необходимо задать мета-данные модели',
 		elementList: 'Список',
 		nothingFound: 'Ничего не найдено',
-		noSelectOptions: 'Нет вариантов'
+		noSelectOptions: 'Нет вариантов',
+		bulkUpdate: 'Изменение нескольких элементов'
 	},
 	dateTime: {
 		short: {

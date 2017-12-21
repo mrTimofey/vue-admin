@@ -11,6 +11,7 @@ export default {
 		ok: 'OK',
 		error: 'Error',
 		done: 'Done',
+		count: 'Count',
 		authenticateMessage: 'Authenticate to continue',
 		login: 'Login',
 		password: 'Password',
@@ -44,6 +45,7 @@ export default {
 		loading: 'Loading',
 		newElement: 'New element',
 		deleteElement: 'Delete element',
+		deleteSelection: 'Delete selected elements',
 		savedMessage: 'Changes are saved',
 		save: 'Save',
 		saveAndReturn: 'Save and return',
@@ -53,7 +55,8 @@ export default {
 		noMetaMessage: 'Model meta data is required to edit or create new elements',
 		elementList: 'List',
 		nothingFound: 'Nothing found',
-		noSelectOptions: 'Nothing to select'
+		noSelectOptions: 'Nothing to select',
+		bulkUpdate: 'Bulk edit'
 	},
 	dateTime: {
 		short: {

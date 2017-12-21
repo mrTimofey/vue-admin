@@ -6,7 +6,7 @@
 			value: Object,
 			stagger: {
 				type: Number,
-				default: 200
+				default: 300
 			}
 		},
 		computed: {
