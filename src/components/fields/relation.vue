@@ -155,6 +155,9 @@
 		},
 		created() {
 			this.update();
+		},
+		beforeDestroy() {
+			delete fetchPromisePool[this.promiseKey];
 		}
 	};
 </script>
