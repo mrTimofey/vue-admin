@@ -1,9 +1,28 @@
 Administrative interface frontend built with Webpack and Vue.js.
 
+## Install
+
+```bash
+npm i -D vue-admin-front cross-env rimraf
+```
+
 ## Configuration
 
 Add `vue-admin-front.config.js` file to your application root.
 See `config.default.js` for available config options.
+
+## Development and bundle building
+
+Add this to package.json scripts:
+
+```json
+{
+	"admin:dev": "node node_modules/vue-admin-front/index.js",
+	"admin:build": "rimraf public/admin-dist && cross-env NODE_ENV=production webpack --config node_modules/vue-admin-front/webpack.config.js --progress --hide-modules"
+}
+```
+
+This
 
 ## Extending frontend
 
