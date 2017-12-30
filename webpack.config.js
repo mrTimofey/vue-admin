@@ -101,7 +101,10 @@ const config = {
 			{
 				test: /\.js$/,
 				loader: 'buble-loader',
-				exclude: /node_modules|chunk-loaders/,
+				include: [
+					path.resolve(__dirname, 'src'),
+					sourcePath
+				],
 				options: options.buble
 			},
 			{
