@@ -2,11 +2,24 @@ const path = require('path'),
 	qs = require('qs'),
 	webpack = require('webpack'),
 	HTMLPlugin = require('html-webpack-plugin'),
-	ExtractText = require('extract-text-webpack-plugin');
+	ExtractText = require('extract-text-webpack-plugin'),
+	fileExists = require('fs').existsSync;
 
-const basePath = process.env.ADMIN_PATH || '/admin',
+const appConfig = require('./config'),
+	basePath = process.env.ADMIN_PATH || appConfig.basePath || '/admin',
 	dev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development',
-	buildDest = process.env.BUILD_DEST || path.resolve(process.cwd(), 'dist');
+	buildDest = process.env.BUILD_DEST || appConfig.buildDest || path.resolve(process.cwd(), 'public/admin-dist'),
+	publicPath = process.env.PUBLIC_PATH || appConfig.publicPath || '/admin-dist/',
+	sourcePath = process.env.SOURCE_PATH || appConfig.sourcePath || process.cwd(),
+	customTemplatePath = path.resolve(sourcePath, 'src/layout.pug'),
+	template = fileExists(customTemplatePath) ? customTemplatePath : path.resolve(__dirname, 'src/layout.pug'),
+	customStylusShared = path.resolve(sourcePath, 'src/shared.styl'),
+	stylusImports = [
+		path.resolve(process.cwd(), 'node_modules/kouto-swiss/index.styl'),
+		path.resolve(__dirname, 'src/shared.styl')
+	];
+
+if (fileExists(customStylusShared)) stylusImports.push(customStylusShared);
 
 // allows options to represent both object and query string
 class Options {
@@ -30,17 +43,14 @@ const options = {
 	}),
 	pug: new Options({
 		doctype: 'html',
-		basedir: process.cwd()
+		basedir: __dirname
 	}),
 	css: new Options({
 		minimize: true,
 		import: false
 	}),
 	stylus: new Options({
-		import: [
-			path.resolve(process.cwd(), 'node_modules/kouto-swiss/index.styl'),
-			path.resolve(process.cwd(), 'src/shared.styl')
-		]
+		import: stylusImports
 	})
 };
 
@@ -64,11 +74,12 @@ const vueConfig = {
 // noinspection JSUnresolvedFunction
 const config = {
 	entry: {
-		app: './src/entry.js',
+		app: 'src/entry.js',
 		vendor: [
 			'axios',
 			'vue',
 			'vue-router',
+			'vue-i18n',
 			'vuex',
 			'vuex-router-sync',
 			'vue-select',
@@ -77,7 +88,7 @@ const config = {
 	},
 	devtool: false,
 	output: {
-		publicPath: '/admin-dist/',
+		publicPath,
 		filename: '[name].js?[chunkhash:6]',
 		chunkFilename: '[name].js?[chunkhash:6]'
 	},
@@ -133,7 +144,8 @@ const config = {
 	resolve: {
 		modules: [
 			'node_modules',
-			process.cwd()
+			sourcePath,
+			__dirname
 		]
 	},
 	performance: {
@@ -148,13 +160,13 @@ const config = {
 			names: ['vendor']
 		}),
 		new HTMLPlugin({
-			template: 'src/layout.pug'
+			template
 		})
 	]
 };
 
 if (dev) {
-	config.output.path = path.resolve(process.cwd(), 'dist');
+	config.output.path = path.resolve(__dirname, 'dist');
 	config.devtool = '#sourcemap';
 	config.module.rules.push(
 		{
