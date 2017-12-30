@@ -151,7 +151,7 @@
 						i.fa.fa-trash
 					slot(name="actions" ':item'="item")
 		tfoot(v-if="selection.length"): tr: td(':colspan'="columns.length + 2")
-			.btn-group.btn-group-sm
+			.btn-group.btn-group-xs
 				//- TODO
 				//- router-link.btn.btn-primary(v-if="permitted('update')" ':to'="{ path: path + '/bulk-update', query: { keys: selection } }")
 					i.fa.fa-pencil
