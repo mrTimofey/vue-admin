@@ -31,7 +31,7 @@ This
 ```js
 const path = require('path');
 
-const base = require('vue-admin/config.default');
+const base = require('vue-admin-front/config.default');
 
 module.exports = {
 	...base,
@@ -50,7 +50,7 @@ Just create custom Vue components in this directory to add new page or rewrite e
 To add routes explicitly or reconfigure `vue-router` instance just override `src/router.js`:
 
 ```js
-const base = require('vue-admin/src/router');
+const base = require('vue-admin-front/src/router');
 
 export default {
 	...base,
