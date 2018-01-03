@@ -50,7 +50,7 @@ Just create custom Vue components in this directory to add new page or rewrite a
 To add routes explicitly or reconfigure `vue-router` instance just override `src/router.js`:
 
 ```js
-const base = require('vue-admin-front/src/router');
+import base from 'vue-admin-front/src/router';
 
 export default {
 	...base,
@@ -63,10 +63,11 @@ export default {
 
 ### Fields and modals
 
-You can rewrite/create new form fields and modal components in `src/fields` or `src/modals` respectively.
+You can rewrite/create new form fields and modal components in
+`src/components/fields` and `src/components/modals` respectively.
 
 Fields will be available as a `field` component with a `type` prop set to your custom field component file name.
-Example: `src/fields/awesome/field.vue` -\> `<field type="awesome-field">`
+Example: `src/components/fields/awesome/field.vue` -\> `<field type="awesome-field">`
 
 Modals are also explicitly exposed and can be used inside any of your components with
 `vm.$modal.open(name, [props], [size])` where `name` is a modal component file name, `size` can be 'sm' or 'lg'.
