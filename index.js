@@ -1,20 +1,22 @@
+// Development server startup
+
 const webpack = require('webpack'),
 	express = require('express'),
 	path = require('path');
 
-const config = require('./config'),
+const appConfig = require('./_config'),
 	webpackConfig = require('./webpack.config'),
 	app = express();
 
-let layout = 'Compiling up... Refresh in a moment.';
+let layout = 'Compiling... Refresh in a moment.';
 
-if (config.apiProxy) {
-	app.use(config.apiProxy.prefix, require('http-proxy-middleware')(config.apiProxy));
+if (appConfig.apiProxy) {
+	app.use(appConfig.apiProxy.prefix, require('http-proxy-middleware')(appConfig.apiProxy));
 }
 
-// modify client config to work with hot middleware
+// modify webpack config to work with a hot middleware
+// noinspection JSValidateTypes
 webpackConfig.entry.app = ['webpack-hot-middleware/client', webpackConfig.entry.app];
-webpackConfig.output.filename = '[name].js';
 webpackConfig.plugins.push(
 	new webpack.HotModuleReplacementPlugin(),
 	new webpack.NoEmitOnErrorsPlugin()
@@ -52,4 +54,4 @@ app.use('*', (req, res) => {
 	res.end(layout);
 });
 
-app.listen(process.env.PORT || config.port || 8080);
+app.listen(process.env.PORT || appConfig.port);

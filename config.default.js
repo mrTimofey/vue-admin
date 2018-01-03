@@ -1,12 +1,25 @@
+const path = require('path');
+
 module.exports = {
-	// backend proxy
+	// application backend proxy
 	apiProxy: {
 		target: 'http://localhost:8000',
 		prefix: ['/api', '/storage', '/css'],
 		changeOrigin: true
-	}
-	// port: 8080 // admin dev app port
-	// buildDest: path.resolve(process.cwd(), 'public/admin-dist') // webpack build output path
-	// publicPath: '/admin-dist/' // used as public root for bundle
-	// sourcePath: undefined // webpack resolve path to override default assets
+	},
+
+	// admin panel routes base path
+	basePath: '/admin',
+
+	// admin dev app port
+	port: 8080,
+
+	// webpack build output path
+	buildDest: path.resolve(process.cwd(), 'public/admin-dist'),
+
+	// used as a public root for bundle
+	publicPath: '/admin-dist/',
+
+	// webpack's resolve.module entry for customized admin assets and sources
+	sourcePath: path.resolve(process.cwd(), 'admin')
 };

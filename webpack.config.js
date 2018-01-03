@@ -5,12 +5,12 @@ const path = require('path'),
 	ExtractText = require('extract-text-webpack-plugin'),
 	fileExists = require('fs').existsSync;
 
-const appConfig = require('./config'),
-	basePath = process.env.ADMIN_PATH || appConfig.basePath || '/admin',
+const appConfig = require('./_config'),
 	dev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development',
-	buildDest = process.env.BUILD_DEST || appConfig.buildDest || path.resolve(process.cwd(), 'public/admin-dist'),
-	publicPath = process.env.PUBLIC_PATH || appConfig.publicPath || '/admin-dist/',
-	sourcePath = process.env.SOURCE_PATH || appConfig.sourcePath || process.cwd(),
+	basePath = process.env.ADMIN_PATH || appConfig.basePath,
+	buildDest = process.env.BUILD_DEST || appConfig.buildDest,
+	publicPath = process.env.PUBLIC_PATH || appConfig.publicPath,
+	sourcePath = process.env.SOURCE_PATH || appConfig.sourcePath,
 	customTemplatePath = path.resolve(sourcePath, 'src/layout.pug'),
 	template = fileExists(customTemplatePath) ? customTemplatePath : path.resolve(__dirname, 'src/layout.pug'),
 	customStylusShared = path.resolve(sourcePath, 'src/shared.styl'),
@@ -26,7 +26,6 @@ class Options {
 	constructor(options) {
 		for (let k of Object.keys(options)) this[k] = options[k];
 	}
-
 	toString() {
 		return qs.stringify(this, { encode: false, arrayFormat: 'brackets' }).replace(/=true/g, '');
 	}
@@ -89,8 +88,8 @@ const config = {
 	devtool: false,
 	output: {
 		publicPath,
-		filename: '[name].js?[chunkhash:6]',
-		chunkFilename: '[name].js?[chunkhash:6]'
+		filename: '[name].js',
+		chunkFilename: '[name].js'
 	},
 	module: {
 		rules: [
@@ -101,10 +100,7 @@ const config = {
 			{
 				test: /\.js$/,
 				loader: 'buble-loader',
-				include: [
-					path.resolve(__dirname, 'src'),
-					sourcePath
-				],
+				include: /src\//,
 				options: options.buble
 			},
 			{
@@ -142,17 +138,17 @@ const config = {
 					name: 'docs/[name].[ext]?[hash:6]'
 				}
 			}
+
+			// style loading is configured differently in dev/prod mode
 		]
 	},
 	resolve: {
 		modules: [
 			'node_modules',
+			// look for customized sources first
 			sourcePath,
 			__dirname
 		]
-	},
-	performance: {
-		hints: process.env.NODE_ENV === 'production' ? 'warning' : false
 	},
 	plugins: [
 		new webpack.DefinePlugin({
@@ -160,7 +156,7 @@ const config = {
 			routerBasePath: JSON.stringify(basePath)
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
-			names: ['vendor']
+			name: 'vendor'
 		}),
 		new HTMLPlugin({
 			template
@@ -169,6 +165,7 @@ const config = {
 };
 
 if (dev) {
+	// it does not make any sense since virtual file system is used in dev mode, webpack just requires this option
 	config.output.path = path.resolve(__dirname, 'dist');
 	config.devtool = '#sourcemap';
 	config.module.rules.push(
@@ -200,6 +197,8 @@ if (dev) {
 }
 else {
 	config.output.path = buildDest;
+	config.output.filename += '?[chunkhash:6]';
+	config.output.chunkFilename += '?[chunkhash:6]';
 	config.plugins.push(
 		new ExtractText('styles.css?[hash:6]'),
 		new webpack.optimize.UglifyJsPlugin({
@@ -240,6 +239,10 @@ else {
 			})
 		}
 	);
+
+	config.performance = {
+		hints: 'warning'
+	};
 }
 
 module.exports = config;

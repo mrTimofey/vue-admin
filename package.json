@@ -5,8 +5,7 @@
   "main": "index.js",
   "author": "Timofey Tiunov <timoxa17@gmail.com>",
   "engines": {
-    "node": ">=5.2.0",
-    "npm": ">=3.5.3"
+    "node": ">=6.4.0"
   },
   "scripts": {
     "dev": "node index"

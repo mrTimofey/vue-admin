@@ -1,3 +1,5 @@
+// This is a wrapper to check custom config existence and export it or a default one. For internal usage only!
+
 const resolve = require('path').resolve,
 	fileExists = require('fs').existsSync;
 
