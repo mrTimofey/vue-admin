@@ -56,7 +56,15 @@ export default {
 		elementList: 'List',
 		nothingFound: 'Nothing found',
 		noSelectOptions: 'Nothing to select',
-		bulkUpdate: 'Bulk edit'
+		bulkUpdate: 'Bulk edit',
+		map: {
+			instructions: 'Click on the map to place a point',
+			zoom: 'Zoom',
+			coords: 'Coordinates',
+			removePoint: 'Remove point',
+			search: 'Find on the map',
+			googleApiKeyWarning: 'Retrieve and configure API key to use Google Maps API.'
+		}
 	},
 	dateTime: {
 		short: {

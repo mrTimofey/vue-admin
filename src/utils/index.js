@@ -176,3 +176,9 @@ export function httpErrorModalData(err) {
 	}
 	return { text, jsonData };
 }
+
+export function initGoogleMaps() {
+	if (!googleMapsApiKey) return Promise.reject({ noApiKey: true });
+	return loadScript(`https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&libraries=places`);
+}
+

@@ -22,4 +22,7 @@ module.exports = {
 
 	// webpack's resolve.module entry for customized admin assets and sources
 	sourcePath: path.resolve(process.cwd(), 'admin')
+
+	// Google Maps API key is required to use any geo field types
+	// googleMapsApiKey: 'key'
 };

@@ -56,7 +56,15 @@ export default {
 		elementList: 'Список',
 		nothingFound: 'Ничего не найдено',
 		noSelectOptions: 'Нет вариантов',
-		bulkUpdate: 'Изменение нескольких элементов'
+		bulkUpdate: 'Изменение нескольких элементов',
+		map: {
+			instructions: 'Нажмите на карту, чтобы установить точку',
+			zoom: 'Увеличение',
+			coords: 'Координаты',
+			removePoint: 'Убрать точку',
+			search: 'Найти на карте',
+			googleApiKeyWarning: 'Получите и настройте API ключ, чтобы использовать Google Maps API.'
+		}
 	},
 	dateTime: {
 		short: {

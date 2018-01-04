@@ -153,7 +153,8 @@ const config = {
 	plugins: [
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(dev ? 'development' : 'production'),
-			routerBasePath: JSON.stringify(basePath)
+			routerBasePath: JSON.stringify(basePath),
+			googleMapsApiKey: JSON.stringify(appConfig.googleMapsApiKey || false)
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'vendor'
