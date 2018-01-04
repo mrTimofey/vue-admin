@@ -32,9 +32,7 @@
 		},
 		data: () => ({
 			apiLoaded: false,
-			noApiKey: false,
-			searchQuery: '',
-			searchResults: null
+			noApiKey: false
 		}),
 		computed: {
 			valuePoint() {
@@ -138,9 +136,6 @@
 		template(v-else)
 			.map-search
 				input.form-control(ref="searchInput")
-				ul.results(v-if="searchResults && searchResults.length")
-					li(v-for="res in searchResults")
-						a('@click.prevent'="selectResult(res)") {{ res.title }}
 			.map-wrapper(ref="map" ':style'="{ height: heightWithUnit }")
 			.map-stats
 				template(v-if="value")
