@@ -18,7 +18,7 @@ Add this to package.json scripts:
 ```json
 {
 	"admin:dev": "node node_modules/vue-admin-front/index.js",
-	"admin:build": "rimraf public/admin-dist && cross-env NODE_ENV=production webpack --config node_modules/vue-admin-front/webpack._config.js --progress --hide-modules"
+	"admin:build": "rimraf public/admin-dist && cross-env NODE_ENV=production webpack --config node_modules/vue-admin-front/webpack.config.js --progress --hide-modules"
 }
 ```
 
