@@ -14,22 +14,34 @@ import i18n from 'src/i18n';
 sync(store, router);
 
 // shared components
-requireAll(require.context('src/components/shared/', true, /\.(vue|js)$/), (module, name) => {
+requireAll([
+	require.context('src/components/shared/', true, /\.(vue|js)$/),
+	require.context('_local/src/components/shared/', true, /\.(vue|js)$/)
+], (module, name) => {
 	Vue.component(filenameToCamelCase(name), module);
 });
 
 // filters
-requireAll(require.context('src/filters/', true, /\.js$/), (module, name) => {
+requireAll([
+	require.context('src/filters/', true, /\.js$/),
+	require.context('_local/src/filters/', true, /\.js$/)
+], (module, name) => {
 	Vue.filter(filenameToCamelCase(name), module);
 });
 
 // directives
-requireAll(require.context('src/directives/', true, /\.js$/), (module, name) => {
+requireAll([
+	require.context('src/directives/', true, /\.js$/),
+	require.context('_local/src/directives/', true, /\.js$/)
+], (module, name) => {
 	Vue.directive(filenameToCamelCase(name), module);
 });
 
 // modal components
-requireAll(require.context('src/components/modals/', true, /\.(vue|js)$/), (component, name) => {
+requireAll([
+	require.context('src/components/modals/', true, /\.(vue|js)$/),
+	require.context('_local/src/components/modals/', true, /\.(vue|js)$/)
+], (component, name) => {
 	ModalMasterComponent.components[filenameToCamelCase(name)] = component;
 });
 

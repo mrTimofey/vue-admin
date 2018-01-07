@@ -13,6 +13,9 @@ export function guessMetaData(store, path) {
 }
 
 export const components = {};
-requireAll(require.context('src/components/entity', true, /\.(vue|js)$/), (comp, name) => {
+requireAll([
+	require.context('src/components/entity', true, /\.(vue|js)$/),
+	require.context('_local/src/components/entity', true, /\.(vue|js)$/)
+], (comp, name) => {
 	components['Entity' + filenameToCamelCase(name)] = comp;
 });

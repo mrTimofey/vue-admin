@@ -3,7 +3,10 @@
 
 	const components = {},
 		fieldsProps = {};
-	requireAll(require.context('src/components/fields', true, /\.(vue|js)$/), (comp, name) => {
+	requireAll([
+		require.context('src/components/fields', true, /\.(vue|js)$/),
+		require.context('_local/src/components/fields', true, /\.(vue|js)$/)
+	], (comp, name) => {
 		components['Field' + filenameToCamelCase(name)] = comp;
 		if (comp.props) {
 			if (Array.isArray(comp.props)) {

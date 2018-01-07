@@ -25,21 +25,24 @@ export function filenameToCamelCase(str, lowerFirst) {
 /**
  * Require all modules from require.context, applies callback to each module or returns name => module mappings
  * if callback is omitted.
- * @param {Object|Function} requireFile require.context call result
+ * @param {Object|Function|Array} req require.context call result
  * @param {Function} [cb]<{string} name, module> callback function, optional
  * @returns {Object|undefined} {module name} => {module} mapping OR nothing if callback is provided
  */
-export function requireAll(requireFile, cb) {
-	let modules;
-	if (!cb) modules = {};
-	// noinspection JSUnresolvedFunction
-	for (let name of requireFile.keys()) {
-		let module = requireFile(name);
-		if (module.default) module = module.default;
-		if (cb) cb(module, name);
-		else modules[name] = module;
+export function requireAll(req, cb) {
+	let modules = {};
+	if (!Array.isArray(req)) req = [req];
+	for (let reqItem of req) {
+		// noinspection JSUnresolvedFunction
+		for (let name of reqItem.keys()) {
+			if (modules.hasOwnProperty(name)) continue;
+			let module = reqItem(name);
+			if (module.default) module = module.default;
+			if (cb) cb(module, name);
+			modules[name] = module;
+		}
 	}
-	if (!cb) return modules;
+	return modules;
 }
 
 const scriptMap = {};

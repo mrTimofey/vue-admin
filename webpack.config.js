@@ -148,7 +148,10 @@ const config = {
 			// look for customized sources first
 			sourcePath,
 			__dirname
-		]
+		],
+		alias: {
+			_local: __dirname
+		}
 	},
 	plugins: [
 		new webpack.DefinePlugin({

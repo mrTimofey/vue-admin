@@ -16,7 +16,10 @@ let route404, pathMap;
 if (process.env.NODE_ENV !== 'production') pathMap = {};
 
 // register all components in directory as routes (excepting files/folders starting from "_")
-requireAll(require.context('src/pages/', true, /^(?:(?!\/?_).)+\.(vue|js)$/), (component, name) => {
+requireAll([
+	require.context('src/pages/', true, /^(?:(?!\/?_).)+\.(vue|js)$/),
+	require.context('_local/src/pages/', true, /^(?:(?!\/?_).)+\.(vue|js)$/)
+], (component, name) => {
 	/** @namespace component.routeMeta */
 	/** @namespace component.routeProps */
 	const route = {
