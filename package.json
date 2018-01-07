@@ -1,6 +1,6 @@
 {
   "name": "vue-admin-front",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Vue.js based admin panel frontend",
   "main": "index.js",
   "author": "Timofey Tiunov <timoxa17@gmail.com>",
