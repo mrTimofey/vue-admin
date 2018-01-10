@@ -14,7 +14,7 @@
 		methods: {
 			emitValue
 		}
-	}
+	};
 </script>
 <template lang="pug">
 	input.form-control(type="password"

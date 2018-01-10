@@ -108,6 +108,10 @@
 			},
 			fieldKey(item, i, field) {
 				return this.itemKey(item, i) + '-' + field.name.split('_').join('-');
+			},
+			emitBulkAction(name) {
+				this.$emit('bulk-' + name, this.selection);
+				this.selection = [];
 			}
 		}
 	};
@@ -155,7 +159,7 @@
 				//- TODO
 				//- router-link.btn.btn-primary(v-if="permitted('update')" ':to'="{ path: path + '/bulk-update', query: { keys: selection } }")
 					i.fa.fa-pencil
-				.btn.btn-danger(v-if="permitted('destroy')" '@click'="$emit('bulk-destroy', selection)")
+				.btn.btn-danger(v-if="permitted('destroy')" '@click'="emitBulkAction('destroy')")
 					i.fa.fa-trash
 				slot(name="bulk-actions")
 </template>

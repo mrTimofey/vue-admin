@@ -1,7 +1,8 @@
 /* eslint no-invalid-this:0 */
 
 export function emitValue({ target }) {
-	if (target.value !== this.value) this.$emit('input', target.value);
+	if (target.value === '' && this.value !== null) this.$emit('input', null);
+	else if (target.value !== this.value) this.$emit('input', target.value);
 }
 
 export function trimValue({ target }) {
