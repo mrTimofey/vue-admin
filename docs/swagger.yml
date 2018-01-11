@@ -1,0 +1,759 @@
+openapi: 3.0.0
+info:
+  title: vue-admin-front API
+  description: API specification used to interact with the vue-admin-front
+  version: 0.0.1
+servers:
+  - url: /api/admin
+components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+  responses:
+    401:
+      description: Authorization required
+    403:
+      description: Authorized user is not allowed to perform this action
+    404:
+      description: Requested resource not found
+    422:
+      description: Input data validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            description: validation errors
+            properties:
+              errors:
+                type: object
+                description: errors per each field
+                additionalProperties:
+                  type: array
+                  description: array of error descriptions
+                  items:
+                    type: string
+                    description: error description
+            example:
+              errors:
+                email:
+                  - Email has wrong format
+                age:
+                  - Age must be at least 18
+                  - Age must be less than 100
+    429:
+      description: Too many requests, try again later
+      headers:
+        Retry-After:
+          schema:
+            type: integer
+          description: Retry timeout in seconds
+  requestBodies:
+    entityItemData:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EntityItem'
+        multipart/form-data:
+          schema:
+            description: |
+              Use multipart/form-data body only if you are going to upload files.
+              Each upload file field name must be prepended with `file__` special prefix.
+              File name or ID must be returned on successful response processing.
+            properties:
+              __json_data:
+                type: string
+                format: json
+                description: JSON encoded item fields data
+                example: '{"name": "Post name", "content": "<p>Post content</p>"}'
+            additionalProperties:
+              oneOf:
+                - type: string
+                  format: binary
+                  description: file__image_id
+                - type: array
+                  description: files array, field name must be appended with [] (file__image_id[])
+                  items:
+                    type: string
+                    format: binary
+  parameters:
+    entity:
+      in: path
+      name: entity
+      required: true
+      schema:
+        type: string
+      description: entity name
+    id:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      description: entity item id
+    page:
+      in: query
+      name: page
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: page number
+    limit:
+      in: query
+      name: limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+      description: items count per page
+    filters:
+      in: query
+      name: filters
+      schema:
+        type: object
+        additionalProperties: true
+      description: |
+        Apply query filters from request query string. Supported actions:
+        * filters[field]=value - field equals to value
+        * filters[!field]=value - field not equals to value
+        * filters[>~field]=value - field is more than or equals to value
+        * filters[<~field]=value - field is less than or equals to value
+        * filters[>field]=value - field is more than value
+        * filters[<field]=value - field is less than value
+        * filters[field][]=value1&filters[field][]=value2... - field equals to one of provided values (IN)
+        * filters[!field][]=value1&filters[!field][]=value2... - field not equals to any of provided values (NOT IN)
+        * filters[field] - field value is not null (IS NOT NULL)
+        * filters[!field] - field value is null (IS NULL)
+    scopes:
+      in: query
+      name: scopes
+      schema:
+        type: object
+        additionalProperties: true
+      description: |
+        Apply model scopes from request query string. Syntax:
+        * scopes[scopeName] - scope without parameters
+        * scopes[scopeName][]=param1&scopes[scopeName][]=param2 - call scopeName('param1', 'param2')
+    search:
+      in: query
+      name: search
+      schema:
+        type: string
+      description: text search
+    sort:
+      in: query
+      name: sort
+      schema:
+        type: object
+        additionalProperties: true
+      description: |
+        Apply simple sorting based on request query string. Syntax:
+        * sort[field] - order by asc
+        * sort[field]=asc|desc|0|1 - (0 - desc, 1 - asc)
+  schemas:
+    User:
+      type: object
+      description: User
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+      additionalProperties: true
+      required: [id]
+      example:
+        id: 1
+        email: example@mail.com
+        name: Darth Vader
+    MainNavItem:
+      oneOf:
+        - type: object
+          description: Main navigation link or group item
+          properties:
+            title:
+              type: string
+              description: link title (can be omitted if entity is provided and entity has a title)
+            fa:
+              type: string
+              description:
+                any valid [Font Awesome icon name](http://fontawesome.io/icons/)
+            entity:
+              type: string
+              description: entity name (this item will be a link to an entity home page)
+            path:
+              type: string
+              description: custom URL or relative path (use this for external or unmanaged custom links)
+            route:
+              type: string
+              description: route within administrative interface (use this for managed links)
+            items:
+              type: array
+              description: inner items (this item will be expandable group if provided)
+              items:
+                $ref: '#/components/schemas/MainNavItem'
+          additionalProperties: true
+        - type: string
+          description: Main navigation header item
+    FieldDescription:
+      type: object
+      description: Entity field description
+      properties:
+        name:
+          type: string
+          description: field name
+        type:
+          type: string
+          description: field type
+          default: string
+        title:
+          type: string
+          description: human readable field title
+        disabled:
+          type: boolean
+          description: disable editing
+        multiple:
+          type: boolean
+          description: multiple-value field (if supported)
+        placeholder:
+          type: string
+          description: input placeholder (if supported)
+        label:
+          type: string
+          description: field label (if supported)
+        entity:
+          type: string
+          description: referenced entity type (if supported)
+        display:
+          type: string
+          description: reference entity display title (if supported, placeholders can be used)
+        limit:
+          type: string
+          description: values count limit (if supported)
+        valueField:
+          type: string
+          description: field name used as a value for selected items (if supported)
+        labelField:
+          type: string
+          description: field name used as a title for selected items (if supported)
+        allowCreate:
+          type: string
+          description: allowed inline creating of referenced entity items (if supported)
+        createField:
+          type: string
+          description: fill this field from textbox when creating new referenced entity inline (if supported)
+          default: 'name'
+        createDefaults:
+          type: object
+          description: predefined field values used to create new referenced entity inline (if supported)
+          additionalProperties: true
+        searchable:
+          type: boolean
+          description: allow values searching in select or select-like field (if supported)
+        debounce:
+          type: integer
+          description: value update debounce time in ms (if supported)
+        required:
+          type: boolean
+          description: disable null value (if supported)
+        accept:
+          type: string
+          description: allowed file mime types (if supported)
+        keys:
+          type: array
+          description: allowed object keys (if supported)
+          items:
+            type: string
+        min:
+          type: number
+          description: mininum allowed value (if supported)
+        max:
+          type: number
+          description: maximum allowed value (if supported)
+        options:
+          description: options for select or select-like fields (if supported)
+          oneOf:
+            - type: object
+              additionalProperties:
+                type: string
+                description: value-title pairs
+            - type: array
+              items:
+                oneOf:
+                  - type: object
+                    description: any of [title, name, label] as option title and [value, id] as option value
+                    properties:
+                      title:
+                        type: string
+                        description: option title
+                      name:
+                        type: string
+                        description: option title
+                      label:
+                        type: string
+                        description: option title
+                      value:
+                        description: option value
+                      id:
+                        description: option value
+                  - type: string
+                    description: when value is same as title
+      additionalProperties:
+        description: anything else depending on a field type
+      required: [name]
+    EntityDescription:
+      type: object
+      description: Entity meta information
+      properties:
+        title:
+          type: string
+          description: entity name
+          example: 'Posts'
+        create_title:
+          type: string
+          description: new item form title
+          example: 'Create new post'
+        item_title:
+          type: string
+          description: item edit form title (placeholders can be used)
+          default: '{title} [{id}]'
+          example: 'How to make a bomb [123]'
+        permissions:
+          type: object
+          description: allowed actions
+          properties:
+            index:
+              type: boolean
+              description: see item list
+            create:
+              type: boolean
+              description: create new item
+            item:
+              type: boolean
+              description: see item details
+            update:
+              type: boolean
+              description: update item
+            destroy:
+              type: boolean
+              description: destroy item
+            simpleCreate:
+              type: boolean
+              description: create new item from pages other than entity creating page
+        index_fields:
+          type: array
+          description: fields for entity index
+          items:
+            allOf:
+              - $ref: '#/components/schemas/FieldDescription'
+              - properties:
+                  editable:
+                    type: boolean
+                    description: allow inline editing
+                  sortable:
+                    type: boolean
+                    description: allow sort by this field
+                  sortableAs:
+                    type: string
+                    description: sortable using a field other than `this.name`
+        item_fields:
+          type: array
+          description: editing/creating fields
+          items:
+            allOf:
+              - $ref: '#/components/schemas/FieldDescription'
+              - properties:
+                  default:
+                    description: default value
+        filter_fields:
+          type: array
+          description: index filter fields
+          items:
+            $ref: '#/components/schemas/FieldDescription'
+    MetaData:
+      type: object
+      description: Meta data containing information about available entities, actions, navigation links, etc.
+      properties:
+        nav:
+          type: array
+          description: main navigation menu items
+          items:
+            $ref: '#/components/schemas/MainNavItem'
+        entities:
+          type: object
+          description: entities meta data
+          additionalProperties:
+            $ref: '#/components/schemas/EntityDescription'
+        wysiwyg:
+          type: object
+          description: WYSIWYG editor configuration
+          properties:
+            css:
+              type: string
+              description: inline css or css file link for WYSIWYG editor
+        image_path:
+          type: string
+          description: images base path
+      additionalProperties: true
+      required: [nav, entities]
+    EntityItem:
+      type: object
+      description: Entity item
+      additionalProperties:
+        description: Entity item fields
+      example:
+        id: 2
+        name: Post name
+        content: <p>Post content</p>
+    PaginationData:
+      type: object
+      description: Pagination data
+      properties:
+        current_page:
+          type: integer
+        last_page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
+      required: [current_page, last_page, per_page, total]
+tags:
+  - name: user
+  - name: meta
+  - name: entity
+paths:
+  /auth:
+    post:
+      description: Authenticate
+      tags: [user]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - type: object
+                  description: authenticate by email and password
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                      description: user email
+                    password:
+                      type: string
+                      description: user password
+                    remember:
+                      type: boolean
+                      default: false
+                  required: [email, password]
+                - type: object
+                  description: authenticate by remember token
+                  properties:
+                    remember_token:
+                      type: string
+                      description: remember token
+                  required: [remember_token]
+            examples:
+              email_password:
+                summary: email and password
+                value:
+                  email: example@mail.com
+                  password: secret
+                  remember: true
+              remember_token:
+                summary: remember token
+                value:
+                  remember_token: "0YUkQAflcEtSp522SiIG4V8txBE8Cl1MlO1svgOtpsLKOIalK8VVqn9jymAD7iPYK9fQ0onBi2fdFMikbaKfGEk1y6pXtasc97ZC"
+      responses:
+        200:
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  api_token:
+                    type: string
+                    description: bearer token
+                  remember_token:
+                    type: string
+                    description: remember token
+        400:
+          description: Bad credentials
+        429:
+          $ref: '#/components/responses/429'
+    delete:
+      description: Logout
+      tags: [user]
+      security:
+        - bearer: []
+      responses:
+        200:
+          description: Successful logout
+        401:
+          $ref: '#/components/responses/401'
+  /auth/user:
+    get:
+      description: Get authorized user
+      tags: [user]
+      security:
+        - bearer: []
+      responses:
+        200:
+          description: User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        401:
+          $ref: '#/components/responses/401'
+  /locale:
+    get:
+      description: Get server locale preferences
+      tags: [meta]
+      security:
+        - bearer: []
+      responses:
+        200:
+          description: Locale preferences
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  locale:
+                    type: string
+                    description: primary locale
+                  fallback_locale:
+                    type: string
+                    description: fallback locale
+                example:
+                  locale: ru
+                  fallback_locale: en
+  /meta:
+    get:
+      description: Get meta information (navigation, entity descriptions, allowed actions, etc.)
+      tags: [meta, entity]
+      security:
+        - bearer: []
+      responses:
+        200:
+          description: Meta information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetaData'
+        401:
+          $ref: '#/components/responses/401'
+  /entity/{entity}:
+    parameters:
+      - $ref: '#/components/parameters/entity'
+    get:
+      description: Get entity index
+      tags: [entity]
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/filters'
+        - $ref: '#/components/parameters/scopes'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/search'
+      responses:
+        200:
+          description: Entity item listing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EntityItem'
+                  pagination:
+                    $ref: '#/components/schemas/PaginationData'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+    post:
+      description: Create new entity item
+      tags: [entity]
+      requestBody:
+        $ref: '#/components/requestBodies/entityItemData'
+      responses:
+        200:
+          description: Entity item successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityItem'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        422:
+          $ref: '#/components/responses/422'
+    delete:
+      description: Delete multiple entity items
+      tags: [entity]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                keys:
+                  type: array
+                  description: list of item keys (IDs)
+                  items:
+                    description: item key
+              example:
+                keys: [1, 2, 3]
+      responses:
+        200:
+          description: Entity items successfully deleted
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+  /entity/{entity}/bulk:
+    parameters:
+      - $ref: '#/components/parameters/entity'
+    post:
+      description: Update multiple entity items
+      tags: [entity]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                keys:
+                  type: array
+                  description: list of item keys (IDs)
+                  items:
+                    description: item key
+                fields:
+                  type: object
+                  description: fields to update
+                  additionalProperties: true
+              example:
+                keys: [1, 2, 3]
+                fields:
+                  type: 'event'
+                  starts_at: '2018-01-01 12:00:00'
+      responses:
+        200:
+          description: Entity items successfully updated
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        422:
+          $ref: '#/components/responses/422'
+  /entity/{entity}/{id}:
+    parameters:
+      - $ref: '#/components/parameters/entity'
+      - $ref: '#/components/parameters/id'
+    get:
+      description: Get entity item
+      tags: [entity]
+      responses:
+        200:
+          description: Entity item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityItem'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+    post:
+      description: Update entity item
+      tags: [entity]
+      requestBody:
+        $ref: '#/components/requestBodies/entityItemData'
+      responses:
+        200:
+          description: Updated entity item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityItem'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        422:
+          $ref: '#/components/responses/422'
+    delete:
+      description: Delete entity item
+      tags: [entity]
+      responses:
+        200:
+          description: Entity item successfully deleted
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'
+        403:
+          $ref: '#/components/responses/403'
+  /entity/{entity}/{id}/fast:
+    parameters:
+      - $ref: '#/components/parameters/entity'
+      - $ref: '#/components/parameters/id'
+    post:
+      description: |
+        Entity item live update.
+        Works similar to POST /entity/{entity}/{id} but validation is executed only against a single field.
+      tags: [entity]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                __field:
+                  type: string
+                  description: field name to update
+                additionalProperties:
+                  description: field => value
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                __field:
+                  type: string
+                  description: field name to update
+                additionalProperties:
+                  description: field__fiel => binary data
+                  type: string
+                  format: binary
+      responses:
+        200:
+          description: Updated entity item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityItem'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        422:
+          $ref: '#/components/responses/422'
