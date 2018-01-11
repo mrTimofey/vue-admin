@@ -77,4 +77,5 @@ See existing components as references for your custom fields/modals.
 
 ## Backend API
 
+See `docs/swagger.yml` for a supported API specification.
 Fully compatible with the [mr-timofey/laravel-admin-api](https://github.com/mrTimofey/laravel-admin-api).
