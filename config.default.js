@@ -25,4 +25,7 @@ module.exports = {
 
 	// Google Maps API key is required to use any geo field types
 	// googleMapsApiKey: 'key'
+
+	// Webpack config modifier
+	// webpackConfigModifier(config, isDev) {}
 };

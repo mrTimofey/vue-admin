@@ -249,4 +249,7 @@ else {
 	};
 }
 
+// allow application to customize webpack config
+if (appConfig.webpackConfigModifier) appConfig.webpackConfigModifier(config, dev);
+
 module.exports = config;
