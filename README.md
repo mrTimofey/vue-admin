@@ -6,11 +6,6 @@ Administrative interface frontend built with Webpack and Vue.js.
 npm i -D vue-admin-front cross-env rimraf
 ```
 
-## Configuration
-
-Add `vue-admin-front.config.js` file to your application root.
-See `config.default.js` for available config options.
-
 ## Development and bundle building
 
 Add this to package.json scripts:
@@ -22,7 +17,7 @@ Add this to package.json scripts:
 }
 ```
 
-## Configuring
+## Configuration
 
 Create `vue-admin-front.config.js` within your application root folder. Example:
 
@@ -35,7 +30,7 @@ module.exports = {
 };
 ```
 
-See original `config.default` file for any further instructions.
+See original `vue-admin-front/config.default` file for any further instructions.
 
 ## Extending and customizing
 
