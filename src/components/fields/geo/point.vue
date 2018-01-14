@@ -58,7 +58,6 @@
 				this.$emit('input', null);
 			},
 			onClick({ latLng }) {
-				this.searchResults = null;
 				this.emitValue({ point: [latLng.lat(), latLng.lng()] });
 			},
 			onZoomChange() {

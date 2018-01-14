@@ -8,7 +8,7 @@ npm i -D vue-admin-front cross-env rimraf
 
 ## Configuration
 
-Add `vue-admin-front._config.js` file to your application root.
+Add `vue-admin-front.config.js` file to your application root.
 See `config.default.js` for available config options.
 
 ## Development and bundle building
