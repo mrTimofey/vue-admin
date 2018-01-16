@@ -1,4 +1,3 @@
 # Configuration
-```javascript
-{% include "../config.default.js" %}
-```
+
+{% include "git+https://github.com/mrTimofey/vue-admin.git/config.default.js" %}
