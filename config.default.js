@@ -14,18 +14,19 @@ module.exports = {
 	// admin dev app port
 	port: 8080,
 
-	// webpack build output path
+	// Webpack build output path accessible from a web-server
 	buildDest: path.resolve(process.cwd(), 'public/admin-dist'),
 
-	// used as a public root for bundle
+	// public root to include bundle files to the app layout HTML (web-server public path root)
 	publicPath: '/admin-dist/',
 
-	// webpack's resolve.module entry for customized admin assets and sources
+	// Webpack will try to resolve sources from this path before a package root
 	sourcePath: path.resolve(process.cwd(), 'admin')
 
-	// Google Maps API key is required to use any geo field types
+	// Google Maps API key is required to use any of geo field types
 	// googleMapsApiKey: 'key'
 
 	// Webpack config modifier
+	// original configuration is in webpack.config.js file
 	// webpackConfigModifier(config, isDev) {}
 };
