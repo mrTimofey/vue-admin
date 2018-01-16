@@ -20,4 +20,4 @@ module.exports = Object.assign(base, {
 });
 ```
 
-All options and their desciptions are available in the [default configuration file](https://github.com/mrTimofey/vue-admin/blob/master/config.default.js) itself.
+All options and their descriptions are available in the [default configuration file](https://github.com/mrTimofey/vue-admin/blob/master/config.default.js) itself.
