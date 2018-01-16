@@ -17,9 +17,11 @@
     }
     ```
 
-3. Replace `admin:dev`'s `rimraf public/admin-dist` part if you use different build destination
+3. Replace `admin:dev`'s `rimraf public/admin-dist` part if you use different build destination.
 
-4. [Configure](configuration.md)
+4. Replace `admin:build`'s `node_modules/vue-admin-front/webpack.config.js` if you have extended version of Webpack config.
 
-5. Run `npm run admin:dev` to start dev server listening on port 8080 by default.
+5. [Configure](configuration.md)
+
+6. Run `npm run admin:dev` to start dev server listening on port 8080 by default.
 Run `npm run admin:build` to create a static bundle in `public/admin-dist` folder by default.
