@@ -6,7 +6,7 @@ Any additional field types you want to add should be placed to `admin/src/compon
 
 ## Helpers
 
-Fields helpers can be imported with `import { func, ... } from vue-admin-front/utils/fields`.
+Field helpers can be imported with `import { func, ... } from vue-admin-front/utils/fields`.
 
 * `emitValue` can be added to component's `methods` and directly used from HTML input/textarea with `@input="emitValue"`. It will correctly process empty string values and prevent sending same values multiple times.
 * `trimValue` is similar to `emitValue` but additionally it trims provided string. Use with `@blur="trimValue"`.
