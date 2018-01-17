@@ -14,6 +14,7 @@ module.exports = {
 		window: true,
 		routerBasePath: true,
 		googleMapsApiKey: true,
+		apiRootPath: true,
 		development: true
 	},
 	env: {

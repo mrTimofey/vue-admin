@@ -8,6 +8,7 @@ const path = require('path'),
 const appConfig = require('./_config'),
 	dev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development',
 	basePath = process.env.ADMIN_PATH || appConfig.basePath,
+	apiRoot = process.env.API_ROOT || appConfig.apiRoot,
 	buildDest = process.env.BUILD_DEST || appConfig.buildDest,
 	publicPath = process.env.PUBLIC_PATH || appConfig.publicPath,
 	sourcePath = process.env.SOURCE_PATH || appConfig.sourcePath,
@@ -157,6 +158,7 @@ const config = {
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(dev ? 'development' : 'production'),
 			routerBasePath: JSON.stringify(basePath),
+			apiRootPath: JSON.stringify(apiRoot),
 			googleMapsApiKey: JSON.stringify(appConfig.googleMapsApiKey || false)
 		}),
 		new webpack.optimize.CommonsChunkPlugin({

@@ -55,3 +55,5 @@ app.use('*', (req, res) => {
 });
 
 app.listen(process.env.PORT || appConfig.port);
+
+module.exports = app;

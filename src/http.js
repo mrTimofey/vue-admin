@@ -3,7 +3,7 @@ import Axios from 'axios';
 import qs from 'qs';
 
 const http = Axios.create({
-	baseURL: '/api/admin/',
+	baseURL: apiRootPath,
 	headers: {
 		'X-Requested-With': 'XMLHttpRequest',
 		'Accept': 'application/json'
