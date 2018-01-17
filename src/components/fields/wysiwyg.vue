@@ -1,7 +1,7 @@
 <script>
 	import { mapGetters } from 'vuex';
 	import ckeStyle from '!css-loader!stylus-loader?compress!src/styles/wysiwyg.styl';
-	import ckeConfig from 'src/utils/ckeditor-config';
+	import ckeConfig from 'src/ckeditor-config';
 	import { loadScript } from 'src/utils';
 	import http, { getApiToken } from 'src/http';
 

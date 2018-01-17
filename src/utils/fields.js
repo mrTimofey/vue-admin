@@ -7,7 +7,8 @@ export function emitValue({ target }) {
 
 export function trimValue({ target }) {
 	const trimmed = target.value.trim();
-	if (target.value !== trimmed) this.$emit('input', trimmed);
+	if (trimmed === '' && this.value !== null) this.$emit('input', null);
+	else if (trimmed !== this.value) this.$emit('input', trimmed);
 }
 
 export function transformedOptions() {
