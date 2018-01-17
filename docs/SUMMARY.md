@@ -4,6 +4,7 @@
 * [Server API prerequisities](server-api-prerequisities.md)
 * [Quick start](quick-start.md)
 * [Configuration](configuration.md)
+* Field types
 * [Customization](customization/REAMDE.md)
   * [Custom fields](customization/REAMDE/custom-fields.md)
   * [Custom modal windows](customization/REAMDE/custom-modal-windows.md)
