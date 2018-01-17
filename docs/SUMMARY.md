@@ -2,12 +2,13 @@
 
 * [Introduction](README.md)
 * [Server API prerequisities](server-api-prerequisities.md)
+  * [Supported API solutions](supported-api-solutions)
 * [Quick start](quick-start.md)
 * [Configuration](configuration.md)
   * [Webpack](configuration.md#webpack)
-* Field types
+* [Field types](field-types.md)
 * [Customization](customization/REAMDE.md)
-  * [Custom fields](customization/custom-fields.md)
+  * [Custom field types](customization/custom-fields.md)
   * [Custom modal windows](customization/custom-modal-windows.md)
   * [Extending entity pages](customization/extending-entity-pages.md)
   * [Global style variables](customization/global-style-variables.md)
