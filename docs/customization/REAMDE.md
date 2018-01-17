@@ -6,7 +6,7 @@ Just import original module from `vue-admin-front/src` if you want to extend its
 
 Package structure:
 
-* `config.default.js` - default configuration file (see [configuration](configuration.md) section for more information)
+* `config.default.js` - default configuration file (see [configuration](/configuration.md) section for more information)
 * `webpack.config.js` - Webpack configuration file (use `webpackConfigModifier` configuration option in [default configuration file](https://github.com/mrTimofey/vue-admin/blob/master/config.default.js) to extend dafult Wepback config)
 * `index.js` - dev server entry, exports Express application instance to a `module.exports`
 * `src` - admin panel sources
