@@ -2,7 +2,7 @@
 
 Any additional field types you want to add should be placed to `admin/src/components/fields` folder. They will be implicitly included and available everywhere by using `<field type="custom-field-file-name"></field>`
 
-{% include '_file-to-component.md' %}
+{% include "./_file-to-component.md" %}
 
 ## Helpers
 
