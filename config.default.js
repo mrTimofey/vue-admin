@@ -12,7 +12,7 @@ module.exports = {
 	basePath: '/admin',
 
 	// api base path
-	// WARNING: do not set this option to same or starting with basePath!
+	// WARNING: do not set this option to same or starting with basePath or publicPath!
 	apiRoot: '/api/admin/',
 
 	// admin dev app port
@@ -22,6 +22,7 @@ module.exports = {
 	buildDest: path.resolve(process.cwd(), 'public/admin-dist'),
 
 	// public root to include bundle files to the app layout HTML (web-server public path root)
+	// WARNING: do not set this option to same or starting with basePath or apiRoot!
 	publicPath: '/admin-dist/',
 
 	// Webpack will try to resolve sources from this path before a package root
