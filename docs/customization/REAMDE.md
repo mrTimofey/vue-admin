@@ -33,6 +33,7 @@ Package structure:
     * `store.js` - vuex config
     * `shared.styl` - shared stylus variables
     * `layout.pug` - application layout template
+    * `ckeditor-config.js` - CKEditor configuration
 
 Use cases and examples:
 
