@@ -6,3 +6,5 @@ All stuff you can edit, create, overview, delete and whatever else you want to d
 * Filter fields config
 * Create/edit fields config
 * Permissions
+
+Of course, you are free to provide any other information if you have some additional functionality requiring that.
