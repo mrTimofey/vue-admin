@@ -261,7 +261,7 @@ Supported props:
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/ckeditor.vue)
 
-[CKEditor](https://ckeditor.com/) WYSIWYG field.
+[CKEditor](https://ckeditor.com/) 4 WYSIWYG field.
 
 Supported props:
 * `disabled`
