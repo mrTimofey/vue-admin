@@ -10,4 +10,4 @@ Backend must return an admin panel HTML layout contents to any request starting 
 
 You can find a list of ready-to-use solutions below and see their documentations to configure them. Or feel free to make your own :)
 
-* [laravel-admin-api](https://github.com/mrTimofey/laravel-admin-api) for PHP 7.1 and Laravel 5
+* [laravel-admin-api](https://github.com/mrTimofey/laravel-admin-api) for PHP 7.1 and Laravel 5.

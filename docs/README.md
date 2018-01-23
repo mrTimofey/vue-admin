@@ -1,6 +1,6 @@
 # Introduction
 
-This package aims to provide a standard, flexible and reusable, fully configurable and customizable administrative interface solution. But it is still complete enough to be used out-of-the-box as well.
+This package aims to provide a standard, flexible and reusable, fully configurable and customizable backend-agnostic administrative interface solution. It is also complete enough to be used out-of-the-box.
 
 Admin panel is an SPA based on Vue.js so almost everything is a Vue component. Obviously, you should be familiar with Vue.js to customize it.
 
