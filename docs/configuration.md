@@ -24,7 +24,7 @@ All options and their descriptions are available in the [default configuration f
 
 ## Webpack
 
-Default webpack configuration `webpack.config.js` supports the following assets:
+Default webpack configuration `webpack.config.js` ([here](https://github.com/mrTimofey/vue-admin/blob/master/webpack.config.js)) supports the following assets:
 * JS sources (see [buble-loader](https://github.com/sairion/buble-loader) to get information about ES* supported features)
 * [Pug templates](https://pugjs.org)
 * [Vue.js single file components](https://vuejs.org/v2/guide/single-file-components.html)
@@ -34,4 +34,4 @@ Default webpack configuration `webpack.config.js` supports the following assets:
 * CSS
 * [Stylus](http://stylus-lang.com)
 
-See `webpackConfigModifier` in the [default configuration file](https://github.com/mrTimofey/vue-admin/blob/master/config.default.js) if you want to extend this configuration.
+See `webpackConfigModifier` in the [default configuration](https://github.com/mrTimofey/vue-admin/blob/master/config.default.js) if you want to extend default Webpack configuration.

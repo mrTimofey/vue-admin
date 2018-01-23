@@ -7,4 +7,4 @@ All stuff you can edit, create, overview, delete and whatever else you want to d
 * Create/edit fields config
 * Permissions
 
-Of course, you are free to provide any other information if you have some additional functionality requiring that.
+Refer to [Server API prerequisities section](server-api-prerequisities.md) for more information.
