@@ -269,4 +269,4 @@ Supported props:
 
 `v-model` is a string or `null` for empty string value.
 
-You can customize CKEditor instance configuration by replacing [`src/ckeditor-config.js`](https://github.com/mrTimofey/vue-admin/blob/master/src/ckeditor-config.js) (see [customization section](customization.md) for more onformation)
+You can customize CKEditor instance configuration by replacing [`src/ckeditor-config.js`](https://github.com/mrTimofey/vue-admin/blob/master/src/ckeditor-config.js) (see [customization section](customization/README.md) for more onformation)
