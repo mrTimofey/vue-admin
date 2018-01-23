@@ -25,7 +25,7 @@ All options and their descriptions are available in the [default configuration f
 ## Webpack
 
 Default webpack configuration `webpack.config.js` ([here](https://github.com/mrTimofey/vue-admin/blob/master/webpack.config.js)) supports the following assets:
-* JS sources (see [buble-loader](https://github.com/sairion/buble-loader) to get information about ES* supported features)
+* JS sources (with [buble-loader](https://github.com/sairion/buble-loader))
 * [Pug templates](https://pugjs.org)
 * [Vue.js single file components](https://vuejs.org/v2/guide/single-file-components.html)
 * Font files (woff, woff2, eot, otf, ttf)

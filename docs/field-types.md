@@ -10,7 +10,7 @@ Field component is a [proxy component](https://vuejs.org/v2/api/#v-bind) which p
 
 Usage: `<field type="String" errors="null|String|Array<String>" title="null|String"></field>`.
 
-## Available Field types
+## Available field types
 
 ### Checkbox
 
@@ -268,3 +268,5 @@ Supported props:
 * `debounce` - CKEditor->value update debounce timeout in ms (`100` by default)
 
 `v-model` is a string or `null` for empty string value.
+
+You can customize CKEditor instance configuration by replacing [`src/ckeditor-config.js`](https://github.com/mrTimofey/vue-admin/blob/master/src/ckeditor-config.js) (see [customization section](customization.md) for more onformation)
