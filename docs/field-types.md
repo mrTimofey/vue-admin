@@ -12,7 +12,7 @@ Usage: `<field type="String" errors="null|String|Array<String>" title="null|Stri
 
 ## Available field types
 
-### Checkbox
+### checkbox
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/checkbox.vue)
 
@@ -24,7 +24,7 @@ Supported props:
 
 `v-model` should be a boolean value.
 
-### Color
+### color
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/color.vue)
 
@@ -37,7 +37,7 @@ Supported props:
 
 `v-model` will always have a format of a 3 or 6-digit hex color code `000000` **without** leading `#` or `null` (if `disabled` is not set or set to `false`)
 
-### Date
+### date
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/date.vue)
 
@@ -49,7 +49,7 @@ Supported props:
 
 `v-model` format is a date string `YYYY-MM-DD` or `null` if input is empty. Initial value can be set to `'now'` so it will be immediately updated to a current date.
 
-### Datetime
+### datetime
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/datetime.vue)
 
@@ -61,7 +61,7 @@ Supported props:
 
 `v-model` format is a datetime string `YYYY-MM-DD HH:MM:SS` or `null` if inputs are empty. Initial value can be set to `'now'` so it will be immediately updated to a current datetime.
 
-### File
+### file
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/file.vue)
 
@@ -77,7 +77,7 @@ Supported props:
 * JavaScript `File` object - interpreted as a file about to upload
 * `null`
 
-### Gallery
+### gallery
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/gallery.vue)
 
@@ -88,9 +88,10 @@ Supported props:
 
 `v-model` is an array of string values representing image file names. Image preview path will be prepended with `imagePath` acquired from server API with meta-data.
 
+**IMPORTANT**
 This field requires additional server API method `POST {basePath}/gallery` to accept `multipart/form-data` uploads with multiple images.
 
-### Geo point
+### geo-point
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/geo/point.vue)
 
@@ -104,9 +105,10 @@ Supported props:
 
 `v-model` is an object `{ zoom: int, point: [float, float] }` or `null`.
 
-This field requires Google API key. Refer to [configuration section](configuration.md) for more information.
+**IMPORTANT**
+This field requires a Google API key. Refer to [configuration section](configuration.md) for more information.
 
-### Image
+### image
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/image.vue)
 
@@ -121,7 +123,7 @@ Supported props:
 * JavaScript `File` object - interpreted as an image file about to upload
 * `null`
 
-### Meta
+### meta
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/meta.vue)
 
@@ -133,7 +135,7 @@ Supported props:
 
 `v-model` object with fields from `props.keys` or `null`. This object contains only non-empty text values. Value is set to `null` if no text provided.
 
-### Number
+### number
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/number.vue)
 
@@ -144,7 +146,7 @@ Supported props:
 * `disabled`
 * `min` and `max` - minimum and maximum allowed values (`-Infinity` and `Infinity` by default)
 
-### Password
+### password
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/password.vue)
 
@@ -154,7 +156,7 @@ Supported props:
 * `placeholder`
 * `disabled`
 
-### Radio-select
+### radio-select
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/radio-select.vue)
 
@@ -168,7 +170,7 @@ Supported props:
 
 `v-model` is set to option value.
 
-### Relation
+### relation
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/relation.vue)
 
@@ -191,7 +193,7 @@ Supported props:
 * Single-value mode: selected entity item's `valueField` value or `null` if there is no selected item.
 * Multiple-values mode: array of selected entities' `valueField` values.
 
-### Select
+### select
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/select.vue)
 
@@ -210,7 +212,7 @@ Supported props:
     * `searchDebounce` - debounce timeout in ms, used only if `onSearch` is provided (`300` by default)
 * `onCreate` - inline creating callback, function `text:String => Promise`; modifies options and value, returns Promise instance resolved once creating is done (resolve a promise even if any errors occured, use [modals](modals.md) to show errors and interact with user)
 
-### Text
+### text
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/text.vue)
 
@@ -222,7 +224,7 @@ Supported props:
 
 `v-model` is a string or `null` for empty string input value.
 
-### Textarea
+### textarea
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/textarea.vue)
 
@@ -234,7 +236,7 @@ Supported props:
 
 `v-model` is a string or `null` for empty string input value.
 
-### Time
+### time
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/time.vue)
 
@@ -246,7 +248,7 @@ Supported props:
 
 `v-model` format is a time string `HH:MM` or `null` if input is empty.
 
-### Worktime
+### worktime
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/worktime.vue)
 
@@ -257,7 +259,7 @@ Supported props:
 
 `v-model` format is an array of 2 time strings `HH:MM` or `null` if one of inputs is empty.
 
-### WYSIYWYG
+### wysiwyg
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/ckeditor.vue)
 
