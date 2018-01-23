@@ -2,9 +2,9 @@
 
 `vue-admin-front` works with any server API supporting specification described [here](https://github.com/mrTimofey/vue-admin/blob/master/docs/swagger.yml).
 
-Admin panel requires descriptions of all data models and action capabilities fetched from a server API. Data format is descirbed in the specification.
+Admin panel requires descriptions of all data models and action capabilities fetched from a server API. Data format is also descirbed in the specification.
 
-Also you have to return an admin panel HTML layout contents to any request starting with a configured root path (`/admin` by default).
+Backend must return an admin panel HTML layout contents to any request starting with a configured root path (`/admin` by default) since the SPA is using the History API. Layout itself is included in a Webpack bundle.
 
 ## Supported API solutions
 
