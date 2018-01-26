@@ -10,7 +10,7 @@ All stuff you can edit, create, overview, delete and whatever else you want to d
 
 Refer to [Server API prerequisities section](server-api-prerequisities.md) for more information.
 
-### Entity pages
+## Entity pages
 
 Each entity section consists of these pages:
 * **Entity index** page shows a table with entity items. Each column represents a specified entity field. Supported features are: entity item deleting, bulk deleting, inline field editing, different display formats, filters, ordering. You can customize entity index page by extending default component from `src/pages/entities/_generic/index.vue` in `src/pages/entities/**entity-name**/index.[vue|js]`.
