@@ -7,6 +7,7 @@
 * [Configuration](configuration.md)
   * [Webpack](configuration.md#webpack)
 * [Entities](entities.md)
+* [HTTP requests](http-requests.md)
 * [Fields](fields.md)
   * [Available field types](fields.md#available-field-types)
 * [Modals](modals.md)
@@ -17,5 +18,4 @@
   * [Custom pages](customization/custom-pages.md)
   * [Extending entity pages](customization/extending-entity-pages.md)
   * [Global style variables](customization/global-style-variables.md)
-* [Placeholders](placeholders.md)
 
