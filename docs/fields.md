@@ -1,6 +1,6 @@
 # Fields
 
-Field types available out-of-the-box are described here. See [custom field types section](customization/custom-field-types.md) if you want to add a custom type.
+Fields are interactive Vue components accepting a `value` prop as their provided value and emitting `input` event each time user changes something.
 
 ## Field component
 
@@ -8,9 +8,15 @@ Field types available out-of-the-box are described here. See [custom field types
 
 Field component is a [proxy component](https://vuejs.org/v2/api/#v-bind) which passes all its props down to a specified field type component and also displays field title, supports error field state and displays error messages.
 
-Usage: `<field type="String" errors="null|String|Array<String>" title="null|String"></field>`.
+Usage: `<field type="String" errors="null|String|Array<String>" title="null|String" v-model="value"></field>`.
 
 ## Available field types
+
+Field types available out-of-the-box are described here. See [custom field types section](customization/custom-field-types.md) if you want to add a custom type.
+
+All field types should support the following props:
+* `disabled` - disables user interaction
+* `value` - guess what
 
 ### checkbox
 
@@ -20,7 +26,6 @@ Just checkbox :)
 
 Supported props:
 * `label`, `placeholder`, `title` - any of these props sets a checkbox label
-* `disabled`
 
 `v-model` should be a boolean value.
 
@@ -32,7 +37,6 @@ Color picker, just an input with `type="color"` so appearence depends on browser
 
 Supported props:
 * `placeholder`
-* `disabled`
 * `required` - disables checkbox and always show a color picker so you can not set value to `null`
 
 `v-model` will always have a format of a 3 or 6-digit hex color code `000000` **without** leading `#` or `null` (if `disabled` is not set or set to `false`)
@@ -45,7 +49,6 @@ Date picker, just an input with `type="date"` so appearence depends on browser.
 
 Supported props:
 * `placeholder`
-* `disabled`
 
 `v-model` format is a date string `YYYY-MM-DD` or `null` if input is empty. Initial value can be set to `'now'` so it will be immediately updated to a current date.
 
@@ -57,7 +60,6 @@ Date and picker. Contains 2 inputs with types `date` and `time` respectively. In
 
 Supported props:
 * `placeholder`
-* `disabled`
 
 `v-model` format is a datetime string `YYYY-MM-DD HH:MM:SS` or `null` if inputs are empty. Initial value can be set to `'now'` so it will be immediately updated to a current datetime.
 
@@ -69,7 +71,6 @@ File upload input.
 
 Supported props:
 * `placeholder` - `chooseFile` translation message entry by default ('Choose file' for `en`)
-* `disabled`
 * `accept` - sets file input's `accept` attribute
 
 `v-model` accepts 3 types of values:
@@ -83,9 +84,6 @@ Supported props:
 
 Image gallery editor with drag-n-drop ordering.
 
-Supported props:
-* `disabled`
-
 `v-model` is an array of string values representing image file names. Image preview path will be prepended with `imagePath` acquired from server API with meta-data.
 
 **IMPORTANT**
@@ -98,7 +96,6 @@ This field requires additional server API method `POST {basePath}/gallery` to ac
 Geographical coordinates field with Google Maps widget.
 
 Supported props:
-* `disabled`
 * `zoom` - default Google Maps zoom value (`1` by default); used only if value is set to `null`, otherwise `value.zoom` is used
 * `center` - default center coordinates array `[lat, lng]` (`[0, 0]` by default); used only if value is set to `null`, otherwise `value.point` is used
 * `height` - Google map height, string value with units (`'20em'`) or number representing value in pixels (`400` by default)
@@ -116,7 +113,6 @@ Image upload input.
 
 Supported props:
 * `placeholder` - `chooseImage` translation message entry by default ('Choose image' for `en`)
-* `disabled`
 
 `v-model` accepts 3 types of values:
 * string value - interpreted as an uploaded file name, image preview path will be prepended with `imagePath` acquired from server API with meta-data
@@ -130,7 +126,6 @@ Supported props:
 Key-value pairs usually used to represent meta/OpenGraph/etc. tags values. Widget is a 2-column table where first column contains keys and second contains text inputs.
 
 Supported props:
-* `disabled`
 * `keys` - keys array (`['title', 'description', 'keywords']` by default)
 
 `v-model` object with fields from `props.keys` or `null`. This object contains only non-empty text values. Value is set to `null` if no text provided.
@@ -143,7 +138,6 @@ Integer value input. Filters any non-numeric letters while typing.
 
 Supported props:
 * `placeholder`
-* `disabled`
 * `min` and `max` - minimum and maximum allowed values (`-Infinity` and `Infinity` by default)
 
 ### password
@@ -154,7 +148,6 @@ Just a password input, nothing special.
 
 Supported props:
 * `placeholder`
-* `disabled`
 
 ### radio-select
 
@@ -163,7 +156,6 @@ Supported props:
 List of radio buttons.
 
 Supported props:
-* `disabled`
 * `options` - available options; supported argument types: array of strings, array of objects or key-value pairs object; **required**
     * `labelField` - option item object field used as a label (`label`, `title` and `name` will be tried by default)
     * `valueField` - option item object field used as a value (`id` and `value` will be tried by default)
@@ -178,7 +170,6 @@ A complex field type which can be used to attach, detach and create new related 
 
 Supported props:
 * `placeholder`
-* `disabled`
 * `required` - disallow value removing, works only in single-value mode (not `multiple`)
 * `multiple` - accept array of values
 * `name` or `entity` - related entity name, **required**
@@ -201,7 +192,6 @@ Select field.
 
 Supported props:
 * `placeholder`
-* `disabled`
 * `required` - disallow value removing, works only in single-value mode (not `multiple`)
 * `multiple` - accept array of values
 * `options` - available options; supported argument types: array of strings, array of objects or key-value pairs object; **required**
@@ -220,7 +210,6 @@ Supported props:
 
 Supported props:
 * `placeholder`
-* `disabled`
 
 `v-model` is a string or `null` for empty string input value.
 
@@ -232,7 +221,6 @@ Supported props:
 
 Supported props:
 * `placeholder`
-* `disabled`
 
 `v-model` is a string or `null` for empty string input value.
 
@@ -244,7 +232,6 @@ Time picker, just an input with `type="time"` so appearence depends on browser.
 
 Supported props:
 * `placeholder`
-* `disabled`
 
 `v-model` format is a time string `HH:MM` or `null` if input is empty.
 
@@ -253,9 +240,6 @@ Supported props:
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/worktime.vue)
 
 Time interval field.
-
-Supported props:
-* `disabled`
 
 `v-model` format is an array of 2 time strings `HH:MM` or `null` if one of inputs is empty.
 
@@ -266,7 +250,6 @@ Supported props:
 [CKEditor](https://ckeditor.com/) 4 WYSIWYG field.
 
 Supported props:
-* `disabled`
 * `debounce` - CKEditor->value update debounce timeout in ms (`100` by default)
 
 `v-model` is a string or `null` for empty string value.
