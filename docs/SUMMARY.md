@@ -11,7 +11,7 @@
 * [Fields](fields.md)
   * [Available field types](fields.md#available-field-types)
 * [Modals](modals.md)
-  * [Available modal windows](modalss.md#available-modal-windows)
+  * [Available modal windows](modals.md#available-modal-windows)
 * [Customization](customization/README.md)
   * [Custom field types](customization/custom-fields.md)
   * [Custom modal windows](customization/custom-modal-windows.md)
