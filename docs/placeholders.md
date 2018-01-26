@@ -1,6 +1,6 @@
-You probably do not want to read this section unless you get there by reference from some other section or you just know what you want :)
-
 # Placeholders
+
+*You probably do not want to read this section unless you get there by reference from some other section or you just know what you want :)*
 
 There are some places where you can use a string templates with placeholders.
 
