@@ -6,22 +6,22 @@ Just import original module from `vue-admin-front/src` if you want to extend its
 
 Package structure:
 
-* `config.default.js` - default configuration file (see [configuration](configuration.md) section for more information)
-* `webpack.config.js` - Webpack configuration file (use `webpackConfigModifier` configuration option in [default configuration file](https://github.com/mrTimofey/vue-admin/blob/master/config.default.js) to extend dafult Wepback config)
+* `config.default.js` - default configuration file (see [configuration](/configuration.md) section for more information)
+* `webpack.config.js` - Webpack configuration file (use `webpackConfigModifier` configuration option in [default configuration file](https://github.com/mrTimofey/vue-admin/blob/master/config.default.js) to extend dafault Wepback config)
 * `index.js` - dev server entry, exports Express application instance to a `module.exports`
 * `src` - admin panel sources
     * `components` - all reusable components should be here
         * `entity` - components exposed within all entity page components as `Entity{FileName}`
-        * `fields` - fields, usable as a `Field` component with a type prop set to field component file name (`<field type="field-name"></field>`)
-        * `modals` - modal components, can be used from any component `this.$modal.open('modal-name', props)`, `this.$modal.close()`
+        * `fields` - fields, usable as a `Field` component with `type` prop set to a field component file name (`<field type="field-name"></field>`)
+        * `modals` - modal components, can be used within any component as `this.$modal.open('modal-name', props)`, `this.$modal.close()`
         * `shared` - components registered globally via `Vue.component('file-name', component)`
-        * `sidebar-menu.vue` and `sidebar-menu-item.vue` - sidebar main navigation (better do not touch it :) this components strongly depend on configuration fetched from a server API and they are not designed to be customized by any other way)
+        * `sidebar-menu.vue` and `sidebar-menu-item.vue` - sidebar main navigation (better do not touch it :) these components strongly depend on configuration fetched from a server API and they are not designed to be customized by any other way)
     * `filters` - Vue.js filters, registered globally via `Vue.filter('file-name', filter)`
     * `directives` - Vue.js directives, registered globally via `Vue.directive('file-name', directive)`
     * `lang` - translations, files named `{lang}.js` (`en` and `ru` are supported by default, see [vue-i18n](https://github.com/kazupon/vue-i18n) for more information)
     * `pages` - route components, each file here will be pointed to the corresponding route same as its file name (excluding files and folders starting with undescore `_`)
         * `entities` - entity pages, create folder to extend or replace default pages
-            * `_generic` - default entity page components (mind `_` - these routes are registered explicitly in `router.js`; you can copy this folder with a name of your entity to fully replace default pages with custom ones)
+            * `_generic` - default entity page components (mind the underscore `_` - this folder's routes are registered explicitly in `router.js`; you can copy this folder with a name of your entity to fully replace default pages with custom ones)
                 * `index.vue` - entity list
                 * `item.vue` - entity create/edit form
                 * `bulk-update.vue` - entity bulk update
@@ -29,13 +29,13 @@ Package structure:
     * `entry.js` - application entry file
     * `http.js` - http service ([Axios](https://github.com/axios/axios))
     * `i18n.js` - translation plugin config ([vue-i18n](https://github.com/kazupon/vue-i18n))
-    * `router.js` - vue-router config
-    * `store.js` - vuex config
+    * `router.js` - [vue-router](https://github.com/vuejs/vue-router) config
+    * `store.js` - [vuex](https://github.com/vuejs/vuex) store config
     * `shared.styl` - shared stylus variables
     * `layout.pug` - application layout template
     * `ckeditor-config.js` - CKEditor configuration
 
-Use cases and examples:
+## Use cases and examples
 
 * Add some HTTP headers to a standard `http.js`:
     ```javascript

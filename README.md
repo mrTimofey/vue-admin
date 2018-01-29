@@ -1,5 +1,7 @@
 Administrative interface frontend built with Webpack and Vue.js.
 
+[Docs](https://mr-timofey.gitbooks.io/vue-admin)
+
 ## Install
 
 ```bash

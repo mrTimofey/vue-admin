@@ -1,6 +1,6 @@
 # Quick start
 
-1. Install:
+1. Install the package:
     
     ```bash
     npm i -S vue-admin-front cross-env rimraf
@@ -17,11 +17,12 @@
     }
     ```
 
-3. Replace `admin:dev`'s `rimraf public/admin-dist` part if you use different build destination.
+    \**Replace `admin:dev`'s `rimraf public/admin-dist` part if you use different build destination.*
+    \**Replace `admin:build`'s `node_modules/vue-admin-front/webpack.config.js` if you have an extended version of a Webpack config.*
 
-4. Replace `admin:build`'s `node_modules/vue-admin-front/webpack.config.js` if you have an extended version of a Webpack config.
+3. [Configure](configuration.md).
 
-5. [Configure](configuration.md).
-
-6. Run `npm run admin:dev` to start dev server listening on port 8080 (by default).
+4. Run `npm run admin:dev` to start dev server listening on port 8080 (by default).
 Run `npm run admin:build` to create a static bundle in `public/admin-dist` folder (by default).
+
+5. Install and configure one of the [supported server API solutions or make your own one](server-api-prerequisities.md).

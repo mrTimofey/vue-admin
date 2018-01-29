@@ -24,10 +24,6 @@
 			disabled: {
 				type: Boolean,
 				default: false
-			},
-			staggerSearch: {
-				type: Number,
-				default: 300
 			}
 		},
 		data: () => ({
