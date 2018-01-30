@@ -123,6 +123,9 @@
 					transform rotate(45deg)
 				&:after
 					transform rotate(-45deg)
+	.field.v-select.required
+		.clear
+			display none
 	.field.v-select.unsearchable
 		input
 			width 0 !important

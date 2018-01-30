@@ -205,6 +205,6 @@
 						'@destroy'="destroy"
 						'@bulk-destroy'="bulkDestroy"
 						'@update'="updateItem")
-					.well.well-sm(v-else style="margin-bottom:0") {{ $t('nothingFound') }}
+					.well.well-sm(v-else, style="margin-bottom:0") {{ $t('nothingFound') }}
 					pager(':page'="page" '@input'="updatePage" ':last-page'="lastPage" ':loading'="loading")
 </template>
