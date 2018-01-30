@@ -1,5 +1,4 @@
 select field valueField prop full support
-entity-table bulk actions - clear selection only after confirmation
 wysiwyg - migrate to CKEditor 5
 bulk update
 dependent fields

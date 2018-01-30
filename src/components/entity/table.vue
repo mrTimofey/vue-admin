@@ -52,6 +52,11 @@
 				}
 			}
 		},
+		watch: {
+			items() {
+				this.selection = [];
+			}
+		},
 		methods: {
 			makeField(definition) {
 				if (typeof definition === 'string') definition = {
@@ -111,7 +116,6 @@
 			},
 			emitBulkAction(name) {
 				this.$emit('bulk-' + name, this.selection);
-				this.selection = [];
 			}
 		}
 	};
