@@ -108,6 +108,8 @@
 			&:before
 				size 8px
 				border-width 2px 2px 0 0
+		.clear
+			bottom 6px
 	.field.v-select:not(.required)
 		.dropdown-menu
 			.active

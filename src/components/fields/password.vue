@@ -9,6 +9,10 @@
 			disabled: {
 				type: Boolean,
 				default: false
+			},
+			autocomplete: {
+				type: Boolean,
+				default: false
 			}
 		},
 		methods: {
@@ -17,7 +21,7 @@
 	};
 </script>
 <template lang="pug">
-	input.form-control(type="password"
+	input.form-control(type="password" ':autocomplete'="autocomplete ? 'on' : 'new-password'"
 		':value'="value"
 		'@input'="emitValue"
 		':placeholder'="placeholder"
