@@ -163,7 +163,7 @@
 </script>
 <template lang="pug">
 	field-select(v-if="options"
-		':requried'="required"
+		':required'="required"
 		':disabled'="disabled || creating"
 		':placeholder'="placeholder"
 		':multiple'="multiple"
