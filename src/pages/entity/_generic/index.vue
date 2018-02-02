@@ -68,14 +68,17 @@
 			},
 			title() {
 				return this.meta && this.meta.title || this.$t('elementList');
+			},
+			primaryKey() {
+				return this.meta && this.meta.primary || 'id';
 			}
 		},
 		methods: {
 			destroyApiPath(item) {
-				return this.apiPath + '/' + item.id;
+				return this.apiPath + '/' + item[this.primaryKey];
 			},
 			updateApiPath(item) {
-				return this.apiPath + '/' + item.id + '/fast';
+				return this.apiPath + '/' + item[this.primaryKey] + '/fast';
 			},
 			update() {
 				this.error = null;
@@ -151,8 +154,8 @@
 				if (value instanceof File || value instanceof FileList)
 					data = asFormData(data);
 				if (!this.itemUpdateTimeout) this.itemUpdateTimeout = {};
-				clearTimeout(this.itemUpdateTimeout[item.id]);
-				this.itemUpdateTimeout[item.id] = setTimeout(() => {
+				clearTimeout(this.itemUpdateTimeout[item[this.primaryKey]]);
+				this.itemUpdateTimeout[item[this.primaryKey]] = setTimeout(() => {
 					http.post(this.updateApiPath(item), data)
 						.then(res => {
 							item[field] = res.data[field];
@@ -201,6 +204,7 @@
 						':items'="items"
 						':fields'="meta.index_fields"
 						':permissions'="meta.permissions"
+						':primaryKey'="primaryKey"
 						':entity'="entity"
 						'@destroy'="destroy"
 						'@bulk-destroy'="bulkDestroy"

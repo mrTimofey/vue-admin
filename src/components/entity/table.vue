@@ -14,6 +14,10 @@
 			entity: {
 				type: String,
 				required: true
+			},
+			primaryKey: {
+				type: String,
+				default: 'id'
 			}
 		},
 		data: () => ({
@@ -48,7 +52,7 @@
 					return this.selection.length === this.items.length;
 				},
 				set(v) {
-					this.selection = v ? this.items.map(item => item.id) : [];
+					this.selection = v ? this.items.map(item => item[this.primaryKey]) : [];
 				}
 			}
 		},
@@ -109,7 +113,7 @@
 				return !this.permissions || this.permissions[action] !== false;
 			},
 			itemKey(item, i) {
-				return this.entity + '-item-' + (item.id || i);
+				return this.entity + '-item-' + (item[this.primaryKey] || i);
 			},
 			fieldKey(item, i, field) {
 				return this.itemKey(item, i) + '-' + field.name.split('_').join('-');
@@ -134,11 +138,11 @@
 				small.sort-num(v-if="field.sort && field.sort.index !== null") {{ field.sort.index + 1 }}
 			th.table-item-actions(v-if="showActions")
 		tbody: tr(v-for="(item, i) in items"
-			':class'="{ selected: selection.indexOf(item.id) > -1 }"
+			':class'="{ selected: selection.indexOf(item[primaryKey]) > -1 }"
 			':key'="itemKey(item, i)"
 			':id'="itemKey(item, i)")
 			td.item-bulk-cell(v-if="bulk"): label.styled-checkbox
-				input(type="checkbox" ':value'="item.id" v-model="selection")
+				input(type="checkbox" ':value'="item[primaryKey]" v-model="selection")
 				.styled-checkbox-indicator
 			td(v-for="field in columns"
 				':class'="'item-cell-' + field.name.split('_').join('-')"
@@ -153,7 +157,7 @@
 					display(v-else ':value'="item[field.name]" v-bind="field")
 			td.table-item-actions(v-if="showActions")
 				.btn-group.btn-group-xs
-					router-link.btn.btn-primary(v-if="permitted('update')" ':to'="path + '/item/' + item.id")
+					router-link.btn.btn-primary(v-if="permitted('update')" ':to'="path + '/item/' + item[primaryKey]")
 						i.fa.fa-pencil
 					.btn.btn-danger(v-if="permitted('destroy')" '@click'="$emit('destroy', item)")
 						i.fa.fa-trash
