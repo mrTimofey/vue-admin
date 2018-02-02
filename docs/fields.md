@@ -18,6 +18,21 @@ All field types should support the following props:
 * `disabled` - disables user interaction
 * `value` - guess what
 
+### array
+
+[Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/array.vue)
+
+Array of whatever you want. Allows to add new values and remove existing ones.
+
+Supported props:
+* `itemProps` - array item field props (`{ type: 'text' }` by default)
+* `itemDefault` - new item default value
+* `length` - fixed array length
+* `min` - minimum array length
+* `max` - maximum array length
+
+`v-model` can be `Array` or `null`
+
 ### checkbox
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/checkbox.vue)
@@ -174,8 +189,8 @@ Supported props:
 * `multiple` - accept array of values
 * `name` or `entity` - related entity name, **required**
 * `display` - label template (see [placeholders section](placeholders.md)) or a function returning label string from an item object passed as argument (`item => (item.title || item.name || item.label) + ' [' + item.id + ']'` by default)
-* `valueField` - entity item object field name used as a value (`id` by default) or a function returning this value `item:Object => Any`
-* `limit` - limit values count, works only in multiple-values mode
+* `valueField` - entity item object field name used as a value (primary key by default)
+* `limit` - limit entity items count fetched from API
 * `allowCreate` - allow inline creating new related entity items from a single string value (can be allowed when there is no exact search result)
     * `createField` - field name which will take a provided string value (`name` by default)
     * `createDefaults` - other fields values
@@ -201,6 +216,21 @@ Supported props:
     * `onSearch` - provide a function `query:String => Promise` which will be used instead of a simple substring search; modifies options and returns a Promise instance resolved once search results are ready to use (resolve a promise even if any errors occured, use [modals](modals.md) to show errors and interact with user)
     * `searchDebounce` - debounce timeout in ms, used only if `onSearch` is provided (`300` by default)
 * `onCreate` - inline creating callback, function `text:String => Promise`; modifies options and value, returns Promise instance resolved once creating is done (resolve a promise even if any errors occured, use [modals](modals.md) to show errors and interact with user)
+
+`v-model` can be `null`, any simple type for single value or `Array` of simple values for multiple mode.
+
+### subform
+
+[Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/subform.vue)
+
+Group of fields representing single `Object` value with object fields assigned to their field types.
+
+Supported props:
+* `fields` - object of `{ [subfield name]: { ...[subfield props], inlineSize: 1 } }`;
+	each field can contain `inlineSize` property with field width share in inline mode
+* `inline` - show fields inline after each other
+
+`v-model` can be `null` or `Object`.
 
 ### text
 

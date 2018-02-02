@@ -209,99 +209,13 @@ components:
         type:
           type: string
           description: field type
-          default: string
+          default: text
         title:
           type: string
           description: human readable field title
         disabled:
           type: boolean
           description: disable editing
-        multiple:
-          type: boolean
-          description: multiple-value field (if supported)
-        placeholder:
-          type: string
-          description: input placeholder (if supported)
-        label:
-          type: string
-          description: field label (if supported)
-        entity:
-          type: string
-          description: referenced entity type (if supported)
-        display:
-          type: string
-          description: reference entity display title (if supported, placeholders can be used)
-        limit:
-          type: string
-          description: values count limit (if supported)
-        valueField:
-          type: string
-          description: field name used as a value for selected items (if supported)
-        labelField:
-          type: string
-          description: field name used as a title for selected items (if supported)
-        allowCreate:
-          type: string
-          description: allowed inline creating of referenced entity items (if supported)
-        createField:
-          type: string
-          description: fill this field from textbox when creating new referenced entity inline (if supported)
-          default: 'name'
-        createDefaults:
-          type: object
-          description: predefined field values used to create new referenced entity inline (if supported)
-          additionalProperties: true
-        searchable:
-          type: boolean
-          description: allow values searching in select or select-like field (if supported)
-        debounce:
-          type: integer
-          description: value update debounce time in ms (if supported)
-        required:
-          type: boolean
-          description: disable null value (if supported)
-        accept:
-          type: string
-          description: allowed file mime types (if supported)
-        keys:
-          type: array
-          description: allowed object keys (if supported)
-          items:
-            type: string
-        min:
-          type: number
-          description: mininum allowed value (if supported)
-        max:
-          type: number
-          description: maximum allowed value (if supported)
-        options:
-          description: options for select or select-like fields (if supported)
-          oneOf:
-            - type: object
-              additionalProperties:
-                type: string
-                description: value-title pairs
-            - type: array
-              items:
-                oneOf:
-                  - type: object
-                    description: any of [title, name, label] as option title and [value, id] as option value
-                    properties:
-                      title:
-                        type: string
-                        description: option title
-                      name:
-                        type: string
-                        description: option title
-                      label:
-                        type: string
-                        description: option title
-                      value:
-                        description: option value
-                      id:
-                        description: option value
-                  - type: string
-                    description: when value is same as title
       additionalProperties:
         description: anything else depending on a field type
       required: [name]
@@ -313,6 +227,10 @@ components:
           type: string
           description: entity name
           example: 'Posts'
+        primary:
+          type: string
+          description: entity primary key name
+          default: 'id'
         create_title:
           type: string
           description: new item form title
@@ -320,7 +238,7 @@ components:
         item_title:
           type: string
           description: item edit form title (placeholders can be used)
-          default: '{title} [{id}]'
+          default: '{{ title }} [{{ primary key }}]'
           example: 'How to make a bomb [123]'
         permissions:
           type: object

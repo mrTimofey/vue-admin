@@ -24,16 +24,8 @@
 			entity: String,
 			name: String,
 			placeholder: String,
-			display: {
-				type: [String, Function],
-				default: () => function(item) {
-					return (item.title || item.name || item.label) + ' [' + item.id + ']';
-				}
-			},
-			valueField: {
-				type: [String, Function],
-				default: 'id'
-			},
+			display: [String, Function],
+			valueField: String,
 			limit: {
 				type: Number,
 				default: 25
@@ -56,14 +48,23 @@
 			creating: false
 		}),
 		computed: {
+			entityName() {
+				return this.entity || this.name;
+			},
+			entityPrimaryKey() {
+				return this.$store.getters.metaData.entities[this.entityName] &&
+					this.$store.getters.metaData.entities[this.entityName].primary || 'id';
+			},
+			valueKey() {
+				return this.valueField || this.entityPrimaryKey;
+			},
 			options() {
-				if (this.items) return this.items.map(item => {
-					const label = typeof this.display === 'string' ?
-						parsePlaceholders(this.display, item) : this.display(item);
-					const value = typeof this.valueField === 'string' ?
-						item[this.valueField] : this.valueField(item);
-					return { label, value };
-				});
+				if (this.items) return this.items.map(item => ({
+					value: item[this.valueKey],
+					label: this.display &&
+						(typeof this.display === 'string' ? parsePlaceholders(this.display, item) : this.display(item)) ||
+						`${(item.title || item.name || item.label)} [${item[this.valueKey]}]`
+				}));
 				if (this.value && this.value.length) return this.value.map(value => ({
 					label: '...',
 					value
@@ -71,7 +72,7 @@
 				return null;
 			},
 			apiPath() {
-				return 'entity/' + (this.entity || this.name);
+				return 'entity/' + this.entityName;
 			},
 			promiseKey() {
 				return this.apiPath + '?' + this.limit;
@@ -109,7 +110,7 @@
 					ids.length ?
 						http.get(this.apiPath, { params: {
 							limit: Array.isArray(this.value) ? this.value.length : 1,
-							filters: { id: ids }
+							filters: { [this.valueKey]: ids }
 						} })
 							.then(res => res.data.items)
 							.catch(() => ([])) :
@@ -119,7 +120,7 @@
 				]).then(results => {
 					this.items = results[0].concat(results[1].filter(
 						item => {
-							return results[0].findIndex(_item => item.id === _item.id) === -1;
+							return results[0].findIndex(_item => item[this.valueKey] === _item[this.valueKey]) === -1;
 						}
 					));
 				});
@@ -132,10 +133,10 @@
 						let value;
 						if (this.multiple) {
 							value = this.value ? [...this.value] : [];
-							value.push(res.data.id);
+							value.push(res.data[this.valueKey]);
 						}
 						else {
-							value = res.data.id;
+							value = res.data[this.valueKey];
 						}
 						this.$nextTick(() => {
 							this.$emit('input', value);

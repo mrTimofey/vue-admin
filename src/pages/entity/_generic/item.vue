@@ -74,8 +74,8 @@
 				this.item = item;
 				this.initialState = JSON.parse(JSON.stringify(item));
 			},
-			itemPathFor(id) {
-				return this.basePath + '/item/' + id;
+			itemPathFor(item) {
+				return this.basePath + '/item/' + item[this.meta && this.meta.primary || 'id'];
 			},
 			clearErrors() {
 				this.error = '';
@@ -155,7 +155,7 @@
 			},
 			save() {
 				this.submit(() => {
-					this.$router.replace(this.itemPathFor(this.item.id));
+					this.$router.replace(this.itemPathFor(this.item));
 					this.$modal.open('success', { text: this.$t('savedMessage') }, 'sm');
 				});
 			},
