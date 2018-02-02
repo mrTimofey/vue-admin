@@ -18,9 +18,7 @@
 		methods: {
 			updateItem(k, v) {
 				if (this.disabled) return;
-				const value = this.value ? { ...this.value } : {};
-				value[k] = v;
-				this.$emit('input', value);
+				this.$emit('input', this.value ? { ...this.value, [k]: v } : { [k]: v });
 			}
 		}
 	};
@@ -30,7 +28,7 @@
 		field(v-for="(field, k) in fields" ':key'="k"
 			v-bind="field"
 			':style'="{ flexGrow: field.inlineSize || 1 }"
-			':value'="value && value[k] || null"
+			':value'="value && value[k] !== undefined ? value[k] : null"
 			':disabled'="disabled"
 			'@input'="updateItem(k, $event)")
 </template>
