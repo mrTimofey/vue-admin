@@ -1,7 +1,7 @@
 <script>
 	import http from 'src/http';
 	import { parsePlaceholders, httpErrorModalData } from 'src/utils';
-	import FieldSelect from './select.vue';
+	import FieldSelect from 'src/components/fields/select.vue';
 
 	const fetchPromisePool = {};
 
@@ -41,7 +41,8 @@
 			createDefaults: {
 				type: Object,
 				default: () => ({})
-			}
+			},
+			queryParams: Object
 		},
 		data: () => ({
 			items: null,
@@ -75,7 +76,7 @@
 				return 'entity/' + this.entityName;
 			},
 			promiseKey() {
-				return this.apiPath + '?' + this.limit;
+				return this.apiPath + '?' + this.limit + '&' + JSON.stringify(this.queryParams);
 			}
 		},
 		methods: {
@@ -91,6 +92,7 @@
 
 				if (search) {
 					fetch = http.get(this.apiPath, { params: {
+						...this.queryParams,
 						search,
 						limit: this.limit
 					} })
@@ -100,7 +102,10 @@
 					if (fetchPromisePool[this.promiseKey]) fetch = fetchPromisePool[this.promiseKey];
 					else
 						fetchPromisePool[this.promiseKey] = fetch =
-							http.get(this.apiPath, { params: { limit: this.limit } })
+							http.get(this.apiPath, { params: {
+								...this.queryParams,
+								limit: this.limit
+							} })
 								.then(res => res.data.items)
 								.catch(() => ([]));
 				}

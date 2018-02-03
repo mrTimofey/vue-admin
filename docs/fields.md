@@ -195,6 +195,7 @@ Supported props:
 * `allowCreate` - allow inline creating new related entity items from a single string value (can be allowed when there is no exact search result)
     * `createField` - field name which will take a provided string value (`name` by default)
     * `createDefaults` - other fields values
+* `queryParams` - custom entity API query parameters
 
 `v-model` is set to:
 * Single-value mode: selected entity item's `valueField` value or `null` if there is no selected item.
