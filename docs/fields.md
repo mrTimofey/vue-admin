@@ -30,6 +30,7 @@ Supported props:
 * `length` - fixed array length
 * `min` - minimum array length
 * `max` - maximum array length
+* `addLabel` - add button label
 
 `v-model` can be `Array` or `null`
 
