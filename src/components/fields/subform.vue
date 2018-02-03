@@ -36,7 +36,6 @@
 	.field-subform
 		&.subform-inline
 			display flex
-			align-items center
 			margin 0 -5px
 			justify-content stretch
 			> .form-group

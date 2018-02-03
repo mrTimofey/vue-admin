@@ -100,8 +100,23 @@
 <style lang="stylus">
 	.field.v-select
 		background white
+		.selected-tag
+			margin 3px 3px 0 0
+			padding 0 5px 0 8px
+			.close
+				margin-top 3px
+				vertical-align top
+				&:hover
+					color $c-danger
+					opacity 1
 		.dropdown-toggle
 			border-radius 0
+			padding 0 0 3px 3px
+			min-height 34px
+		.dropdown-menu
+			padding-top 2px
+			top 100%
+			margin-top -1px
 		.open-indicator
 			bottom 3px
 			right 6px
@@ -109,7 +124,20 @@
 				size 8px
 				border-width 2px 2px 0 0
 		.clear
-			bottom 6px
+			bottom 5px
+			right 25px
+			&:hover
+				color $c-danger
+				opacity 1
+		&:not(.open) input
+			position absolute
+			opacity 0
+			pointer-events none
+			left 0
+		input[type="search"], input[type="search"]:focus
+			height 32px
+			padding-left 9px
+			margin-bottom -3px
 	.field.v-select:not(.required)
 		.dropdown-menu
 			.active
@@ -128,6 +156,12 @@
 	.field.v-select.required
 		.clear
 			display none
+	.field.v-select.single
+		.selected-tag
+			padding 4px 0 0 9px
+			margin 0
+			border none
+			pointer-events none
 	.field.v-select.unsearchable
 		input
 			width 0 !important

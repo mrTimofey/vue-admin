@@ -22,7 +22,8 @@
 			max: {
 				type: Number,
 				default: Infinity
-			}
+			},
+			addLabel: String
 		},
 		data: () => ({
 			keys: null
@@ -89,7 +90,7 @@
 </script>
 <template lang="pug">
 	.field-array
-		table.table(v-if="keys"): tbody
+		table.table(v-if="keys && valueLength > 0"): tbody
 			tr(v-for="num in valueLength" ':key'="keys[num - 1]")
 				td.td-field
 					field(v-bind="itemProps"
@@ -98,7 +99,9 @@
 						'@input'="updateItem(num - 1, $event)")
 				td.td-actions(v-if="!length && valueLength > min")
 					.btn.btn-xs.btn-danger('@click'="removeItem(num - 1)" ':disabled'="disabled"): i.fa.fa-trash
-		.btn.btn-default(v-if="!length && valueLength < max" '@click'="addItem()" ':disabled'="disabled"): i.fa.fa-plus
+		.btn.btn-default(v-if="!length && valueLength < max" '@click'="addItem()" ':disabled'="disabled")
+			i.fa.fa-plus
+			!=' {{ addLabel }}'
 </template>
 <style lang="stylus">
 	.field-array
@@ -110,8 +113,11 @@
 			> .form-group:last-child
 				margin-bottom 0
 		.td-actions
-			vertical-align middle !important
 			text-align right
 			width 29px
-			padding 0
+			padding 14px 0 0 0
+		.field-array > .table
+			margin-top -8px
+		tr:first-child > td
+			border-top none
 </style>
