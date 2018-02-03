@@ -266,9 +266,9 @@ Supported props:
 
 `v-model` format is a time string `HH:MM` or `null` if input is empty.
 
-### worktime
+### time-interval
 
-[Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/worktime.vue)
+[Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/time-interval.vue)
 
 Time interval field.
 
