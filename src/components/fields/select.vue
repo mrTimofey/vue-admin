@@ -82,7 +82,7 @@
 	};
 </script>
 <template lang="pug">
-	vue-select(ref="vueSelect" ':class'="{ required }"
+	vue-select(ref="vueSelect" ':class'="{ required, empty: value === null || value === undefined }"
 		':value'="selectValue"
 		':on-change'="emitValue"
 		':multiple'="multiple"
@@ -129,7 +129,7 @@
 			&:hover
 				color $c-danger
 				opacity 1
-		&:not(.open) input
+		&:not(.open):not(.empty) input
 			position absolute
 			opacity 0
 			pointer-events none
@@ -162,7 +162,4 @@
 			margin 0
 			border none
 			pointer-events none
-	.field.v-select.unsearchable
-		input
-			width 0 !important
 </style>
