@@ -35,7 +35,7 @@
 				type: String,
 				default: 'text'
 			},
-			errors: [String, Array],
+			errors: [String, Array, Object],
 			title: String
 		},
 		data: () => ({
@@ -64,7 +64,7 @@
 		!=' '
 		component.field(':is'="'field-' + (aliases[type] || type)" v-bind="$props" '@input'="$emit('input', $event)")
 		!=' '
-		span.help-block(v-if="errors") {{ errorsText }}
+		span.help-block(v-if="errors && typeof errors !== 'object'") {{ errorsText }}
 </template>
 <style lang="stylus">
 	.field-title

@@ -132,6 +132,19 @@
 					}
 				});
 			},
+			formatFieldErrors(errors) {
+				const obj = {};
+				for (let path of Object.keys(errors)) {
+					const names = path.split('.');
+					let currentDepthObj = obj;
+					for (let i = 0; i < names.length - 1; ++i) {
+						currentDepthObj[names[i]] = currentDepthObj[names[i]] || {};
+						currentDepthObj = currentDepthObj[names[i]];
+					}
+					currentDepthObj[names[names.length - 1]] = errors[path];
+				}
+				return obj;
+			},
 			submit(cb) {
 				this.clearErrors();
 				this.loading = true;
@@ -143,7 +156,7 @@
 					})
 					.catch(err => {
 						if (err.response && err.response.status === 422)
-							this.fieldErrors = err.response.data.errors;
+							this.fieldErrors = this.formatFieldErrors(err.response.data.errors);
 						this.$modal.open('error', {
 							...httpErrorModalData(err),
 							title: this.$t('errors.saveElement')

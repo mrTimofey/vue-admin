@@ -162,4 +162,6 @@
 			margin 0
 			border none
 			pointer-events none
+	.has-error .field.v-select .dropdown-toggle
+		border-color $c-danger
 </style>
