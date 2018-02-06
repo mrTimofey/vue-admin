@@ -53,18 +53,21 @@
 		}),
 		computed: {
 			errorsText() {
-				return Array.isArray(this.errors) ? this.errors.join(', ') : this.errors;
+				if (!this.errors) return null;
+				if (Array.isArray(this.errors)) return this.errors.join(', ');
+				if (typeof this.errors === 'string') return this.errors;
+				return null;
 			}
 		}
 	};
 </script>
 <template lang="pug">
-	.form-group(':class'="{ 'has-error': errors }")
+	.form-group(':class'="{ 'has-error': errorsText !== null }")
 		.field-title(v-if="title" v-html="title" ':class'="{ 'text-danger': errors }")
 		!=' '
 		component.field(':is'="'field-' + (aliases[type] || type)" v-bind="$props" '@input'="$emit('input', $event)")
 		!=' '
-		span.help-block(v-if="errors && typeof errors !== 'object'") {{ errorsText }}
+		span.help-block(v-if="errorsText") {{ errorsText }}
 </template>
 <style lang="stylus">
 	.field-title
