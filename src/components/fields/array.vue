@@ -107,6 +107,8 @@
 </template>
 <style lang="stylus">
 	.field-array
+		.help-block
+			margin-bottom 0
 		.table
 			margin-bottom 5px
 		.td-field
