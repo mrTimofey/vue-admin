@@ -14,7 +14,6 @@
 				type: Boolean,
 				default: false
 			},
-			name: String,
 			errors: null
 		},
 		methods: {
@@ -32,7 +31,7 @@
 			':style'="{ flexGrow: field.inlineSize || 1 }"
 			':value'="value && value[k] !== undefined ? value[k] : null"
 			':disabled'="disabled"
-			':errors'="name && errors && errors[name]"
+			':errors'="name && errors && errors[k]"
 			'@input'="updateItem(k, $event)")
 </template>
 <style lang="stylus">

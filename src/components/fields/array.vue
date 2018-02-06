@@ -24,7 +24,6 @@
 				default: Infinity
 			},
 			addLabel: String,
-			name: String,
 			errors: null
 		},
 		data: () => ({
@@ -98,7 +97,7 @@
 					field(v-bind="itemProps"
 						':value'="value && value[num - 1] || null"
 						':disabled'="disabled"
-						':errors'="name && errors && errors[name]"
+						':errors'="name && errors && errors[num - 1]"
 						'@input'="updateItem(num - 1, $event)")
 				td.td-actions(v-if="!length && valueLength > min")
 					.btn.btn-xs.btn-danger('@click'="removeItem(num - 1)" ':disabled'="disabled"): i.fa.fa-trash
