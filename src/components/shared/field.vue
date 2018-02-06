@@ -41,9 +41,14 @@
 		data: () => ({
 			aliases: {
 				boolean: 'checkbox',
+				bool: 'checkbox',
 				string: 'text',
 				integer: 'number',
-				int: 'number'
+				int: 'number',
+				real: 'float',
+				double: 'float',
+				collection: 'array',
+				timestamp: 'datetime'
 			}
 		}),
 		computed: {
