@@ -129,6 +129,7 @@ Image upload input.
 
 Supported props:
 * `placeholder` - `chooseImage` translation message entry by default ('Choose image' for `en`)
+* `ajaxMode` - upload image just after choosing a file, `false` by default.
 
 `v-model` accepts 3 types of values:
 * string value - interpreted as an uploaded file name, image preview path will be prepended with `imagePath` acquired from server API with meta-data

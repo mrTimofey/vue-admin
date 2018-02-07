@@ -1,5 +1,7 @@
 <script>
 	import { mapGetters } from 'vuex';
+	import http from 'src/http';
+	import { httpErrorModalData } from 'src/utils';
 	import BaseFileField from './file.vue';
 
 	export default {
@@ -10,15 +12,40 @@
 			disabled: {
 				type: Boolean,
 				default: false
+			},
+			ajaxMode: {
+				type: Boolean,
+				default: false
 			}
 		},
 		data: () => ({
-			src: null
+			src: null,
+			uploading: false
 		}),
 		computed: {
 			...mapGetters(['imagePath']),
 			fileValue() {
 				return typeof this.value === 'string' ? (this.imagePath + '/' + this.value) : this.value;
+			}
+		},
+		methods: {
+			emitValue(v) {
+				if (this.ajaxMode) {
+					this.uploading = true;
+					const data = new FormData();
+					data.append('images[]', v);
+					http.post('gallery', data)
+						.then(res => {
+							this.$emit('input', res.data[0]);
+						})
+						.catch(err => {
+							this.$modal.open('error', httpErrorModalData(err));
+						})
+						.then(() => {
+							this.uploading = false;
+						});
+				}
+				else this.$emit('input', v);
 			}
 		},
 		watch: {
@@ -46,7 +73,7 @@
 <template lang="pug">
 	.field-image
 		.field-image-preview.img-thumbnail(v-if="src"): img(':src'="src")
-		base-file-field(accept="image/*" ':placeholder'="placeholder || $t('chooseImage')" ':disabled'="disabled" ':value'="fileValue" '@input'="$emit('input', $event)")
+		base-file-field(accept="image/*" ':placeholder'="placeholder || $t('chooseImage')" ':disabled'="disabled || uploading" ':value'="fileValue" '@input'="emitValue($event)")
 </template>
 <style lang="stylus">
 	.field-image-preview
