@@ -180,6 +180,20 @@ export function httpErrorModalData(err) {
 	return { text, jsonData };
 }
 
+export function formatFieldErrors(errors) {
+	const obj = {};
+	for (let path of Object.keys(errors)) {
+		const names = path.split('.');
+		let currentDepthObj = obj;
+		for (let i = 0; i < names.length - 1; ++i) {
+			currentDepthObj[names[i]] = currentDepthObj[names[i]] || {};
+			currentDepthObj = currentDepthObj[names[i]];
+		}
+		currentDepthObj[names[names.length - 1]] = errors[path];
+	}
+	return obj;
+}
+
 export function initGoogleMaps() {
 	if (!googleMapsApiKey) return Promise.reject({ noApiKey: true });
 	return loadScript(`https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&libraries=places`);
