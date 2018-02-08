@@ -113,6 +113,12 @@
 			border-radius 0
 			padding 0 0 3px 3px
 			min-height 34px
+			.clear
+				bottom 5px
+				right 25px
+				&:hover
+					color $c-danger
+					opacity 1
 		.dropdown-menu
 			padding-top 2px
 			top 100%
@@ -123,12 +129,6 @@
 			&:before
 				size 8px
 				border-width 2px 2px 0 0
-		.clear
-			bottom 5px
-			right 25px
-			&:hover
-				color $c-danger
-				opacity 1
 		&:not(.open):not(.empty) input
 			position absolute
 			opacity 0
