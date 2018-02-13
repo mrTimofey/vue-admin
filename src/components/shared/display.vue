@@ -11,6 +11,7 @@
 	field.readonly(v-else-if!="props.type === 'bool' || props.type === 'boolean'" type="checkbox" disabled ':value'="props.value")
 	span(v-else-if!="props.type === 'datetime'") {{ props.value | readableDatetime }}
 	span(v-else-if!="props.type === 'date'") {{ props.value | readableDate }}
+	pre(v-else-if!="props.type === 'json'") {{ props.value | json }}
 	span(v-else-if!="props.type === 'array'")
 		div(v-if="props.value && props.value.length" v-for="(item, i) in props.value"): display(':value'="item" type="props.itemType")
 	span(v-else-if="props.type === 'file'")
