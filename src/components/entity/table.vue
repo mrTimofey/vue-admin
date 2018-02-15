@@ -28,8 +28,8 @@
 				return '/entity/' + this.entity;
 			},
 			columns() {
-				if (this.fields) return this.fields.map(this.makeField);
-				return Object.keys(this.items[0]).map(this.makeField);
+				if (this.fields) return this.fields.filter(field => field.type !== 'hidden').map(this.makeField);
+				return this.items[0] && Object.keys(this.items[0]).map(this.makeField);
 			},
 			sorted() {
 				const sort = [];

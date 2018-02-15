@@ -59,7 +59,7 @@
 				return this.apiPath + '/' + this.id;
 			},
 			fields() {
-				return this.meta.item_fields;
+				return this.meta.item_fields.filter(field => field.type !== 'hidden');
 			},
 			hasErrors() {
 				return this.error || Object.keys(this.fieldErrors).length;
