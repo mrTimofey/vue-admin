@@ -19,7 +19,9 @@
 			loading: {
 				type: Boolean,
 				default: false
-			}
+			},
+			total: Number,
+			limit: Number
 		},
 		model: {
 			prop: 'page',
@@ -66,45 +68,58 @@
 	};
 </script>
 <template lang="pug">
-	nav(':class'="{ loading }" v-if="lastPage > 1")
-		ul.pagination.hidden-xs
-			li(':class'!="{ disabled: page === 1 }")
-				a(@click.prevent="change(page - 1)" v-if!="page > 1" ':href'="href(page - 1)") &laquo;
-				span(v-else) &laquo;
-			template(v-if!="noWindow")
-				li(v-for="i in lastPage" ':class'="{ active: page === i }")
-					span(v-if="i === page") {{ i }}
-					a(v-else @click.prevent="change(i)" ':href'="href(i)") {{ i }}
-			template(v-else)
-				template(v-if="leftWindow")
-					li(v-for="i in leftWindow" ':class'="{ active: page === i }")
+	nav.pager-wrapper(':class'="{ loading }" v-if="lastPage > 1 || total")
+		template(v-if="lastPage > 1")
+			ul.pagination.hidden-xs
+				li(':class'!="{ disabled: page === 1 }")
+					a(@click.prevent="change(page - 1)" v-if!="page > 1" ':href'="href(page - 1)") &laquo;
+					span(v-else) &laquo;
+				template(v-if!="noWindow")
+					li(v-for="i in lastPage" ':class'="{ active: page === i }")
 						span(v-if="i === page") {{ i }}
 						a(v-else @click.prevent="change(i)" ':href'="href(i)") {{ i }}
-					li.dots: span ...
-				li(v-for="i in currentWindow" ':class'="{ active: page === i }")
-					span(v-if="i === page") {{ i }}
-					a(v-else @click.prevent="change(i)" ':href'="href(i)") {{ i }}
-				template(v-if="rightWindow")
-					li.dots: span ...
-					li(v-for="i in rightWindow" ':class'="{ active: page === i }")
+				template(v-else)
+					template(v-if="leftWindow")
+						li(v-for="i in leftWindow" ':class'="{ active: page === i }")
+							span(v-if="i === page") {{ i }}
+							a(v-else @click.prevent="change(i)" ':href'="href(i)") {{ i }}
+						li.dots: span ...
+					li(v-for="i in currentWindow" ':class'="{ active: page === i }")
 						span(v-if="i === page") {{ i }}
 						a(v-else @click.prevent="change(i)" ':href'="href(i)") {{ i }}
-			li(':class'!="{ disabled: page === lastPage }")
-				a(@click.prevent="change(page + 1)" v-if="page !== lastPage" ':href'="href(page + 1)") &raquo;
-				span(v-else) &raquo;
-		ul.pager.visible-xs
-			li.previous(':class'!="{ disabled: page === 1 }")
-				a(@click.prevent="change(page - 1)" v-if!="page > 1" ':href'="href(page - 1)") &laquo;
-				span(v-else) &laquo;
-			li.pager-stats: span {{ page }} / {{ lastPage }}
-			li.next(':class'!="{ disabled: page === lastPage }")
-				a(@click.prevent="change(page + 1)" v-if="page !== lastPage" ':href'="href(page + 1)") &raquo;
-				span(v-else) &raquo;
+					template(v-if="rightWindow")
+						li.dots: span ...
+						li(v-for="i in rightWindow" ':class'="{ active: page === i }")
+							span(v-if="i === page") {{ i }}
+							a(v-else @click.prevent="change(i)" ':href'="href(i)") {{ i }}
+				li(':class'!="{ disabled: page === lastPage }")
+					a(@click.prevent="change(page + 1)" v-if="page !== lastPage" ':href'="href(page + 1)") &raquo;
+					span(v-else) &raquo;
+			ul.pagination.visible-xs
+				li.previous(':class'!="{ disabled: page === 1 }")
+					a(@click.prevent="change(page - 1)" v-if!="page > 1" ':href'="href(page - 1)") &laquo;
+					span(v-else) &laquo;
+				li.disabled: span {{ page }} / {{ lastPage }}
+				li.next(':class'!="{ disabled: page === lastPage }")
+					a(@click.prevent="change(page + 1)" v-if="page !== lastPage" ':href'="href(page + 1)") &raquo;
+					span(v-else) &raquo;
+		.well.well-sm(v-if="limit && total")
+			!='{{ $t(\'elementsOnPage\') }} '
+			span(v-if="lastPage > 1") {{ limit * (page - 1) + 1 }}-{{ page === lastPage ? total : (limit * page) }} / {{ total }}
+			span(v-else) {{ total }}
 </template>
 <style lang="stylus">
-	.pagination
-		> li.dots span
-			pointer-events none
-			cursor default
-			color rgba(black, 0.3)
+	.pager-wrapper
+		display flex
+		align-items center
+		justify-content space-between
+		&:before, &:after
+			display none !important
+		.pagination
+			> li.dots span
+				pointer-events none
+				cursor default
+				color rgba(black, 0.3)
+		.well
+			margin 0
 </style>

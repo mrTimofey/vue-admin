@@ -20,7 +20,8 @@
 				lastPage: 1,
 				items: null,
 				error: null,
-				loading: false
+				loading: false,
+				limit: null
 			};
 		},
 		computed: {
@@ -88,6 +89,7 @@
 						this.items = res.data.items;
 						this.total = res.data.pagination.total;
 						this.lastPage = res.data.pagination.last_page;
+						this.limit = res.data.pagination.per_page;
 					})
 					.catch(err => {
 						this.$modal.open('error', httpErrorModalData(err));
@@ -184,6 +186,7 @@
 				this.items = null;
 				this.total = 0;
 				this.lastPage = 1;
+				this.limit = null;
 			}
 			next();
 			this.$nextTick(() => {
@@ -226,8 +229,8 @@
 								i.fa(v-if="action.fa" ':class'="'fa-' + action.fa")
 								!=' '
 								span(v-if="action.text" v-html="action.text")
-					.well.well-sm(v-else, style="margin-bottom:0") {{ $t('nothingFound') }}
-				.box-footer: pager(':page'="page" '@input'="updatePage" ':last-page'="lastPage" ':loading'="loading")
+					.well.well-sm(v-else, style="margin:15px") {{ $t('nothingFound') }}
+				pager.box-footer(':page'="page" '@input'="updatePage" ':last-page'="lastPage" ':loading'="loading" ':total'="total" ':limit'="limit")
 </template>
 <style lang="stylus">
 	.entity-index-page
