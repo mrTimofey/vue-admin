@@ -163,7 +163,7 @@
 					.btn.btn-danger(v-if="permitted('destroy')" '@click'="$emit('destroy', item)")
 						i.fa.fa-trash
 					slot(name="actions-after" ':item'="item" ':index'="i")
-		tfoot(v-if="selection.length"): tr: td(':colspan'="columns.length + 2")
+		tfoot.bulk-actions(v-if="selection.length"): tr: td(':colspan'="columns.length + 2")
 			.btn-group.btn-group-xs
 				//- TODO
 				//- router-link.btn.btn-primary(v-if="permitted('update')" ':to'="{ path: path + '/bulk-update', query: { keys: selection } }")
@@ -210,6 +210,9 @@
 				padding 0
 		.table-item-actions
 			width 10px
+		.bulk-actions, .table-item-actions
+			.btn
+				min-width 23px
 		.sort-num
 			absolute false 2px 23px false
 			font-size 9px
