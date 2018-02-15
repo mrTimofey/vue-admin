@@ -51,18 +51,15 @@ export default {
 		}
 	},
 	created() {
-		this.clickInside = false;
 		this.$modal.masterComponent = this;
 	},
 	render(h) {
 		return this.comp && h(
 			this.tag || this.$vnode.data.tag || 'div',
 			{ on: {
-				click: () => {
-					if (this.clickInside) {
-						this.clickInside = false;
-						return;
-					}
+				click: e => {
+					const target = e.target || e.srcElement;
+					if (this.$el !== target && this.$el.contains(target)) return;
 					this.close();
 				}
 			} },
@@ -71,15 +68,7 @@ export default {
 				h(
 					this.innerTag,
 					{
-						class: this.getInnerClass(),
-						on: {
-							mousedown: () => {
-								this.clickInside = true;
-							},
-							mouseup: () => {
-								this.clickInside = true;
-							}
-						}
+						class: this.getInnerClass()
 					},
 					[
 						this.$slots.innerBefore,

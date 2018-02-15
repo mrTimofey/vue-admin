@@ -19,4 +19,3 @@
 			!=' '
 			button.btn.btn-danger('@click'="$modal.close(false)") {{ no || $t('no') }}
 </template>
-<style lang="stylus"></style>

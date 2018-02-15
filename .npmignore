@@ -6,3 +6,4 @@
 /.editorconfig
 /.eslintrc.js
 /docs
+/vue-admin-front.config.js

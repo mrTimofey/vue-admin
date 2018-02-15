@@ -16,4 +16,3 @@
 		.modal-footer
 			button.btn.btn-default(v-focus '@click'="$modal.close()") {{ button || $t('ok') }}
 </template>
-<style lang="stylus"></style>

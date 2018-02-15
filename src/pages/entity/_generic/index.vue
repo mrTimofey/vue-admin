@@ -167,6 +167,13 @@
 							});
 						});
 				}, 300);
+			},
+			hasProp(name) {
+				return !!this[name];
+			},
+			callItemAction(action, item, index) {
+				if (typeof action === 'string') action = this[action];
+				action(item, index);
 			}
 		},
 		beforeMount() {
@@ -198,7 +205,7 @@
 						.col-md-2.col-sm-4
 							entity-search(v-if="meta.searchable")
 					entity-filters(':fields'="meta.filter_fields" ':value'="filterParams" '@input'="onFilterChange")
-				.box-body(v-if="items")
+				.box-body.table-responsive.no-padding(v-if="items")
 					entity-table(v-if="items.length"
 						bulk
 						':items'="items"
@@ -209,6 +216,21 @@
 						'@destroy'="destroy"
 						'@bulk-destroy'="bulkDestroy"
 						'@update'="updateItem")
+						template(v-if="hasProp('customActionsBefore')" slot="actions-before" slot-scope="{ item, index }")
+							.btn(v-for="action in customActionsBefore" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callItemAction(action.action, item, index)")
+								i.fa(v-if="action.fa" ':class'="'fa-' + action.fa")
+								!=' '
+								span(v-if="action.text" v-html="action.text")
+						template(v-if="hasProp('customActionsAfter')" slot="actions-after" slot-scope="{ item, index }")
+							.btn(v-for="action in customActionsAfter" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callItemAction(action.action, item, index)")
+								i.fa(v-if="action.fa" ':class'="'fa-' + action.fa")
+								!=' '
+								span(v-if="action.text" v-html="action.text")
 					.well.well-sm(v-else, style="margin-bottom:0") {{ $t('nothingFound') }}
-					pager(':page'="page" '@input'="updatePage" ':last-page'="lastPage" ':loading'="loading")
+				.box-footer: pager(':page'="page" '@input'="updatePage" ':last-page'="lastPage" ':loading'="loading")
 </template>
+<style lang="stylus">
+	.entity-index-page
+		.pagination, .pager
+			margin 0
+</style>

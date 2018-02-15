@@ -156,12 +156,13 @@
 						'@input'="$emit('update', item, field.name, $event)")
 					display(v-else ':value'="item[field.name]" v-bind="field")
 			td.table-item-actions(v-if="showActions")
-				.btn-group.btn-group-xs
+				.btn-group.btn-group-xs.nowrap
+					slot(name="actions-before" ':item'="item" ':index'="i")
 					router-link.btn.btn-primary(v-if="permitted('update')" ':to'="path + '/item/' + item[primaryKey]")
 						i.fa.fa-pencil
 					.btn.btn-danger(v-if="permitted('destroy')" '@click'="$emit('destroy', item)")
 						i.fa.fa-trash
-					slot(name="actions" ':item'="item")
+					slot(name="actions-after" ':item'="item" ':index'="i")
 		tfoot(v-if="selection.length"): tr: td(':colspan'="columns.length + 2")
 			.btn-group.btn-group-xs
 				//- TODO
@@ -208,7 +209,7 @@
 				line-height 20px
 				padding 0
 		.table-item-actions
-			width 60px
+			width 10px
 		.sort-num
 			absolute false 2px 23px false
 			font-size 9px
