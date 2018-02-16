@@ -1,8 +1,8 @@
 <script>
-	import { components } from 'src/utils/entities';
+	import EntityHeader from 'src/components/entity/header.vue';
 
 	export default {
-		components,
+		components: { EntityHeader },
 		props: {
 			entity: {
 				type: String,
