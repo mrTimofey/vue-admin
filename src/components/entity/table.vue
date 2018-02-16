@@ -18,6 +18,14 @@
 			primaryKey: {
 				type: String,
 				default: 'id'
+			},
+			hasItemActions: {
+				type: Boolean,
+				default: false
+			},
+			hasBulkActions: {
+				type: Boolean,
+				default: false
 			}
 		},
 		data: () => ({
@@ -44,8 +52,16 @@
 				}
 				return sort;
 			},
-			showActions() {
-				return this.permitted('update') || this.permitted('destroy');
+			showItemActions() {
+				return this.hasItemActions || this.permitted('update') || this.permitted('destroy');
+			},
+			showBulkActions() {
+				return this.bulk && (this.hasBulkActions || this.permitted('update') || this.permitted('destroy'));
+			},
+			colspan() {
+				return (this.columns && this.columns.length || 0) +
+					(this.showItemActions ? 1 : 0) +
+					(this.showBulkActions ? 1 : 0);
 			},
 			allSelected: {
 				get() {
@@ -127,7 +143,7 @@
 <template lang="pug">
 	table.table.entity-table.table-bordered(v-if="items && items.length")
 		thead: tr
-			th.item-bulk-cell(v-if="bulk"): label.styled-checkbox
+			th.item-bulk-cell(v-if="showBulkActions"): label.styled-checkbox
 				input(type="checkbox" v-model="allSelected")
 				.styled-checkbox-indicator
 			th(v-for="field in columns"
@@ -136,12 +152,12 @@
 				slot(name="header" ':field'="field")
 					span!='{{ field.title }} '
 				small.sort-num(v-if="field.sort && field.sort.index !== null") {{ field.sort.index + 1 }}
-			th.table-item-actions(v-if="showActions")
+			th.table-item-actions(v-if="showItemActions")
 		tbody: tr(v-for="(item, i) in items"
 			':class'="{ selected: selection.indexOf(item[primaryKey]) > -1 }"
 			':key'="itemKey(item, i)"
 			':id'="itemKey(item, i)")
-			td.item-bulk-cell(v-if="bulk"): label.styled-checkbox
+			td.item-bulk-cell(v-if="showBulkActions"): label.styled-checkbox
 				input(type="checkbox" ':value'="item[primaryKey]" v-model="selection")
 				.styled-checkbox-indicator
 			td(v-for="field in columns"
@@ -155,22 +171,23 @@
 						title=""
 						'@input'="$emit('update', item, field.name, $event)")
 					display(v-else ':value'="item[field.name]" v-bind="field")
-			td.table-item-actions(v-if="showActions")
+			td.table-item-actions(v-if="showItemActions")
 				.btn-group.btn-group-xs.nowrap
-					slot(name="actions-before" ':item'="item" ':index'="i")
+					slot(name="item-actions-before" ':item'="item" ':index'="i")
 					router-link.btn.btn-primary(v-if="permitted('update')" ':to'="path + '/item/' + item[primaryKey]")
 						i.fa.fa-pencil
 					.btn.btn-danger(v-if="permitted('destroy')" '@click'="$emit('destroy', item)")
 						i.fa.fa-trash
-					slot(name="actions-after" ':item'="item" ':index'="i")
-		tfoot.bulk-actions(v-if="selection.length"): tr: td(':colspan'="columns.length + 2")
+					slot(name="item-actions-after" ':item'="item" ':index'="i")
+		tfoot.bulk-actions(v-if="showBulkActions && selection.length"): tr: td(':colspan'="colspan")
 			.btn-group.btn-group-xs
+				slot(name="bulk-actions-before" ':selection'="selection")
 				//- TODO
 				//- router-link.btn.btn-primary(v-if="permitted('update')" ':to'="{ path: path + '/bulk-update', query: { keys: selection } }")
 					i.fa.fa-pencil
 				.btn.btn-danger(v-if="permitted('destroy')" '@click'="emitBulkAction('destroy')")
 					i.fa.fa-trash
-				slot(name="bulk-actions")
+				slot(name="bulk-actions-after" ':selection'="selection")
 </template>
 <style lang="stylus">
 	.entity-table

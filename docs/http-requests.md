@@ -11,7 +11,7 @@ Just see the code:
  *     Authorization: Bearer {api token}
  * @see https://github.com/axios/axios
  */
-import http from `vue-admin-front/src/http`;
+import http from 'src/http';
 
 http.get('url')
     .then(res => res.data)

@@ -170,12 +170,16 @@
 						});
 				}, 300);
 			},
-			hasProp(name) {
-				return !!this[name];
+			hasArrayProp(name) {
+				return !!(this[name] && Array.isArray(this[name]) && this[name].length);
 			},
 			callItemAction(action, item, index) {
 				if (typeof action === 'string') action = this[action];
 				action(item, index);
+			},
+			callBulkAction(action, selection) {
+				if (typeof action === 'string') action = this[action];
+				action(selection);
 			}
 		},
 		beforeMount() {
@@ -216,16 +220,28 @@
 						':permissions'="meta.permissions"
 						':primaryKey'="primaryKey"
 						':entity'="entity"
+						':has-item-actions'="hasArrayProp('itemActionsBefore') || hasArrayProp('itemActionsAfter')"
+						':has-bulk-actions'="hasArrayProp('bulkActionsBefore') || hasArrayProp('bulkActionsAfter')"
 						'@destroy'="destroy"
 						'@bulk-destroy'="bulkDestroy"
 						'@update'="updateItem")
-						template(v-if="hasProp('customActionsBefore')" slot="actions-before" slot-scope="{ item, index }")
-							.btn(v-for="action in customActionsBefore" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callItemAction(action.action, item, index)")
+						template(v-if="hasArrayProp('itemActionsBefore')" slot="item-actions-before" slot-scope="{ item, index }")
+							.btn(v-for="action in itemActionsBefore" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callItemAction(action.action, item, index)")
 								i.fa(v-if="action.fa" ':class'="'fa-' + action.fa")
 								!=' '
 								span(v-if="action.text" v-html="action.text")
-						template(v-if="hasProp('customActionsAfter')" slot="actions-after" slot-scope="{ item, index }")
-							.btn(v-for="action in customActionsAfter" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callItemAction(action.action, item, index)")
+						template(v-if="hasArrayProp('itemActionsAfter')" slot="item-actions-after" slot-scope="{ item, index }")
+							.btn(v-for="action in itemActionsAfter" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callItemAction(action.action, item, index)")
+								i.fa(v-if="action.fa" ':class'="'fa-' + action.fa")
+								!=' '
+								span(v-if="action.text" v-html="action.text")
+						template(v-if="hasArrayProp('bulkActionsBefore')" slot="bulk-actions-before" slot-scope="{ selection }")
+							.btn(v-for="action in bulkActionsBefore" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callBulkAction(action.action, selection)")
+								i.fa(v-if="action.fa" ':class'="'fa-' + action.fa")
+								!=' '
+								span(v-if="action.text" v-html="action.text")
+						template(v-if="hasArrayProp('bulkActionsAfter')" slot="bulk-actions-after" slot-scope="{ selection }")
+							.btn(v-for="action in bulkActionsAfter" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callBulkAction(action.action, selection)")
 								i.fa(v-if="action.fa" ':class'="'fa-' + action.fa")
 								!=' '
 								span(v-if="action.text" v-html="action.text")
