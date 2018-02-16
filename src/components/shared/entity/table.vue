@@ -26,7 +26,8 @@
 			hasBulkActions: {
 				type: Boolean,
 				default: false
-			}
+			},
+			sortParams: Object
 		},
 		data: () => ({
 			selection: []
@@ -41,9 +42,9 @@
 			},
 			sorted() {
 				const sort = [];
-				if (this.$route.query.sort) {
-					for (let field of Object.keys(this.$route.query.sort)) {
-						let dir = this.$route.query.sort[field];
+				if (this.sortParams) {
+					for (let field of Object.keys(this.sortParams)) {
+						let dir = this.sortParams[field];
 						sort.push({
 							field,
 							dir: dir === '1' || dir === 'asc'
@@ -104,26 +105,21 @@
 				};
 			},
 			sort(field, exclusive) {
-				const query = { ...this.$route.query },
+				const query = this.sortParams ? { ...this.sortParams } : {},
 					key = field.sortableAs || field.name;
 
-				if (!query.sort) query.sort = { [key]: 'asc' };
-				else {
-					let dir = null;
-					if (!query.sort[key]) dir = 'asc';
-					else if (query.sort[key] === 'asc') dir = 'desc';
+				let dir = null;
+				if (!query[key]) dir = 'asc';
+				else if (query[key] === 'asc') dir = 'desc';
 
-					if (exclusive) {
-						if (dir === null) delete query.sort;
-						else query.sort = { [key]: dir };
-					}
-					else {
-						query.sort = { ...query.sort };
-						if (dir === null) delete query.sort[key];
-						else query.sort[key] = dir;
-					}
+				if (exclusive) {
+					this.$emit('update:sortParams', dir ? { [key]: dir } : null);
 				}
-				this.$router.push({ query });
+				else {
+					if (dir === null) delete query[key];
+					else query[key] = dir;
+					this.$emit('update:sortParams', query);
+				}
 			},
 			permitted(action) {
 				return !this.permissions || this.permissions[action] !== false;

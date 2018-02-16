@@ -72,7 +72,19 @@
 					}
 				},
 				set(v) {
-					this.$router.replace({ query: { ...this.$route.query, params: v ? JSON.stringify(v) : undefined } });
+					this.$router.replace({ query: { ...this.$route.query,
+						params: v ? JSON.stringify(v) : undefined
+					} });
+				}
+			},
+			sortParams: {
+				get() {
+					return this.$route.query.sort || null;
+				},
+				set(v) {
+					this.$router.replace({ query: { ...this.$route.query,
+						sort: v ? v : undefined
+					} });
 				}
 			},
 			apiParams() {
@@ -249,6 +261,7 @@
 						':entity'="entity"
 						':has-item-actions'="hasArrayProp('itemActionsBefore') || hasArrayProp('itemActionsAfter')"
 						':has-bulk-actions'="hasArrayProp('bulkActionsBefore') || hasArrayProp('bulkActionsAfter')"
+						':sort-params.sync'="sortParams"
 						'@destroy'="destroy"
 						'@bulk-destroy'="bulkDestroy"
 						'@update'="updateItem")
