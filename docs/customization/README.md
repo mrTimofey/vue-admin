@@ -41,8 +41,8 @@ Package structure:
     ```javascript
     // admin/src/http.js
     
-    import http from 'vue-admin-front/http';
-    http.defaults.headers['X-Custon-Header'] = 'Value';
+    import http from 'vue-admin-front/src/http';
+    http.defaults.headers['X-Custom-Header'] = 'Value';
     export default http;
     ```
 * Add custom page:
@@ -107,7 +107,7 @@ Package structure:
     // Add some functionality provided by original component
     // admin/src/pages/entity/users/item.vue
     
-    import baseComponent from 'vue-admin-front/src/pages/entity/_generic/item.vue';
+    import baseComponent from 'src/pages/entity/_generic/item.vue';
     
     export default {
         routePath: ':id',
