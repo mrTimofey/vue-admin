@@ -253,7 +253,7 @@
 					entity-filters(':fields'="meta.filter_fields" v-model="filterParams")
 				.box-body.table-responsive.no-padding(v-if="items")
 					entity-table(v-if="items.length"
-						bulk
+						bulk sortable
 						':items'="items"
 						':fields'="meta.index_fields"
 						':permissions'="meta.permissions"

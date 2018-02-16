@@ -6,15 +6,22 @@
 		props: {
 			items: Array,
 			fields: Array,
-			permissions: Object,
+			permissions: {
+				type: Object,
+				default: () => ({
+					destroy: false,
+					update: false
+				})
+			},
+			sortable: {
+				type: Boolean,
+				default: false
+			},
 			bulk: {
 				type: Boolean,
 				default: false
 			},
-			entity: {
-				type: String,
-				required: true
-			},
+			entity: String,
 			primaryKey: {
 				type: String,
 				default: 'id'
@@ -82,12 +89,12 @@
 			makeField(definition) {
 				if (typeof definition === 'string') definition = {
 					name: definition,
-					sortable: true,
+					sortable: this.sortable,
 					editable: false
 				};
 
 				let sort = null;
-				if (definition.sortable || definition.sortableAs) {
+				if (this.sortable && (definition.sortable || definition.sortableAs)) {
 					const as = definition.sortableAs || definition.name,
 						sortedIndex = this.sorted.findIndex(item => item.field === as);
 					sort = {
@@ -105,6 +112,8 @@
 				};
 			},
 			sort(field, exclusive) {
+				if (!this.sortable) return;
+
 				const query = this.sortParams ? { ...this.sortParams } : {},
 					key = field.sortableAs || field.name;
 
@@ -145,7 +154,7 @@
 			th(v-for="field in columns"
 				':class'="{ sortable: field.sort, asc: field.sort && field.sort.dir === true, desc: field.sort && field.sort.dir === false, ['item-cell-' + field.name.replace('_', '-')]: true }"
 				'@click'="field.sort && sort(field, !$event.shiftKey)")
-				slot(name="header" ':field'="field")
+				slot(':name'="'header-' + field.name.replace('_', '-')" ':field'="field")
 					span!='{{ field.title }} '
 				small.sort-num(v-if="field.sort && field.sort.index !== null") {{ field.sort.index + 1 }}
 			th.table-item-actions(v-if="showItemActions")
@@ -160,7 +169,7 @@
 				':class'="'item-cell-' + field.name.split('_').join('-')"
 				':key'="fieldKey(item, i, field)"
 				':id'="fieldKey(item, i, field)")
-				slot(name="cell" ':item'="item" ':field'="field")
+				slot(':name'="'item-cell-' + field.name.replace('_', '-')" ':item'="item" ':index'="i" ':field'="field")
 					field(v-if="field.editable && permitted('update')"
 						v-bind="field"
 						':value'="item[field.name]"
