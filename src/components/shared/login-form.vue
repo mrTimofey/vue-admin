@@ -21,7 +21,9 @@
 			login() {
 				this.loading = true;
 				authenticate(this.form.login, this.form.password, this.form.remember)
-					.then(res => this.$emit('done', res.data.user))
+					.then(res => {
+						this.$emit('done', res.data.user);
+					})
 					.catch(err => {
 						this.error = err.response ? err.response.status : 500;
 						if (process.env.NODE_ENV !== 'production' && this.error === 500)

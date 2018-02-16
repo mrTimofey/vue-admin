@@ -43,17 +43,15 @@ export function logout() {
 }
 
 export function authenticate(login, password, remember = false) {
-	return new Promise((resolve, reject) => {
-		http.post('auth', { email: login, password, remember })
-			.then(res => {
-				authorize(res.data);
-				resolve(res);
-			})
-			.catch(err => {
-				logout();
-				reject(err);
-			});
-	});
+	return http.post('auth', { email: login, password, remember })
+		.then(res => {
+			authorize(res.data);
+			return res;
+		})
+		.catch(err => {
+			logout();
+			throw err;
+		});
 }
 
 export function recallToken() {
