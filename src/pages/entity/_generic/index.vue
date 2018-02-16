@@ -3,6 +3,8 @@
 	import { asFormData, httpErrorModalData } from 'src/utils';
 	import { components } from 'src/utils/entities';
 
+	const DEFAULT_LIMIT = 25;
+
 	export default {
 		components,
 		props: {
@@ -25,24 +27,51 @@
 			};
 		},
 		computed: {
-			page() {
-				return parseInt(this.$route.query.page) || 1;
-			},
-			perPage() {
-				return parseInt(this.$route.query.per_page) || 25;
-			},
-			filterParams() {
-				const def = () => ({
-					scopes: {},
-					filters: {}
-				});
-				// entity-filter value persists within a query string "params" argument as a JSON
-				// try to parse this JSON or return default object
-				try {
-					return this.$route.query.params ? JSON.parse(this.$route.query.params) : def();
+			searchQuery: {
+				get() {
+					return this.$route.query.search || null;
+				},
+				set(v) {
+					v = v && v.trim();
+					this.$router.replace({ query: { ...this.$route.query,
+						search: v || undefined
+					} });
 				}
-				catch (e) {
-					return def();
+			},
+			selectedLimit: {
+				get() {
+					return this.$route.query.limit && parseInt(this.$route.query.limit) || DEFAULT_LIMIT;
+				},
+				set(v) {
+					this.$router.replace({ query: { ...this.$route.query,
+						page: undefined,
+						limit: v === DEFAULT_LIMIT ? undefined : v
+					} });
+				}
+			},
+			page: {
+				get() {
+					return parseInt(this.$route.query.page) || 1;
+				},
+				set(v) {
+					this.$router.replace({ query: { ...this.$route.query,
+						page: v > 1 ? v : undefined
+					} });
+				}
+			},
+			filterParams: {
+				get() {
+					// entity-filter value persists within a query string "params" argument as a JSON
+					// try to parse this JSON or return default object
+					try {
+						return this.$route.query.params ? JSON.parse(this.$route.query.params) : null;
+					}
+					catch (e) {
+						return null;
+					}
+				},
+				set(v) {
+					this.$router.replace({ query: { ...this.$route.query, params: v ? JSON.stringify(v) : undefined } });
 				}
 			},
 			apiParams() {
@@ -98,15 +127,6 @@
 					.then(() => {
 						this.loading = false;
 					});
-			},
-			onFilterChange(data) {
-				// just update route, all the list updating routine is made in beforeRouteUpdate hook
-				this.$router.replace({ query: { ...this.$route.query, params: JSON.stringify(data) } });
-			},
-			updatePage(page) {
-				if (page === 1) page = undefined;
-				// just update route, all the list updating routine is made in beforeRouteUpdate hook
-				this.$router.replace({ query: { ...this.$route.query, page } });
 			},
 			destroy(item) {
 				this.$modal.open('confirm', {
@@ -182,6 +202,10 @@
 				action(selection);
 			}
 		},
+		created() {
+			this.limitOptions = [10, 25, 50, 100];
+			this.searchStagger = 300;
+		},
 		beforeMount() {
 			this.update();
 		},
@@ -207,11 +231,13 @@
 				spinner(v-if="loading")
 				.box-header.with-border
 					.row
-						.col-md-10.col-sm-8
-							entity-actions(':permissions'="meta.permissions" ':path'="basePath")
-						.col-md-2.col-sm-4
-							entity-search(v-if="meta.searchable")
-					entity-filters(':fields'="meta.filter_fields" ':value'="filterParams" '@input'="onFilterChange")
+						.col-lg-9.col-md-6
+							field.inline.per-page(':title'="$t('perPage') + ':'" type="select" required ':options'="limitOptions" v-model="selectedLimit" ':searchable'="false")
+							!=' '
+							router-link.btn.btn-success(v-if="!meta.permissions || meta.permissions.create !== false" ':to'="basePath + '/item/new'") {{ $t('create') }}
+						.col-lg-3.col-md-6
+							field(v-if="meta.searchable" ':placeholder'="$t('search')" ':stagger'="searchStagger" v-model="searchQuery")
+					entity-filters(':fields'="meta.filter_fields" v-model="filterParams")
 				.box-body.table-responsive.no-padding(v-if="items")
 					entity-table(v-if="items.length"
 						bulk
@@ -246,10 +272,13 @@
 								!=' '
 								span(v-if="action.text" v-html="action.text")
 					.well.well-sm(v-else, style="margin:15px") {{ $t('nothingFound') }}
-				pager.box-footer(':page'="page" '@input'="updatePage" ':last-page'="lastPage" ':loading'="loading" ':total'="total" ':limit'="limit")
+				pager.box-footer(v-model="page" ':last-page'="lastPage" ':loading'="loading" ':total'="total" ':limit'="limit")
 </template>
 <style lang="stylus">
 	.entity-index-page
 		.pagination, .pager
 			margin 0
+		.per-page
+			.field
+				width 70px
 </style>

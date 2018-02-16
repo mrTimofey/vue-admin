@@ -89,6 +89,7 @@
 				});
 			},
 			updatePoint() {
+				if (typeof google === 'undefined') return;
 				if (!this.value || !this.value.point) {
 					if (this.gmapPoint) {
 						this.gmapPoint.setMap(null);

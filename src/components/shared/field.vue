@@ -36,7 +36,8 @@
 				default: 'text'
 			},
 			errors: [String, Array, Object],
-			title: String
+			title: String,
+			stagger: Number
 		},
 		data: () => ({
 			aliases: {
@@ -51,6 +52,17 @@
 				timestamp: 'datetime'
 			}
 		}),
+		methods: {
+			update(value) {
+				if (this.stagger) {
+					clearTimeout(this.staggerTimeout);
+					this.staggerTimeout = setTimeout(() => {
+						if (this.value !== value) this.$emit('input', value);
+					}, this.stagger);
+				}
+				else this.$emit('input', value);
+			}
+		},
 		computed: {
 			errorsText() {
 				if (!this.errors) return null;
@@ -65,7 +77,7 @@
 	.form-group(':class'="{ 'has-error': errorsText !== null }")
 		.field-title(v-if="title" v-html="title" ':class'="{ 'text-danger': errors }")
 		!=' '
-		component.field(':is'="'field-' + (aliases[type] || type)" v-bind="$props" '@input'="$emit('input', $event)")
+		component.field(':is'="'field-' + (aliases[type] || type)" v-bind="$props" '@input'="update($event)")
 		!=' '
 		span.help-block(v-if="errorsText") {{ errorsText }}
 </template>

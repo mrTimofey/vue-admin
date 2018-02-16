@@ -13,15 +13,21 @@
 			fieldValues() {
 				const data = {};
 				for (let field of this.fields) {
-					data[field.name] = (field.scope ? this.value.scopes[field.scope] : this.value.filters[field.name]);
-					if (data[field.name] === undefined) data[field.name] = null;
+					if (this.value) {
+						data[field.name] = (field.scope ? this.value.scopes[field.scope] : this.value.filters[field.name]);
+						if (data[field.name] === undefined) data[field.name] = null;
+					}
+					else data[field.name] = null;
 				}
 				return data;
 			}
 		},
 		methods: {
 			onChange(field, value) {
-				const data = { filters: { ...this.value.filters }, scopes: { ...this.value.scopes } };
+				const data = {
+					filters: this.value && this.value.filters ? { ...this.value.filters } : {},
+					scopes: this.value && this.value.scopes ? { ...this.value.scopes } : {}
+				};
 				if (Array.isArray(value)) value = value.length ? value.slice().sort() : null;
 				if (value === null) {
 					if (field.scope) {
@@ -45,7 +51,9 @@
 				}
 				clearTimeout(this.staggerTimeout);
 				this.staggerTimeout = setTimeout(() => {
-					this.$emit('input', data);
+					if (!Object.keys(data.filters).length) delete data.filters;
+					if (!Object.keys(data.scopes).length) delete data.scopes;
+					this.$emit('input', Object.keys(data).length ? data : null);
 				}, this.stagger);
 			}
 		}
