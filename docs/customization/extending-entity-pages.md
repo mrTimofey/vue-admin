@@ -23,6 +23,7 @@ Each action is an object with fields:
 	* `text: string` - text inside button (HTML is allowed)
 	* `btn: string` - Bootstrap btn type (`default`, `danger`, `info`, etc.)
 	* `class: string|Array|Object` - custom class(es), should be a valid Vue value for `v-bind:class`
+	* `title: string` - title tooltip
 	* `action: string|function(item: Object, index: Number)` - component method name or function
 * `itemActionsAfter: Array<Object>` - same, but these actions will be inserted **after** standard ones
 * `bulkActionsBefore: Array<Object>` - same for bulk actions with multiple selected items. Object fields are same, except for:

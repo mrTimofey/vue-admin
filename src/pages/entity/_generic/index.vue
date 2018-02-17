@@ -266,22 +266,22 @@
 						'@bulk-destroy'="bulkDestroy"
 						'@update'="updateItem")
 						template(v-if="hasArrayProp('itemActionsBefore')" slot="item-actions-before" slot-scope="{ item, index }")
-							.btn(v-for="action in itemActionsBefore" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callItemAction(action.action, item, index)")
+							.btn(v-for="action in itemActionsBefore" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callItemAction(action.action, item, index)" ':title'="action.title || ''")
 								i.fa(v-if="action.fa" ':class'="'fa-' + action.fa")
 								!=' '
 								span(v-if="action.text" v-html="action.text")
 						template(v-if="hasArrayProp('itemActionsAfter')" slot="item-actions-after" slot-scope="{ item, index }")
-							.btn(v-for="action in itemActionsAfter" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callItemAction(action.action, item, index)")
+							.btn(v-for="action in itemActionsAfter" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callItemAction(action.action, item, index)" ':title'="action.title || ''")
 								i.fa(v-if="action.fa" ':class'="'fa-' + action.fa")
 								!=' '
 								span(v-if="action.text" v-html="action.text")
 						template(v-if="hasArrayProp('bulkActionsBefore')" slot="bulk-actions-before" slot-scope="{ selection }")
-							.btn(v-for="action in bulkActionsBefore" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callBulkAction(action.action, selection)")
+							.btn(v-for="action in bulkActionsBefore" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callBulkAction(action.action, selection)" ':title'="action.title || ''")
 								i.fa(v-if="action.fa" ':class'="'fa-' + action.fa")
 								!=' '
 								span(v-if="action.text" v-html="action.text")
 						template(v-if="hasArrayProp('bulkActionsAfter')" slot="bulk-actions-after" slot-scope="{ selection }")
-							.btn(v-for="action in bulkActionsAfter" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callBulkAction(action.action, selection)")
+							.btn(v-for="action in bulkActionsAfter" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callBulkAction(action.action, selection)" ':title'="action.title || ''")
 								i.fa(v-if="action.fa" ':class'="'fa-' + action.fa")
 								!=' '
 								span(v-if="action.text" v-html="action.text")
