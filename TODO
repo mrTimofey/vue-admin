@@ -1,4 +1,5 @@
 default sort support
+dynamic actions support
 file field ajaxMode
 support some form layouts
 wysiwyg - migrate to CKEditor 5
