@@ -225,13 +225,6 @@
 			width 60px
 		.item-bulk-cell
 			width 20px
-			label
-				display block
-				size 20px
-				line-height 20px
-				padding 0
-				.styled-checkbox-indicator
-					top 0
 		.table-item-actions
 			width 10px
 			padding 7px
@@ -244,4 +237,11 @@
 			font-size 9px
 		td > .form-group
 			margin-bottom 0
+		.styled-checkbox
+			display block
+			size 20px
+			line-height 20px
+			padding 0
+			.styled-checkbox-indicator
+				top 0
 </style>

@@ -6,6 +6,10 @@ export default {
 		value: [Object, Array],
 		display: [String, Function],
 		entity: String,
+		color: {
+			type: String,
+			default: 'default'
+		},
 		noLink: {
 			type: Boolean,
 			default: false
@@ -27,13 +31,13 @@ export default {
 			},
 			renderItem = (props.noLink || !props.entity || !editAllowed) ?
 				item => h('span', {
-					class: ['label', 'label-default'],
+					class: ['label', 'label-' + props.color],
 					domProps: {
 						innerHTML: makeTitle(item)
 					}
 				}) :
 				item => h('router-link', {
-					class: ['btn', 'btn-xs', 'btn-default'],
+					class: ['btn', 'btn-xs', 'btn-' + props.color],
 					props: {
 						to: `/entity/${props.entity}/item/${item[primaryKey]}`
 					}
