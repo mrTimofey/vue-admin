@@ -285,7 +285,7 @@
 								i.fa(v-if="action.fa" ':class'="'fa-' + action.fa")
 								!=' '
 								span(v-if="action.text" v-html="action.text")
-					.well.well-sm(v-else, style="margin:15px") {{ $t('nothingFound') }}
+					.well.well-sm(v-else, style="margin:10px") {{ $t('nothingFound') }}
 				pager.box-footer(v-model="page" ':last-page'="lastPage" ':loading'="loading" ':total'="total" ':limit'="limit")
 </template>
 <style lang="stylus">

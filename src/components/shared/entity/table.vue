@@ -221,7 +221,7 @@
 			background #fafafa
 		.item-cell-id
 			width 50px
-		.item-cell-sort
+		.item-cell-sort, .item-cell-order
 			width 60px
 		.item-bulk-cell
 			width 20px
@@ -230,11 +230,15 @@
 				size 20px
 				line-height 20px
 				padding 0
+				.styled-checkbox-indicator
+					top 0
 		.table-item-actions
 			width 10px
+			padding 7px
 		.bulk-actions, .table-item-actions
 			.btn
 				min-width 23px
+
 		.sort-num
 			absolute false 2px 23px false
 			font-size 9px

@@ -72,7 +72,7 @@ export default {
 			year: 'numeric', month: 'numeric', day: 'numeric'
 		},
 		long: {
-			year: 'numeric', month: 'long', day: 'numeric',
+			year: 'numeric', month: 'numeric', day: 'numeric',
 			hour: 'numeric', minute: 'numeric', hour12: true
 		}
 	}

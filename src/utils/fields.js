@@ -40,3 +40,16 @@ export function transformedOptions() {
 
 	return options;
 }
+
+export const typeAliases = {
+	boolean: 'checkbox',
+	bool: 'checkbox',
+	string: 'text',
+	integer: 'number',
+	int: 'number',
+	real: 'float',
+	double: 'float',
+	decimal: 'float',
+	collection: 'array',
+	timestamp: 'datetime'
+};

@@ -1,5 +1,6 @@
 <script>
 	import { requireAll, filenameToCamelCase } from 'src/utils';
+	import { typeAliases } from 'src/utils/fields';
 
 	const components = {},
 		fieldsProps = {};
@@ -40,17 +41,7 @@
 			stagger: Number
 		},
 		data: () => ({
-			aliases: {
-				boolean: 'checkbox',
-				bool: 'checkbox',
-				string: 'text',
-				integer: 'number',
-				int: 'number',
-				real: 'float',
-				double: 'float',
-				collection: 'array',
-				timestamp: 'datetime'
-			}
+			typeAliases
 		}),
 		methods: {
 			update(value) {
@@ -77,7 +68,7 @@
 	.form-group(':class'="{ 'has-error': errorsText !== null }")
 		.field-title(v-if="title" v-html="title" ':class'="{ 'text-danger': errors }")
 		!=' '
-		component.field(':is'="'field-' + (aliases[type] || type)" v-bind="$props" '@input'="update($event)")
+		component.field(':is'="'field-' + (typeAliases[type] || type)" v-bind="$props" '@input'="update($event)")
 		!=' '
 		span.help-block(v-if="errorsText") {{ errorsText }}
 </template>
