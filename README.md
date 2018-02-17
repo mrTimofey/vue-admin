@@ -1,17 +1,38 @@
-Administrative interface frontend built with Webpack and Vue.js.
+## What is it?
 
-[Docs](https://mr-timofey.gitbooks.io/vue-admin)
+This is the last package you will ever need to build your custom dashboard or administrative panel. It includes:
+* Vue.js based ready-to-use out of the box SPA
+* Simple but flexible customization system
+* OpenAPI 3 (formerly known as Swagger) specification for a compatible server API implementation
+* Big variety of built-in field types
+* Big variety of built-in data display format types
+* Type-safe by design
+* Suitable for a fast prototyping
 
-## Install
+## Why?
 
+I was so tired of looking for a robust solution for dashboards and administrative panels. For they are many and still all of them are a piece of something bad. And I made this module with all the love my heart can give and I am confident you will feel that love after typing `npm i -S vue-admin-front` in the console.
+
+## Docs?
+
+Yes, [here it is](https://mr-timofey.gitbooks.io/vue-admin).
+
+## Demo?
+
+Work in progress.
+
+## What about server solutions?
+
+Only [PHP7.1/Laravel based solution](https://github.com/mrTimofey/laravel-admin-api) exists at the moment. Making more of them will be very appreciated. [Read the docs](https://mr-timofey.gitbooks.io/vue-admin/server-api-prerequisities.html) for more info.
+
+## How to use?
+
+Install:
 ```bash
-npm i -D vue-admin-front cross-env rimraf
+npm i -S vue-admin-front cross-env rimraf
 ```
 
-## Development and bundle building
-
 Add this to package.json scripts:
-
 ```json
 {
 	"admin:dev": "node node_modules/vue-admin-front/index.js",
@@ -19,60 +40,6 @@ Add this to package.json scripts:
 }
 ```
 
-## Configuration
+Use `npm run admin:dev` to start dev server, `npm run admin:build` to make a static build within `public/admin-dist` directory.
 
-Create `vue-admin-front.config.js` within your application root folder. Example:
-
-```js
-const base = require('vue-admin-front/config.default');
-
-module.exports = {
-	...base,
-	// replace default configuration options
-};
-```
-
-See original `vue-admin-front/config.default` file for any further instructions.
-
-## Extending and customizing
-
-You are able to extend or customize this package by simply overwriting any default files from the package's
-`src` directory with your customized files from your application `admin/src` (directory is configurable).
-
-### Pages and routes
-
-Pages are implicitly imported to the router from `src/pages`.
-Just create custom Vue components in this directory to add new page or rewrite an existing one.
-
-To add routes explicitly or reconfigure `vue-router` instance just override `src/router.js`:
-
-```js
-import base from 'vue-admin-front/src/router';
-
-export default {
-	...base,
-	routes: [
-		{ /* custom route */ },
-		...routes
-    ]
-}
-```
-
-### Fields and modals
-
-You can rewrite/create new form fields and modal components in
-`src/components/fields` and `src/components/modals` respectively.
-
-Fields will be available as a `field` component with a `type` prop set to your custom field component file name.
-Example: `src/components/fields/awesome/field.vue` -\> `<field type="awesome-field">`
-
-Modals are also explicitly exposed and can be used inside any of your components with
-`vm.$modal.open(name, [props], [size])` where `name` is a modal component file name, `size` can be 'sm' or 'lg'.
-`vm.$modal.close()` will close current modal.
-
-See existing components as references for your custom fields/modals.
-
-## Backend API
-
-See `docs/swagger.yml` for a supported API specification.
-Fully compatible with the [mr-timofey/laravel-admin-api](https://github.com/mrTimofey/laravel-admin-api).
+More info [here](https://mr-timofey.gitbooks.io/vue-admin/quick-start.html).
