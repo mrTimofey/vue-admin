@@ -104,7 +104,7 @@
 					a(@click.prevent="change(page + 1)" v-if="page !== lastPage" ':href'="href(page + 1)") &raquo;
 					span(v-else) &raquo;
 		.well.well-sm(v-if="limit && total")
-			!='{{ $t(\'elementsOnPage\') }} '
+			!='{{ $t(\'elementsOnPage\') }}: '
 			span(v-if="lastPage > 1") {{ limit * (page - 1) + 1 }}-{{ page === lastPage ? total : (limit * page) }} / {{ total }}
 			span(v-else) {{ total }}
 </template>
