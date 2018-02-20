@@ -31,6 +31,7 @@
 				if (Array.isArray(value)) value = value.length ? value.slice().sort() : null;
 				const targetObj = field.scope ? data.scopes : data.filters,
 					targetKey = field.scope || field.name;
+				if (typeof value === 'boolean') value = value ? '' : null;
 				if (value === null) {
 					if (targetObj[targetKey] === undefined) return;
 					delete targetObj[targetKey];
