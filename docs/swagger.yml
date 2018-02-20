@@ -181,7 +181,7 @@ components:
             fa:
               type: string
               description:
-                any valid [Font Awesome icon name](http://fontawesome.io/icons/)
+                any valid [Font Awesome 5 icon name](http://fontawesome.io/icons/)
             entity:
               type: string
               description: entity name (this item will be a link to an entity home page)
