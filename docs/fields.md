@@ -138,9 +138,10 @@ Supported props:
 
 ### meta
 
-[Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/meta.vue)
+[Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/key-value.vue)
 
-Key-value pairs usually used to represent meta/OpenGraph/etc. tags values. Widget is a 2-column table where first column contains keys and second contains text inputs.
+Key-value pairs. Widget is a 2-column table where first column contains predefined fixed keys and second contains text inputs.
+Convenient for representing meta/OpenGraph/etc. values.
 
 Supported props:
 * `keys` - keys array (`['title', 'description', 'keywords']` by default)
@@ -237,8 +238,10 @@ Supported props:
 
 ### switcher
 
-Same as a `checkbox` but does emits unchecked state as `null` instead of `false`.
-Useful when you want to create a switch filter on entity index pages and do not want `false` values to be in a query string at all.
+[Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/switcher.js)
+
+Same as a `checkbox` but emits unchecked state as `null` instead of `false`.
+Useful when you want to create a checkbox filter on entity index pages and do not want unchecked state to affect query string.
 
 ### text
 

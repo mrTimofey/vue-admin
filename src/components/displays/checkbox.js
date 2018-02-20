@@ -11,8 +11,8 @@ export default {
 
 		function iconClass() {
 			if (v === true) return icon.checked || 'check';
-			if (v === false) return icon.unchecked || 'remove';
-			return icon.unknown || 'question';
+			if (v === false) return icon.unchecked || 'times';
+			return icon.unknown || 'question-circle';
 		}
 
 		function rootClass() {
@@ -32,7 +32,7 @@ export default {
 		const text = getText();
 
 		return h('span', { class: rootClass() }, [
-			icon && h('i', { class: ['fa', 'fa-' + iconClass()]}),
+			icon && h('i', { class: ['fas', 'fa-' + iconClass()]}),
 			' ',
 			text && h('span', { domProps: { innerHTML: text } })
 		]);
