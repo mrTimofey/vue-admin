@@ -54,13 +54,13 @@
 					span.logo-mini(v-html="shortTitle")
 					span.logo-lg(v-html="title")
 				nav.navbar.navbar-static-top(role="navigation")
-					a.sidebar-toggle('@click.prevent'="sidebarCollapse = !sidebarCollapse"): i.fas.fa-bars.fa-lg
+					a.sidebar-toggle('@click.prevent'="sidebarCollapse = !sidebarCollapse"): i.fas.fa-bars
 			aside.main-sidebar
 				section.sidebar
 					.user-panel(v-if="user")
 						.info {{ user.name || user.email }}
 						!=' '
-						a.logout-button(@click="logout()"): i.fas.fa-sign-out
+						a.logout-button(@click="logout()"): i.fas.fa-sign-out-alt
 					sidebar-menu
 			.content-wrapper
 				router-view
