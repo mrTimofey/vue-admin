@@ -180,18 +180,18 @@
 				.btn-group.btn-group-xs.nowrap
 					slot(name="item-actions-before" ':item'="item" ':index'="i")
 					router-link.btn.btn-primary(v-if="permitted('update')" ':to'="path + '/item/' + item[primaryKey]")
-						i.fa.fa-pencil
+						i.fas.fa-edit
 					.btn.btn-danger(v-if="permitted('destroy')" '@click'="$emit('destroy', item)")
-						i.fa.fa-trash
+						i.fas.fa-trash
 					slot(name="item-actions-after" ':item'="item" ':index'="i")
 		tfoot.bulk-actions(v-if="showBulkActions && selection.length"): tr: td(':colspan'="colspan")
 			.btn-group.btn-group-xs
 				slot(name="bulk-actions-before" ':selection'="selection")
 				//- TODO
 				//- router-link.btn.btn-primary(v-if="permitted('update')" ':to'="{ path: path + '/bulk-update', query: { keys: selection } }")
-					i.fa.fa-pencil
+					i.fas.fa-edit
 				.btn.btn-danger(v-if="permitted('destroy')" '@click'="emitBulkAction('destroy')")
-					i.fa.fa-trash
+					i.fas.fa-trash
 				slot(name="bulk-actions-after" ':selection'="selection")
 </template>
 <style lang="stylus">
@@ -230,8 +230,9 @@
 			padding 7px
 		.bulk-actions, .table-item-actions
 			.btn
-				min-width 23px
-
+				padding-right 2px
+				padding-left 2px
+				min-width 25px
 		.sort-num
 			absolute false 2px 23px false
 			font-size 9px

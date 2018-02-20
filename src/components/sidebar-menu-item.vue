@@ -41,24 +41,24 @@
 <template lang="pug">
 	li.header(v-if="typeof item === 'string'" v-html="item")
 	li(v-else-if="item.path"): a(':href'="href")
-		i.fa(v-if="item.fa" ':class'="'fa-' + item.fa")
+		i.fas(v-if="item.fa" ':class'="'fa-' + item.fa")
 		!=' '
 		span(v-html="item.title")
 	router-link(v-else-if="item.route" tag="li" ':to'="href"): a
-		i.fa(v-if="item.fa" ':class'="'fa-' + item.fa")
+		i.fas(v-if="item.fa" ':class'="'fa-' + item.fa")
 		!=' '
 		span(v-html="item.title")
 	router-link(v-else-if="item.entity && available(item.entity, 'index')" tag="li" ':to'="href"): a
-		i.fa(v-if="item.fa" ':class'="'fa-' + item.fa")
+		i.fas(v-if="item.fa" ':class'="'fa-' + item.fa")
 		!=' '
 		span(v-html="item.title || entitiesData[item.entity].title || ('[' + $t('undefined') + ']')")
 	li.treeview(v-else-if="item.items && item.items.length" ':class'="{ 'menu-open': expanded, active: hasActiveItem }")
 		a('@click.prevent'="toggle()" style="cursor:pointer")
-			i.fa(v-if="item.fa" ':class'="'fa-' + item.fa")
+			i.fas(v-if="item.fa" ':class'="'fa-' + item.fa")
 			!=' '
 			span(v-html="item.title")
 			!=' '
-			span.pull-right-container: i.fa.fa-angle-left.pull-right
+			span.pull-right-container: i.fas.fa-angle-left.pull-right
 		ul.treeview-menu(':style'="{ display: expanded ? 'block' : 'none' }")
 			sidebar-menu-item(v-for="(sub, i) in item.items" ':key'="i" ':item'="sub")
 </template>

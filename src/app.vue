@@ -54,14 +54,28 @@
 					span.logo-mini(v-html="shortTitle")
 					span.logo-lg(v-html="title")
 				nav.navbar.navbar-static-top(role="navigation")
-					a.sidebar-toggle('@click.prevent'="sidebarCollapse = !sidebarCollapse")
+					a.sidebar-toggle('@click.prevent'="sidebarCollapse = !sidebarCollapse"): i.fas.fa-bars.fa-lg
 			aside.main-sidebar
 				section.sidebar
 					.user-panel(v-if="user")
 						.info {{ user.name || user.email }}
 						!=' '
-						a.logout-button(@click="logout()"): i.fa.fa-sign-out
+						a.logout-button(@click="logout()"): i.fas.fa-sign-out
 					sidebar-menu
 			.content-wrapper
 				router-view
 </template>
+<style lang="stylus">
+	.main-header .sidebar-toggle
+		padding 15px
+		i
+			backface-visibility hidden
+			display block
+			size 20px
+			font-size 22px
+			line-height @height
+		&:before
+			content none
+	.sidebar-menu li > a > .fas
+		width 20px
+</style>

@@ -31,13 +31,13 @@
 <template lang="pug">
 	.field-file
 		.field-file.btn-group.btn-group-sm
-			.btn.btn-danger(v-if="value" '@click'="clearValue" ':disabled'="disabled"): i.fa.fa-trash
+			.btn.btn-danger(v-if="value" '@click'="clearValue" ':disabled'="disabled"): i.fas.fa-trash
 			label.btn.btn-default(v-else ':disabled'="disabled")
 				input(type="file" style="display:none" '@change'="onFileChange" ':accept'="accept" ':disabled'="disabled")
-				i.fa.fa-upload
+				i.fas.fa-upload
 				!=' {{ placeholder || $t(\'chooseFile\') }}'
 			a.btn.btn-primary(v-if="uploaded" ':href'="value" target="_blank")
-				i.fa.fa-download
+				i.fas.fa-download
 				!=' {{ value }}'
 			.btn.btn-warning.field-file-upload-pending(v-else-if="value") {{ $t('uploadMessage') }}
 </template>

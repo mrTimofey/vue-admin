@@ -5,7 +5,7 @@
 			!=' '
 			ol.breadcrumb
 				li.active
-					i.fa.fa-dashboard
+					i.fas.fa-dashboard
 					!=' '
 					| {{ $t('home') }}
 </template>

@@ -136,7 +136,7 @@
 			.map-stats
 				template(v-if="value")
 					a.text-danger('@click.prevent'="clearValue")
-						i.fa.fa-trash
+						i.fas.fa-trash
 						!=' '
 						b {{ $t('map.removePoint') }}
 					!=' | '

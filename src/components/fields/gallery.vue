@@ -59,8 +59,8 @@
 		draggable.list(':value'="value" v-model="images" v-show="images && images.length")
 			.image(v-for="id in images" ':key'="id")
 				.btn-group
-					button.btn.btn-danger.btn-xs('@mousedown.stop.prevent'="remove(id)"): i.fa.fa-remove
-					a.btn.btn-default.btn-xs(':href'="imagePath + '/' + id" target="_blank"): i.fa.fa-eye
+					button.btn.btn-danger.btn-xs('@mousedown.stop.prevent'="remove(id)"): i.fas.fa-trash
+					a.btn.btn-default.btn-xs(':href'="imagePath + '/' + id" target="_blank"): i.fas.fa-eye
 				img(':src'="imagePath + '/admin-thumb/' + id")
 		form: label
 			a.btn.btn-default.btn-sm(':class'="{ disabled: updating || disabled }") {{ $t('uploadImages') }}

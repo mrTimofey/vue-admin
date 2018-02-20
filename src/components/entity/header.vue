@@ -6,7 +6,7 @@
 		slot
 		ol.breadcrumb
 			li
-				i.fa.fa-dashboard
+				i.fas.fa-dashboard
 				!=' '
 				router-link(to="/") {{ parent.$t('home') }}
 			slot(name="breadcrumbs")

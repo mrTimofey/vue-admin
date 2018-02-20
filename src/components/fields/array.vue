@@ -100,9 +100,9 @@
 						':errors'="errors && errors[num - 1]"
 						'@input'="updateItem(num - 1, $event)")
 				td.td-actions(v-if="!length && valueLength > min")
-					.btn.btn-xs.btn-danger('@click'="removeItem(num - 1)" ':disabled'="disabled"): i.fa.fa-trash
+					.btn.btn-xs.btn-danger('@click'="removeItem(num - 1)" ':disabled'="disabled"): i.fas.fa-trash
 		.btn.btn-default(v-if="!length && valueLength < max" '@click'="addItem()" ':disabled'="disabled")
-			i.fa.fa-plus
+			i.fas.fa-plus
 			!=' {{ addLabel }}'
 </template>
 <style lang="stylus">
