@@ -51,5 +51,6 @@ export const typeAliases = {
 	double: 'float',
 	decimal: 'float',
 	collection: 'array',
-	timestamp: 'datetime'
+	timestamp: 'datetime',
+	meta: 'key-value'
 };
