@@ -235,6 +235,11 @@ Supported props:
 
 `v-model` can be `null` or `Object`.
 
+### switcher
+
+Same as a `checkbox` but does emits unchecked state as `null` instead of `false`.
+Useful when you want to create a switch filter on entity index pages and do not want `false` values to be in a query string at all.
+
 ### text
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/text.vue)
