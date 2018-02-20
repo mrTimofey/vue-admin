@@ -1,6 +1,7 @@
 default sort support
 columns preferences
 dynamic actions (depending on object item) support
+bootstrap 4
 file field ajaxMode
 different list views support
 support some form layouts
