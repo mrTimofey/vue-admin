@@ -16,7 +16,7 @@ where:
 Examples:
 * `{{ name | uppercase }}` with data `{ id: 1, name: 'Something' }` -> `SOMETHING`
 * `You can buy {{ name }} {{ price | floatFormat(2) }} per item` with data `{ name: 'Bread', price: 10.234567 }` -> `You can buy Bread 10.23 USD per item`
-* `Return to your {{ siblingType || sibling }}` with data `{ siblingType: null }` -> `Return to your sibling`, with data `{ siblinkType: 'sister' }` -> `Return to your sister`
+* `Return to your {{ siblingType sibling }}` with data `{ siblingType: null }` -> `Return to your sibling`, with data `{ siblinkType: 'sister' }` -> `Return to your sister`
 
 Usage within your own modules:
 
