@@ -29,25 +29,15 @@
 					scopes: this.value && this.value.scopes ? { ...this.value.scopes } : {}
 				};
 				if (Array.isArray(value)) value = value.length ? value.slice().sort() : null;
+				const targetObj = field.scope ? data.scopes : data.filters,
+					targetKey = field.scope || field.name;
 				if (value === null) {
-					if (field.scope) {
-						if (data.scopes[field.scope] === undefined) return;
-						delete data.scopes[field.scope];
-					}
-					else {
-						if (data.filters[field.name] === undefined) return;
-						delete data.filters[field.name];
-					}
+					if (targetObj[targetKey] === undefined) return;
+					delete targetObj[targetKey];
 				}
 				else {
-					if (field.scope) {
-						if (data.scopes[field.scope] === value) return;
-						data.scopes[field.scope] = value;
-					}
-					else {
-						if (data.filters[field.name] === value) return;
-						data.filters[field.name] = value;
-					}
+					if (targetObj[targetKey] === value) return;
+					targetObj[targetKey] = value;
 				}
 				clearTimeout(this.staggerTimeout);
 				this.staggerTimeout = setTimeout(() => {
