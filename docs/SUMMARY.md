@@ -18,4 +18,4 @@
   * [Custom pages](customization/custom-pages.md)
   * [Extending entity pages](customization/extending-entity-pages.md)
   * [Global style variables](customization/global-style-variables.md)
-
+* [Placeholders](placeholders.md)
