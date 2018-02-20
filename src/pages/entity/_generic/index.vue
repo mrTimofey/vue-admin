@@ -241,7 +241,7 @@
 		entity-header(':title'="title")
 		.content
 			.box
-				spinner
+				spinner(v-if="loading")
 				.box-header.with-border
 					.row
 						.col-lg-9.col-md-6
