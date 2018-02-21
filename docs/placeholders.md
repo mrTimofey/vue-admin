@@ -4,7 +4,9 @@
 
 There are some places where you can use a string templates with placeholders.
 
-Each placeholder is a template part with mustache-like entries that can be replaced with some values from a provided object.
+Each placeholder is a template part with mustache-like entries similar to Vue.js
+that can be dynamically replaced with some values from a provided object.
+
 
 These entries looks like this:
 `{{ field [| filter | filterWithArgs(arg1, arg2)] [|| default value ]}}`

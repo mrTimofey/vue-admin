@@ -1,4 +1,7 @@
 <script>
+	import http from 'src/http';
+	import { httpErrorModalData } from 'src/utils';
+
 	export default {
 		props: {
 			placeholder: String,
@@ -7,8 +10,15 @@
 				type: Boolean,
 				default: false
 			},
+			ajaxMode: {
+				type: Boolean,
+				default: false
+			},
 			accept: String
 		},
+		data: () => ({
+			uploading: false
+		}),
 		computed: {
 			uploaded() {
 				return typeof this.value === 'string';
@@ -17,12 +27,25 @@
 		methods: {
 			onFileChange(e) {
 				if (this.disabled) return;
-				this.changedInside = true;
-				this.$emit('input', e.target.files[0]);
+				if (this.ajaxMode) {
+					this.uploading = true;
+					const data = new FormData();
+					data.append('files[]', e.target.files[0]);
+					http.post('upload/files', data)
+						.then(res => {
+							this.$emit('input', res.data[0]);
+						})
+						.catch(err => {
+							this.$modal.open('error', httpErrorModalData(err));
+						})
+						.then(() => {
+							this.uploading = false;
+						});
+				}
+				else this.$emit('input', e.target.files[0]);
 			},
 			clearValue() {
 				if (this.disabled) return;
-				this.changedInside = true;
 				this.$emit('input', null);
 			}
 		}
@@ -36,7 +59,7 @@
 				input(type="file" style="display:none" '@change'="onFileChange" ':accept'="accept" ':disabled'="disabled")
 				i.fas.fa-upload
 				!=' {{ placeholder || $t(\'chooseFile\') }}'
-			a.btn.btn-primary(v-if="uploaded" ':href'="value" target="_blank")
+			a.btn.btn-default(v-if="uploaded" ':href'="value" target="_blank")
 				i.fas.fa-download
 				!=' {{ value }}'
 			.btn.btn-warning.field-file-upload-pending(v-else-if="value") {{ $t('uploadMessage') }}

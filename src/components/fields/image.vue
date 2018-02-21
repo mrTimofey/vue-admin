@@ -16,6 +16,10 @@
 			ajaxMode: {
 				type: Boolean,
 				default: false
+			},
+			accept: {
+				type: String,
+				default: 'image/*'
 			}
 		},
 		data: () => ({
@@ -30,11 +34,12 @@
 		},
 		methods: {
 			emitValue(v) {
+				if (this.disabled) return;
 				if (this.ajaxMode) {
 					this.uploading = true;
 					const data = new FormData();
 					data.append('images[]', v);
-					http.post('gallery', data)
+					http.post('upload/images', data)
 						.then(res => {
 							this.$emit('input', res.data[0]);
 						})
@@ -73,7 +78,7 @@
 <template lang="pug">
 	.field-image
 		.field-image-preview.img-thumbnail(v-if="src"): img(':src'="src")
-		base-file-field(accept="image/*" ':placeholder'="placeholder || $t('chooseImage')" ':disabled'="disabled || uploading" ':value'="fileValue" '@input'="emitValue($event)")
+		base-file-field(':accept'="accept" ':placeholder'="placeholder || $t('chooseImage')" ':disabled'="disabled || uploading" ':value'="fileValue" '@input'="emitValue($event)")
 </template>
 <style lang="stylus">
 	.field-image-preview

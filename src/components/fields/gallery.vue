@@ -33,19 +33,20 @@
 				this.updating = true;
 				const data = new FormData();
 				for (let file of e.target.files) data.append('images[]', file);
-				http.post('gallery', data)
+				http.post('upload/images', data)
 					.then(res => {
-						e.target.form.reset();
 						this.$emit('input', value.concat(res.data));
 					})
 					.catch(err => {
 						this.$modal.open('error', httpErrorModalData(err));
 					})
 					.then(() => {
+						e.target.form.reset();
 						this.updating = false;
 					});
 			},
 			remove(item) {
+				if (this.disabled) return;
 				const value = this.value.slice();
 				value.splice(value.indexOf(item), 1);
 				this.$emit('input', value);
@@ -59,12 +60,12 @@
 		draggable.list(':value'="value" v-model="images" v-show="images && images.length")
 			.image(v-for="id in images" ':key'="id")
 				.btn-group
-					button.btn.btn-danger.btn-xs('@mousedown.stop.prevent'="remove(id)"): i.fas.fa-trash
+					button.btn.btn-danger.btn-xs('@mousedown.stop.prevent'="remove(id)" ':disabled'="disabled"): i.fas.fa-trash
 					a.btn.btn-default.btn-xs(':href'="imagePath + '/' + id" target="_blank"): i.fas.fa-eye
 				img(':src'="imagePath + '/admin-thumb/' + id")
 		form: label
 			a.btn.btn-default.btn-sm(':class'="{ disabled: updating || disabled }") {{ $t('uploadImages') }}
-			input.hidden(type="file" multiple accept="image/*" v-on:change="fileInputChanged" ':disabled'="disabled")
+			input.hidden(type="file" multiple accept="image/*" '@change'="fileInputChanged" ':disabled'="disabled")
 </template>
 <style lang="stylus">
 	.field-gallery
