@@ -13,12 +13,9 @@ where:
 * `filter`, `filterWithArgs(arg1, arg2)` - filter, any Vue.js globally registered filter
 * `defaultValue` - guess what
 
-Examples:
-* {{ name | uppercase }} with data { id: 1, name: "Something" } -> `SOMETHING`
-* You can buy {{ name }} {{ price | floatFormat(2) }} per item with data { name: "Bread", price: 10.234567 } -> `You can buy Bread 10.23 USD per item`
-* Return to your {{ siblingType || sibling }} with data { siblingType: null } -> `Return to your sibling`, with data { siblingType: "sister" } -> `Return to your sister`
+## Examples
 
-Usage within your own modules:
+Usage in JavaScript code:
 
 ```javascript
 import { parsePlaceholders } from 'src/utils';
@@ -27,20 +24,19 @@ const str = parsePlaceholders('The name is {{ name | uppercase }}', { name: 'Som
 // str === 'The name is SOMETHING'
 ```
 
-Usage within any Vue component template:
+Usage in Vue component templates with a built-in `placeholders` filter:
 
 ```html
 <script>
     export default {
         data: () => ({
-            priceTemplate: '{{ name | uppercase || 0.0 }} USD',
-            source: {
-                price: 10.123456
-            }
+            priceTemplate: '{{ name | floatFormat || 0.0 }} USD'
         })
     }
 </script>
 <template lang="pug">
-    p {{ priceTemplate | placeholders(source) }} === 10.12 USD
+	div
+		p {{ priceTemplate | placeholders({ price: 10.1234567 }) }} === 10.12 USD
+		p {{ priceTemplate | placeholders({}) }} === 0.0 USD
 </template>
 ```
