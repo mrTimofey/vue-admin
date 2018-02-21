@@ -14,7 +14,9 @@
 				const data = {};
 				for (let field of this.fields) {
 					if (this.value) {
-						data[field.name] = (field.scope ? this.value.scopes[field.scope] : this.value.filters[field.name]);
+						data[field.name] = field.scope ?
+							(this.value.scopes && this.value.scopes[field.scope]) :
+							(this.value.filters && this.value.filters[field.name]);
 						if (data[field.name] === undefined) data[field.name] = null;
 					}
 					else data[field.name] = null;
