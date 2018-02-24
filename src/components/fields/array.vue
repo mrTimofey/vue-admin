@@ -101,7 +101,7 @@
 						'@input'="updateItem(num - 1, $event)")
 				td.td-actions(v-if="!length && valueLength > min")
 					.btn.btn-xs.btn-danger('@click'="removeItem(num - 1)" ':disabled'="disabled"): i.fas.fa-trash
-		.btn.btn-default(v-if="!length && valueLength < max" '@click'="addItem()" ':disabled'="disabled")
+		.btn.btn-sm.btn-default(v-if="!length && valueLength < max" '@click'="addItem()" ':disabled'="disabled")
 			i.fas.fa-plus
 			!=' {{ addLabel }}'
 </template>
