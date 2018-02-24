@@ -14,7 +14,13 @@
 				type: Boolean,
 				default: false
 			},
-			accept: String
+			size: {
+				type: String,
+				default: 'sm'
+			},
+			accept: String,
+			uploadMessage: String,
+			valueLabel: String
 		},
 		data: () => ({
 			uploading: false
@@ -53,7 +59,7 @@
 </script>
 <template lang="pug">
 	.field-file
-		.field-file.btn-group.btn-group-sm
+		.field-file.btn-group(':class'="size ? ('btn-group-' + size) : ''")
 			.btn.btn-danger(v-if="value" '@click'="clearValue" ':disabled'="disabled"): i.fas.fa-trash
 			label.btn.btn-default(v-else ':disabled'="disabled")
 				input(type="file" style="display:none" '@change'="onFileChange" ':accept'="accept" ':disabled'="disabled")
@@ -61,8 +67,8 @@
 				!=' {{ placeholder || $t(\'chooseFile\') }}'
 			a.btn.btn-default(v-if="uploaded" ':href'="value" target="_blank")
 				i.fas.fa-download
-				!=' {{ value }}'
-			.btn.btn-warning.field-file-upload-pending(v-else-if="value") {{ $t('uploadMessage') }}
+				!=' {{ valueLabel || value }}'
+			.btn.btn-warning.field-file-upload-pending(v-else-if="value") {{ uploadMessage || $t('uploadMessage') }}
 </template>
 <style lang="stylus">
 	.field-file

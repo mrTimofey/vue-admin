@@ -1,13 +1,15 @@
 export default {
 	functional: true,
 	props: {
-		icon: null,
 		value: Boolean,
-		text: null
+		icon: null,
+		text: null,
+		color: null
 	},
 	render(h, { props }) {
 		const v = props.value,
-			icon = (props.icon === undefined || props.icon === true) ? {} : props.icon;
+			icon = (props.icon === undefined || props.icon === true) ? {} : props.icon,
+			color = (props.color === undefined || props.color === true) ? {} : props.color;
 
 		function iconClass() {
 			if (v === true) return icon.checked || 'check';
@@ -16,9 +18,10 @@ export default {
 		}
 
 		function rootClass() {
-			if (v === true) return 'text-primary';
-			if (v === false) return null;
-			return icon.unknown || 'text-muted';
+			if (!color) return null;
+			if (v === true) return 'text-' + (color.checked || 'primary');
+			if (v === false) return 'text-' + (color.unchecked || 'normal');
+			return 'text-' + (color.unknown || 'muted');
 		}
 
 		function getText() {

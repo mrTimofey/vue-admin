@@ -89,6 +89,9 @@ Supported props:
 * `placeholder` - `chooseFile` translation message entry by default ('Choose file' for `en`)
 * `ajaxMode` - upload file just after choosing a file, `false` by default
 * `accept` - sets file input's `accept` attribute
+* `size` - upload Bootstrap button size (sm, xs)
+* `uploadMessage` - message indicating file about to upload
+* `valueLabel` - label that will be displayed instead of a file name
 
 `v-model` accepts 3 types of values:
 * string value - interpreted as an uploaded file URL
@@ -132,6 +135,9 @@ Supported props:
 * `placeholder` - `chooseImage` translation message entry by default ('Choose image' for `en`)
 * `ajaxMode` - upload image just after choosing a file, `false` by default
 * `accept` - accept file input attribute, `'image/*'` by default
+* `size` - upload Bootstrap button size (sm, xs)
+* `uploadMessage` - message indicating file about to upload
+* `valueLabel` - label that will be displayed instead of a file name
 
 `v-model` accepts 3 types of values:
 * string value - interpreted as an uploaded file name, image preview path will be prepended with `imagePath` acquired from server API with meta-data

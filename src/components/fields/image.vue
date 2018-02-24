@@ -20,7 +20,10 @@
 			accept: {
 				type: String,
 				default: 'image/*'
-			}
+			},
+			uploadMessage: String,
+			valueLabel: String,
+			size: String
 		},
 		data: () => ({
 			src: null,
@@ -78,7 +81,12 @@
 <template lang="pug">
 	.field-image
 		.field-image-preview.img-thumbnail(v-if="src"): img(':src'="src")
-		base-file-field(':accept'="accept" ':placeholder'="placeholder || $t('chooseImage')" ':disabled'="disabled || uploading" ':value'="fileValue" '@input'="emitValue($event)")
+		base-file-field(':accept'="accept"
+			':placeholder'="placeholder || $t('chooseImage')"
+			':disabled'="disabled || uploading" ':value'="fileValue" '@input'="emitValue($event)"
+			':upload-message'="uploadMessage"
+			':value-label'="valueLabel"
+			':size'="size")
 </template>
 <style lang="stylus">
 	.field-image-preview
