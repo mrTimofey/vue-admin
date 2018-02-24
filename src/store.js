@@ -2,18 +2,12 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import http, { authorized, recallToken, logout } from 'src/http';
 import { setLocale, setFallbackLocale } from 'src/i18n';
+import initialState from 'src/initial-state';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-	state: {
-		user: null,
-		title: 'Admin<b>Panel</b>',
-		shortTitle: 'AP',
-		metaData: null,
-		locale: 'en',
-		fallbackLocale: 'en'
-	},
+	state: initialState,
 	getters: {
 		/**
 		 * Get current authenticated user.
@@ -35,6 +29,10 @@ export default new Vuex.Store({
 		wysiwygCss: state => state.metaData && state.metaData.wysiwyg && state.metaData.wysiwyg.css
 	},
 	mutations: {
+		setTitle(state, long, short) {
+			state.title = long;
+			state.short = short || long;
+		},
 		setUser(state, user) {
 			state.user = user;
 		},

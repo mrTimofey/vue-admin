@@ -2,7 +2,9 @@
 	import http from 'src/http';
 	import { mapActions, mapGetters, mapMutations } from 'vuex';
 	import { MasterComponent as Modal } from 'src/plugins/modal';
-	import SidebarMenu from 'src/components/sidebar-menu.vue';
+	import Logo from 'src/components/app/logo.vue';
+	import SidebarUser from 'src/components/app/sidebar-user.vue';
+	import SidebarMenu from 'src/components/app/sidebar-menu.vue';
 	import 'src/styles/common.styl';
 	import 'src/styles/modal.styl';
 
@@ -39,7 +41,7 @@
 				else window.localStorage.removeItem('adminSidebarCollapse');
 			}
 		},
-		components: { Modal, SidebarMenu }
+		components: { Modal, Logo, SidebarUser, SidebarMenu }
 	};
 </script>
 <template lang="pug">
@@ -50,17 +52,12 @@
 			login-form('@done'="init()")
 		template(v-else-if="metaData")
 			header.main-header
-				router-link.logo(to="/")
-					span.logo-mini(v-html="shortTitle")
-					span.logo-lg(v-html="title")
+				logo
 				nav.navbar.navbar-static-top(role="navigation")
 					a.sidebar-toggle('@click.prevent'="sidebarCollapse = !sidebarCollapse"): i.fas.fa-bars
 			aside.main-sidebar
 				section.sidebar
-					.user-panel(v-if="user")
-						.info {{ user.name || user.email }}
-						!=' '
-						a.logout-button(@click="logout()"): i.fas.fa-sign-out-alt
+					sidebar-user(':user'="user")
 					sidebar-menu
 			.content-wrapper
 				router-view
