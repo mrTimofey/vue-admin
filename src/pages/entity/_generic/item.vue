@@ -220,7 +220,9 @@
 					field(v-for="field in fields" ':key'="field.name"
 						v-show="!fieldHidden(field.name)"
 						':disabled'="fieldDisabled(field.name)"
-						v-bind="field" v-model="item[field.name]"
+						':object'="item"
+						v-bind="field"
+						v-model="item[field.name]"
 						':errors'="fieldErrors[field.name]")
 					.btn-group
 						button.btn.btn-success {{ $t('saveAndReturn') }}
