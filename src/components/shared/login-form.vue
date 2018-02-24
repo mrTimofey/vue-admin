@@ -15,7 +15,7 @@
 			loading: false
 		}),
 		computed: {
-			...mapGetters(['title', 'shortTitle'])
+			...mapGetters(['logoTitle'])
 		},
 		methods: {
 			login() {
@@ -38,7 +38,7 @@
 </script>
 <template lang="pug">
 	.login-box
-		.login-logo(v-html="title" style="color:white")
+		.login-logo(v-html="logoTitle" style="color:white")
 		.login-box-body
 			p.login-box-msg
 				span.text-danger(v-if="error === 400") {{ $t('errors.login') }}
