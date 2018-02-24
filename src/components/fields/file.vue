@@ -74,7 +74,7 @@
 				i.fas.fa-download
 				!=' {{ valueLabel || value }}'
 			.btn.btn-warning.field-file-upload-pending(v-else-if="value") {{ uploadMessage || $t('uploadMessage') }}
-		.progress.progress-sm.active(v-if="true")
+		.progress.progress-sm.active(v-if="uploading")
 			.progress-bar.progress-bar-striped(':style'="{ width: uploadProgress * 100 + '%' }")
 </template>
 <style lang="stylus">
