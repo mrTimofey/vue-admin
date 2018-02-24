@@ -35,6 +35,9 @@
 		created() {
 			this.fetchLocaleData().then(this.init);
 		},
+		beforeMount() {
+			window.document.title = this.title;
+		},
 		watch: {
 			sidebarCollapse(v) {
 				if (v) window.localStorage.adminSidebarCollapse = '1';
