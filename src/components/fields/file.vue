@@ -23,7 +23,8 @@
 			valueLabel: String
 		},
 		data: () => ({
-			uploading: false
+			uploading: false,
+			uploadProgress: 0
 		}),
 		computed: {
 			uploaded() {
@@ -31,13 +32,16 @@
 			}
 		},
 		methods: {
+			progressUpload(e) {
+				this.uploadProgress = e.loaded / e.total;
+			},
 			onFileChange(e) {
 				if (this.disabled) return;
 				if (this.ajaxMode) {
 					this.uploading = true;
 					const data = new FormData();
 					data.append('files[]', e.target.files[0]);
-					http.post('upload/files', data)
+					http.post('upload/files', data, { onUploadProgress: this.progressUpload })
 						.then(res => {
 							this.$emit('input', res.data[0]);
 						})
@@ -46,6 +50,7 @@
 						})
 						.then(() => {
 							this.uploading = false;
+							this.uploadProgress = 0;
 						});
 				}
 				else this.$emit('input', e.target.files[0]);
@@ -59,19 +64,21 @@
 </script>
 <template lang="pug">
 	.field-file
-		.field-file.btn-group(':class'="size ? ('btn-group-' + size) : ''")
+		.field-file-btns.btn-group(':class'="size ? ('btn-group-' + size) : ''")
 			.btn.btn-danger(v-if="value" '@click'="clearValue" ':disabled'="disabled"): i.fas.fa-trash
-			label.btn.btn-default(v-else ':disabled'="disabled")
-				input(type="file" style="display:none" '@change'="onFileChange" ':accept'="accept" ':disabled'="disabled")
+			label.btn.btn-default(v-else ':disabled'="disabled || uploading")
+				input(type="file" style="display:none" '@change'="onFileChange" ':accept'="accept" ':disabled'="disabled || uploading")
 				i.fas.fa-upload
 				!=' {{ placeholder || $t(\'chooseFile\') }}'
 			a.btn.btn-default(v-if="uploaded" ':href'="value" target="_blank")
 				i.fas.fa-download
 				!=' {{ valueLabel || value }}'
 			.btn.btn-warning.field-file-upload-pending(v-else-if="value") {{ uploadMessage || $t('uploadMessage') }}
+		.progress.progress-sm.active(v-if="true")
+			.progress-bar.progress-bar-striped(':style'="{ width: uploadProgress * 100 + '%' }")
 </template>
 <style lang="stylus">
-	.field-file
+	.field-file-btns
 		display flex
 		align-items center
 		label
