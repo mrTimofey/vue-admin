@@ -29,6 +29,7 @@ Package structure:
     * `entry.js` - application entry file
     * `http.js` - http service ([Axios](https://github.com/axios/axios))
     * `i18n.js` - translation plugin config ([vue-i18n](https://github.com/kazupon/vue-i18n))
+    * `initial-state.js` - exports initial Vuex store state
     * `router.js` - [vue-router](https://github.com/vuejs/vue-router) config
     * `store.js` - [vuex](https://github.com/vuejs/vuex) store config
     * `shared.styl` - shared stylus variables
