@@ -35,7 +35,7 @@
 				set(v) {
 					v = v && v.trim();
 					this.$router.replace({ query: { ...this.$route.query,
-						search: v || undefined
+						search: v || undefined, page: undefined
 					} });
 				}
 			},
@@ -73,7 +73,7 @@
 				},
 				set(v) {
 					this.$router.replace({ query: { ...this.$route.query,
-						params: v ? JSON.stringify(v) : undefined
+						params: v ? JSON.stringify(v) : undefined, page: undefined
 					} });
 				}
 			},
