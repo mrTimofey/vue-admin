@@ -11,14 +11,16 @@ requireAll([
 		if (Array.isArray(comp.props)) {
 			if (comp.props.indexOf('title') === -1) comp.props.push('title');
 			if (comp.props.indexOf('type') === -1) comp.props.push('type');
+			if (comp.props.indexOf('object') === -1) comp.props.push('object');
 		}
 		else {
 			if (!comp.props.title) comp.props.title = String;
 			if (!comp.props.type) comp.props.type = String;
+			if (!comp.props.object) comp.props.object = Object;
 		}
 	}
 	// remove title tooltip on hover and add value for no-script functional components
-	else comp.props = ['title', 'type', 'value'];
+	else comp.props = ['title', 'type', 'value', 'object'];
 });
 
 export default {

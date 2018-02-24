@@ -17,6 +17,7 @@ Field types available out-of-the-box are described here. See [custom field types
 All field types should support the following props:
 * `disabled` - disables user interaction
 * `value` - guess what
+* `object` - editing object
 
 ### array
 

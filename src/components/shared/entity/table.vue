@@ -173,9 +173,10 @@
 					field(v-if="field.editable && permitted('update')"
 						v-bind="field"
 						':value'="item[field.name]"
+						':object'="item"
 						title=""
 						'@input'="$emit('update', item, field.name, $event)")
-					display(v-else ':value'="item[field.name]" v-bind="field")
+					display(v-else ':value'="item[field.name]" ':object'="object" v-bind="field")
 			td.table-item-actions(v-if="showItemActions")
 				.btn-group.btn-group-xs.nowrap
 					slot(name="item-actions-before" ':item'="item" ':index'="i")

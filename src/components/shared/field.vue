@@ -36,6 +36,7 @@
 				type: String,
 				default: 'text'
 			},
+			object: Object,
 			errors: [String, Array, Object],
 			title: String,
 			stagger: Number
