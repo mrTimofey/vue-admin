@@ -9,7 +9,7 @@
 	import 'src/styles/modal.styl';
 
 	export default {
-		computed: mapGetters(['user', 'title', 'shortTitle', 'metaData', 'locale']),
+		computed: mapGetters(['user', 'title', 'logoTitle', 'shortTitle', 'metaData', 'locale']),
 		data: () => ({
 			sidebarCollapse: window.localStorage.adminSidebarCollapse || false
 		}),

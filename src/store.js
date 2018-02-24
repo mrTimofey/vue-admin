@@ -19,6 +19,7 @@ export default new Vuex.Store({
 		 */
 		user: state => state.user,
 		title: state => state.title,
+		logoTitle: state => state.logoTitle,
 		shortTitle: state => state.shortTitle,
 		metaData: state => state.metaData,
 		entitiesData: state => state.metaData && state.metaData.entities,
@@ -29,10 +30,6 @@ export default new Vuex.Store({
 		wysiwygCss: state => state.metaData && state.metaData.wysiwyg && state.metaData.wysiwyg.css
 	},
 	mutations: {
-		setTitle(state, long, short) {
-			state.title = long;
-			state.short = short || long;
-		},
 		setUser(state, user) {
 			state.user = user;
 		},
