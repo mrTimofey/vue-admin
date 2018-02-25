@@ -17,7 +17,8 @@ export default {
 ```
 
 Default index component relies on computed properties or data entries allowing you to fulfill widespread use cases. These are:
-* `itemActionsBefore: Array<Object>` - a list of custom actions that will be inserted **before** standard edit/delete actions.
+* `itemActionsBefore: Array<Object>|function(item: Object, index: Number)` -
+	data/computed array or method returning a list of custom actions that will be inserted **before** standard edit/delete actions.
 Each action is an object with fields:
 	* `fa: string` - FontAwesome icon name
 	* `text: string` - text inside button (HTML is allowed)
@@ -25,10 +26,12 @@ Each action is an object with fields:
 	* `class: string|Array|Object` - custom class(es), should be a valid Vue value for `v-bind:class`
 	* `title: string` - title tooltip
 	* `action: string|function(item: Object, index: Number)` - component method name or function
-* `itemActionsAfter: Array<Object>` - same, but these actions will be inserted **after** standard ones
-* `bulkActionsBefore: Array<Object>` - same for bulk actions with multiple selected items. Object fields are same, except for:
+* `itemActionsAfter: Array<Object>|function(item: Object, index: Number)` -
+	same, but these actions will be inserted **after** standard ones
+* `bulkActionsBefore: Array<Object>|function(selection: Array<Number>)` -
+	same for bulk actions with multiple selected items. Object fields are same, except for:
 	* `action: string|function(selection: Array<Number>)` - argument is an array of selected items' primary keys
-* `bulkActionsAfter: Array<Object>` - actions inserted after default ones
+* `bulkActionsAfter: Array<Object>|function(selection: Array<Number>)` - actions inserted after default ones
 
 Refer to the original [`vue-admin-front/src/pages/entities/_generic/index.vue`](https://github.com/mrTimofey/vue-admin/blob/master/src/pages/entity/_generic/index.vue).
 

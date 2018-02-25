@@ -203,8 +203,23 @@
 						});
 				}, 300);
 			},
-			hasArrayProp(name) {
-				return !!(this[name] && Array.isArray(this[name]) && this[name].length);
+			hasItemActions(pos) {
+				if (!pos) return this.hasItemActions('before') || this.hasItemActions('after');
+				const name = pos === 'before' ? 'itemActionsBefore' : 'itemActionsAfter';
+				return !!(this[name] && (!Array.isArray(this[name]) || this[name].length));
+			},
+			hasBulkActions(pos) {
+				if (!pos) return this.hasBulkActions('before') || this.hasBulkActions('after');
+				const name = pos === 'before' ? 'bulkActionsBefore' : 'bulkActionsAfter';
+				return !!(this[name] && (!Array.isArray(this[name]) || this[name].length));
+			},
+			itemActions(pos, item, i) {
+				const name = pos === 'before' ? 'itemActionsBefore' : 'itemActionsAfter';
+				return Array.isArray(this[name]) ? this[name] : this[name](item, i);
+			},
+			bulkActions(pos, selection) {
+				const name = pos === 'before' ? 'bulkActionsBefore' : 'bulkActionsAfter';
+				return Array.isArray(this[name]) ? this[name] : this[name](selection);
 			},
 			callItemAction(action, item, index) {
 				if (typeof action === 'string') action = this[action];
@@ -259,32 +274,29 @@
 						':permissions'="meta.permissions"
 						':primaryKey'="primaryKey"
 						':entity'="entity"
-						':has-item-actions'="hasArrayProp('itemActionsBefore') || hasArrayProp('itemActionsAfter')"
-						':has-bulk-actions'="hasArrayProp('bulkActionsBefore') || hasArrayProp('bulkActionsAfter')"
+						':has-item-actions'="hasItemActions()"
+						':has-bulk-actions'="hasBulkActions()"
 						':sort-params.sync'="sortParams"
 						'@destroy'="destroy"
 						'@bulk-destroy'="bulkDestroy"
 						'@update'="updateItem")
-						template(v-if="hasArrayProp('itemActionsBefore')" slot="item-actions-before" slot-scope="{ item, index }")
-							.btn(v-for="action in itemActionsBefore" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callItemAction(action.action, item, index)" ':title'="action.title || ''")
-								i.fas(v-if="action.fa" ':class'="'fa-' + action.fa")
-								!=' '
-								span(v-if="action.text" v-html="action.text")
-						template(v-if="hasArrayProp('itemActionsAfter')" slot="item-actions-after" slot-scope="{ item, index }")
-							.btn(v-for="action in itemActionsAfter" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callItemAction(action.action, item, index)" ':title'="action.title || ''")
-								i.fas(v-if="action.fa" ':class'="'fa-' + action.fa")
-								!=' '
-								span(v-if="action.text" v-html="action.text")
-						template(v-if="hasArrayProp('bulkActionsBefore')" slot="bulk-actions-before" slot-scope="{ selection }")
-							.btn(v-for="action in bulkActionsBefore" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callBulkAction(action.action, selection)" ':title'="action.title || ''")
-								i.fas(v-if="action.fa" ':class'="'fa-' + action.fa")
-								!=' '
-								span(v-if="action.text" v-html="action.text")
-						template(v-if="hasArrayProp('bulkActionsAfter')" slot="bulk-actions-after" slot-scope="{ selection }")
-							.btn(v-for="action in bulkActionsAfter" ':class'="['btn-' + (action.btn || 'default'), action.class || {}]" '@click'="callBulkAction(action.action, selection)" ':title'="action.title || ''")
-								i.fas(v-if="action.fa" ':class'="'fa-' + action.fa")
-								!=' '
-								span(v-if="action.text" v-html="action.text")
+						each pos in ['before', 'after']
+							template(v-if=("hasItemActions('" + pos + "')") slot=("item-actions-" + pos) slot-scope="{ item, index }")
+								.btn(v-for=("action in itemActions('" + pos + "', item, index)")
+										':class'="['btn-' + (action.btn || 'default'), action.class || {}]"
+										'@click'="callItemAction(action.action, item, index)"
+										':title'="action.title || ''")
+									i.fas(v-if="action.fa" ':class'="'fa-' + action.fa")
+									!=' '
+									span(v-if="action.text" v-html="action.text")
+							template(v-if=("hasBulkActions('" + pos + "')") slot=("bulk-actions-" + pos) slot-scope="{ selection }")
+								.btn(v-for=("action in bulkActions('" + pos + "')")
+										':class'="['btn-' + (action.btn || 'default'), action.class || {}]"
+										'@click'="callBulkAction(action.action, selection)"
+										':title'="action.title || ''")
+									i.fas(v-if="action.fa" ':class'="'fa-' + action.fa")
+									!=' '
+									span(v-if="action.text" v-html="action.text")
 					.well.well-sm(v-else, style="margin:10px") {{ $t('nothingFound') }}
 				pager.box-footer(v-model="page" ':last-page'="lastPage" ':loading'="loading" ':total'="total" ':limit'="limit")
 </template>

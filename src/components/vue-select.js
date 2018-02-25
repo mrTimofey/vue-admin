@@ -9,7 +9,7 @@ export default {
 		}
 	},
 	computed: {
-		// fix: support disabling search filter operating by default even if there is a custom search
+		// fix: support disabling default substring search filter even if there is a custom search
 		filteredOptions() {
 			const options = this.disableSearchFilter ?
 				this.mutableOptions.slice() :
@@ -28,7 +28,7 @@ export default {
 	},
 	watch: {
 		search() {
-			// fix: trigger 'search' event with empty value as well
+			// fix: trigger 'search' event with empty value
 			if (this.search.length === 0) this.$emit('search', this.search, this.toggleLoading);
 		}
 	}
