@@ -12,12 +12,11 @@ Usage: `<field type="String" errors="null|String|Array<String>" title="null|Stri
 
 ## Available field types
 
-Field types available out-of-the-box are described here. See [custom field types section](customization/custom-field-types.md) if you want to add a custom type.
+Field types available out-of-the-box are described here. See [custom field types section](customization/custom-fields.md) if you want to add a custom type.
 
 All field types should support the following props:
 * `disabled` - disables user interaction
 * `value` - guess what
-* `object` - editing object
 
 ### array
 

@@ -2,13 +2,13 @@ export default {
 	functional: true,
 	props: {
 		value: Boolean,
-		icon: null,
+		fa: null,
 		text: null,
 		color: null
 	},
 	render(h, { props }) {
 		const v = props.value,
-			icon = (props.icon === undefined || props.icon === true) ? {} : props.icon,
+			icon = (props.fa === undefined || props.fa === true) ? {} : props.fa,
 			color = (props.color === undefined || props.color === true) ? {} : props.color;
 
 		function iconClass() {
