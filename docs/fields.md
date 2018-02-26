@@ -14,13 +14,17 @@ Usage: `<field type="String" errors="null|String|Array<String>" title="null|Stri
 
 Field types available out-of-the-box are described here. See [custom field types section](customization/custom-fields.md) if you want to add a custom type.
 
-All field types should support the following props:
+All field types support the following props:
 * `disabled` - disables user interaction
 * `value` - guess what
+
+Type-specific props definitions are provided in their descriptions.
 
 ### array
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/array.vue)
+
+Aliases: collection
 
 Array of whatever you want. Allows to add new values and remove existing ones.
 
@@ -37,6 +41,8 @@ Supported props:
 ### checkbox
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/checkbox.vue)
+
+Aliases: bool, boolean
 
 Just checkbox :)
 
@@ -72,6 +78,8 @@ Supported props:
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/datetime.vue)
 
+Aliases: timestamp
+
 Date and picker. Contains 2 inputs with types `date` and `time` respectively. Inputs' appearence depends on browser.
 
 Supported props:
@@ -97,6 +105,14 @@ Supported props:
 * string value - interpreted as an uploaded file URL
 * JavaScript `File` object - interpreted as a file about to upload
 * `null`
+
+### float
+
+[Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/float.vue)
+
+Aliases: real, double, decimal
+
+Same as [number](#number) but accepts floating point values.
 
 ### gallery
 
@@ -148,6 +164,8 @@ Supported props:
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/key-value.vue)
 
+Aliases: meta
+
 Key-value pairs. Widget is a 2-column table where first column contains predefined fixed keys and second contains text inputs.
 Convenient for representing meta/OpenGraph/etc. values.
 
@@ -159,6 +177,8 @@ Supported props:
 ### number
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/number.vue)
+
+Aliases: int, integer
 
 Integer value input. Filters any non-numeric letters while typing.
 
@@ -254,6 +274,8 @@ Useful when you want to create a checkbox filter on entity index pages and do no
 ### text
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/text.vue)
+
+Aliases: string
 
 `<input type="text">`
 
