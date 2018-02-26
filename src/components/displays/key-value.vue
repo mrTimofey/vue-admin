@@ -6,7 +6,7 @@
 				td {{ v }}
 </template>
 <style lang="stylus">
-	td > .display-meta
+	.table td > .display-meta
 		width auto
 		margin -9px -8px -8px -8px
 </style>
