@@ -155,7 +155,8 @@
 				':class'="{ sortable: field.sort, asc: field.sort && field.sort.dir === true, desc: field.sort && field.sort.dir === false, ['item-cell-' + field.name.replace('_', '-')]: true }"
 				'@click'="field.sort && sort(field, !$event.shiftKey)")
 				slot(':name'="'header-' + field.name.replace('_', '-')" ':field'="field")
-					span!='{{ field.title }} '
+					span(v-html="field.title")
+				!=' '
 				small.sort-num(v-if="field.sort && field.sort.index !== null") {{ field.sort.index + 1 }}
 			th.table-item-actions(v-if="showItemActions")
 		tbody: tr(v-for="(item, i) in items"

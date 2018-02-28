@@ -10,6 +10,8 @@ Display component is a [proxy component](https://vuejs.org/v2/api/#v-bind) which
 
 Usage: `<display type="String" value="value"></display>`.
 
+Value will be just printed as-is if display type can not be resolved.
+
 ## Available display types
 
 Display types available out-of-the-box are described here. See [custom display types section](customization/custom-displays.md) if you want to add a custom type.
