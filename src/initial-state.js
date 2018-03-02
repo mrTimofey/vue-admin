@@ -5,5 +5,6 @@ export default {
 	title: 'Admin Panel',
 	metaData: null,
 	locale: 'en',
-	fallbackLocale: 'en'
+	fallbackLocale: 'en',
+	skin: 'blue'
 };

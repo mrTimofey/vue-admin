@@ -27,7 +27,8 @@ export default new Vuex.Store({
 		fallbackLocale: state => state.fallbackLocale,
 		mainNav: state => state.metaData && state.metaData.nav,
 		imagePath: state => state.metaData && state.metaData.image_path,
-		wysiwygCss: state => state.metaData && state.metaData.wysiwyg && state.metaData.wysiwyg.css
+		wysiwygCss: state => state.metaData && state.metaData.wysiwyg && state.metaData.wysiwyg.css,
+		skin: state => state.skin
 	},
 	mutations: {
 		setUser(state, user) {
@@ -39,6 +40,9 @@ export default new Vuex.Store({
 		setLocaleData(state, data) {
 			state.locale = data.locale;
 			state.fallbackLocale = data.fallback_locale;
+		},
+		setSkin(state, name) {
+			state.skin = name;
 		}
 	},
 	actions: {

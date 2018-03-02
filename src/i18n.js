@@ -8,13 +8,18 @@ const i18n = new I18n();
 const loaded = [];
 
 function load(lang) {
-	return System.import(/* webpackChunkName: "lang/[request]" */ `src/lang/${lang}`).then(data => {
+	const onLoaded = data => {
 		if (data.default && !data.messages) data = data.default;
 		i18n.setLocaleMessage(lang, data.messages);
 		i18n.setDateTimeFormat(lang, data.dateTime);
 		i18n.setNumberFormat(lang, data.num);
 		loaded.push(lang);
-	});
+	};
+	return System.import(/* webpackChunkName: "lang/[request]" */ `src/lang/${lang}`)
+		.then(onLoaded)
+		.catch(() => {
+			System.import(/* webpackChunkName: "lang/[request]" */ `_local/src/lang/${lang}`).then(onLoaded);
+		});
 }
 
 export function setLocale(lang) {

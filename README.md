@@ -1,6 +1,7 @@
 ## What is it?
 
 This is the last package you will ever need to build your custom dashboard or administrative panel. It includes:
+* AdminLTE (only styles)
 * Vue.js based ready-to-use out of the box SPA
 * Simple but flexible customization system
 * OpenAPI 3 (formerly known as Swagger) specification for a compatible server API implementation

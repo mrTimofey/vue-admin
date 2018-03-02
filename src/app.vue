@@ -5,11 +5,12 @@
 	import Logo from 'src/components/app/logo.vue';
 	import SidebarUser from 'src/components/app/sidebar-user.vue';
 	import SidebarMenu from 'src/components/app/sidebar-menu.vue';
+	import 'src/styles/admin-lte.less';
 	import 'src/styles/common.styl';
 	import 'src/styles/modal.styl';
 
 	export default {
-		computed: mapGetters(['user', 'title', 'logoTitle', 'shortTitle', 'metaData', 'locale']),
+		computed: mapGetters(['user', 'skin', 'title', 'logoTitle', 'shortTitle', 'metaData', 'locale']),
 		data: () => ({
 			sidebarCollapse: window.localStorage.adminSidebarCollapse || false
 		}),
@@ -42,6 +43,26 @@
 			sidebarCollapse(v) {
 				if (v) window.localStorage.adminSidebarCollapse = '1';
 				else window.localStorage.removeItem('adminSidebarCollapse');
+			},
+			skin: {
+				immediate: true,
+				handler(v) {
+					const remove = [];
+					for (let name of window.document.body.classList) if (name.startsWith('skin-')) remove.push(name);
+					for (let name of remove) window.document.body.classList.remove(name);
+					if (v) {
+						v = v.toString();
+						const onLoaded = () => {
+							window.document.body.classList.add('skin-' + v);
+						};
+						System.import(/* webpackChunkName: "skins/[request]" */ `src/skins/${v}`)
+							.then(onLoaded)
+							.catch(() => {
+								System.import(/* webpackChunkName: "skins/[request]" */ `admin-lte/dist/css/skins/skin-${v}`)
+									.then(onLoaded);
+							});
+					}
+				}
 			}
 		},
 		components: { Modal, Logo, SidebarUser, SidebarMenu }
