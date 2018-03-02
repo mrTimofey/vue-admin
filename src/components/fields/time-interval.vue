@@ -21,7 +21,7 @@
 	};
 </script>
 <template lang="pug">
-	.field-workitme
+	.field-time-interval
 		field.inline(type="time" ':disabled'="disabled" ':value'="value && value[0]" '@input'="emitValue(0, $event)")
 		!=' '
 		field.inline(title="-" type="time" ':disabled'="disabled" ':value'="value && value[1]" '@input'="emitValue(1, $event)")
