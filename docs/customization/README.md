@@ -7,19 +7,24 @@ Just import original module from `vue-admin-front/src` if you want to extend its
 Package structure:
 
 * `config.default.js` - default configuration file (see [configuration](/configuration.md) section for more information)
-* `webpack.config.js` - Webpack configuration file (use `webpackConfigModifier` configuration option in [default configuration file](https://github.com/mrTimofey/vue-admin/blob/master/config.default.js) to extend dafault Wepback config)
+* `webpack.config.js` - Webpack configuration file (set `webpackConfigModifier` option in your custom config to extend default config)
 * `index.js` - dev server entry, exports Express application instance to a `module.exports`
 * `src` - admin panel sources
     * `components` - all reusable components should be here
+    	* `app` - application layout components
+    		* `logo.vue` - top-left corner logotype
+    		* `sidebar-menu.vue` and `sidebar-menu-item.vue` - sidebar main navigation (better do not touch it :) these components strongly depend on configuration fetched from a server API and they are not designed to be customized by any other way)
+    		* `sidebar-user.vue` - current user and logout button
+		* `displays` - display components, usable as a `Display` component with `type` prop set to a display component file name (`<display type="field-name"></display>`)
         * `entity` - components exposed within all entity page components as `Entity{FileName}`
         * `fields` - fields, usable as a `Field` component with `type` prop set to a field component file name (`<field type="field-name"></field>`)
         * `modals` - modal components, can be used within any component as `this.$modal.open('modal-name', props)`, `this.$modal.close()`
         * `shared` - components registered globally via `Vue.component('file-name', component)`
-        * `sidebar-menu.vue` and `sidebar-menu-item.vue` - sidebar main navigation (better do not touch it :) these components strongly depend on configuration fetched from a server API and they are not designed to be customized by any other way)
     * `filters` - Vue.js filters, registered globally via `Vue.filter('file-name', filter)`
     * `directives` - Vue.js directives, registered globally via `Vue.directive('file-name', directive)`
-    * `lang` - translations, files named `{lang}.js` (`en` and `ru` are supported by default, see [vue-i18n](https://github.com/kazupon/vue-i18n) for more information)
-    * `pages` - route components, each file here will be pointed to the corresponding route same as its file name (excluding files and folders starting with undescore `_`)
+    * `lang` - translations, files named `{lang}.js` (`en` and `ru` are supported by default, see [vue-i18n](https://github.com/kazupon/vue-i18n) for more information);
+    		you can add your custom translations based on default ones to provide different languages support
+    * `pages` - route components, each file here will be pointed to the corresponding route same as its file name (excluding files and folders starting with underscore `_`)
         * `entities` - entity pages, create folder to extend or replace default pages
             * `_generic` - default entity page components (mind the underscore `_` - this folder's routes are registered explicitly in `router.js`; you can copy this folder with a name of your entity to fully replace default pages with custom ones)
                 * `index.vue` - entity list
@@ -34,7 +39,7 @@ Package structure:
     * `store.js` - [vuex](https://github.com/vuejs/vuex) store config
     * `shared.styl` - shared stylus variables
     * `layout.pug` - application layout template
-    * `ckeditor-config.js` - CKEditor configuration
+    * `ckeditor-config.js` - CKEditor 4 configuration
 
 ## Use cases and examples
 
