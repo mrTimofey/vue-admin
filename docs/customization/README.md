@@ -22,8 +22,7 @@ Package structure:
         * `shared` - components registered globally via `Vue.component('file-name', component)`
     * `filters` - Vue.js filters, registered globally via `Vue.filter('file-name', filter)`
     * `directives` - Vue.js directives, registered globally via `Vue.directive('file-name', directive)`
-    * `lang` - translations, files named `{lang}.js` (`en` and `ru` are supported by default, see [vue-i18n](https://github.com/kazupon/vue-i18n) for more information);
-    		you can add your custom translations based on default ones to provide different languages support
+    * `lang` - translations, files named `{lang}.js` (`en` and `ru` are supported by default, see [vue-i18n](https://github.com/kazupon/vue-i18n) for more information); you can add your custom translations based on default ones to provide different languages support
     * `pages` - route components, each file here will be pointed to the corresponding route same as its file name (excluding files and folders starting with underscore `_`)
         * `entities` - entity pages, create folder to extend or replace default pages
             * `_generic` - default entity page components (mind the underscore `_` - this folder's routes are registered explicitly in `router.js`; you can copy this folder with a name of your entity to fully replace default pages with custom ones)
