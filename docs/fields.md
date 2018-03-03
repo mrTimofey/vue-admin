@@ -322,6 +322,7 @@ Time interval field.
 
 Supported props:
 * `debounce` - CKEditor->value update debounce timeout in ms (`100` by default)
+* `stylesheet` - absolute path to a custom CSS or just a CSS string (default styles: global wysiwyg CSS from API meta data, `src/styles/wysiwyg.styl` otherwise)
 
 `v-model` is a string or `null` for empty string value.
 

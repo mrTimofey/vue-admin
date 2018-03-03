@@ -15,7 +15,8 @@
 			debounce: {
 				type: Number,
 				default: 100
-			}
+			},
+			stylesheet: String
 		},
 		computed: {
 			...mapGetters(['wysiwygCss'])
@@ -50,7 +51,7 @@
 				this.ckeInstance = CKEDITOR.replace(this.$el, {
 					filebrowserBrowseUrl: http.defaults.baseURL + 'wysiwyg/images/browse?api_token=' + getApiToken(),
 					filebrowserUploadUrl: http.defaults.baseURL + 'wysiwyg/images/upload?api_token=' + getApiToken(),
-					contentsCss: this.wysiwygCss || ckeStyle.toString(),
+					contentsCss: this.stylesheet || this.wysiwygCss || ckeStyle.toString(),
 					stylesSet: 'admin',
 					...ckeConfig.instanceConfig
 				});

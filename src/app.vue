@@ -56,7 +56,7 @@
 						const onLoaded = () => {
 							window.document.body.classList.add('skin-' + v);
 						};
-						System.import(/* webpackChunkName: "skins/[request]" */ `src/skins/${v}`)
+						System.import(/* webpackChunkName: "skins/[request]" */ `src/styles/skins/${v}`)
 							.then(onLoaded)
 							.catch(() => {
 								System.import(/* webpackChunkName: "skins/[request]" */ `admin-lte/dist/css/skins/skin-${v}`)

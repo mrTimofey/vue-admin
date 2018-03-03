@@ -30,6 +30,12 @@ Package structure:
                 * `index.vue` - entity list
                 * `item.vue` - entity create/edit form
                 * `bulk-update.vue` - entity bulk update
+	* `styles`
+		* `skins` - there you can add your custom AdminLTE skin style, just create a file and set a `skin` field same as a file name in `initial-state.js`
+		* `admin-lte.less` - [AdminLTE](https://adminlte.io) style imports
+		* `bootstrap.less` - [Bootstrap 3](https://getbootstrap.com/docs/3.3/) style imports
+		* `variables.less` - LESS variables for AdminLTE and Bootstrap 3, there you can completely or partially redefine default values
+		* `wysiwyg.styl` - WYSIWYG ([CKEditor](https://ckeditor.com/)) field default styles (keep in mind that it is highly recommended to provide a CSS file generated from your frontend styles and passed with API meta data)
     * `app.vue` - application root component
     * `entry.js` - application entry file
     * `http.js` - http service ([Axios](https://github.com/axios/axios))
@@ -37,9 +43,9 @@ Package structure:
     * `initial-state.js` - exports initial Vuex store state
     * `router.js` - [vue-router](https://github.com/vuejs/vue-router) config
     * `store.js` - [vuex](https://github.com/vuejs/vuex) store config
-    * `shared.styl` - shared stylus variables
+    * `shared.styl` - shared stylus variables included everywhere by default
     * `layout.pug` - application layout template
-    * `ckeditor-config.js` - CKEditor 4 configuration
+    * `ckeditor-config.js` - [CKEditor](https://ckeditor.com/) 4 configuration
 
 ## Use cases and examples
 
