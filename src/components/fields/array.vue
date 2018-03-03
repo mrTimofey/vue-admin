@@ -124,4 +124,6 @@
 			margin-top -8px
 		tr:first-child > td
 			border-top none
+		.table
+			background none
 </style>

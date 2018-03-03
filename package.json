@@ -8,7 +8,8 @@
     "node": ">=6.4.0"
   },
   "scripts": {
-    "dev": "node index"
+    "dev": "node index",
+    "build": "NODE_ENV=production webpack --config webpack.config.js --progress --hide-modules"
   },
   "license": "ISC",
   "homepage": "https://github.com/mrTimofey/vue-admin",
@@ -16,16 +17,13 @@
   "dependencies": {
     "admin-lte": "^2.4.2",
     "axios": "^0.17.1",
-    "babel-eslint": "^8.2.1",
     "bootstrap": "^3.3.7",
     "buble": "^0.19.3",
     "buble-loader": "^0.4.1",
     "css-loader": "^0.28.7",
-    "express": "^4.16.2",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
     "html-webpack-plugin": "^2.30.1",
-    "http-proxy-middleware": "^0.17.4",
     "kouto-swiss": "^1.1.0",
     "less": "^3.0.1",
     "less-loader": "^4.0.6",
@@ -36,7 +34,6 @@
     "style-loader": "^0.20.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
-    "tmp": "0.0.33",
     "url-loader": "^0.6.2",
     "vue": "^2.5.13",
     "vue-i18n": "^7.4.2",
@@ -47,7 +44,12 @@
     "vuedraggable": "^2.16.0",
     "vuex": "^3.0.1",
     "vuex-router-sync": "^5.0.0",
-    "webpack": "^3.11.0",
+    "webpack": "^3.11.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "express": "^4.16.2",
+    "http-proxy-middleware": "^0.17.4",
     "webpack-dev-middleware": "^2.0.5",
     "webpack-hot-middleware": "^2.21.0"
   }

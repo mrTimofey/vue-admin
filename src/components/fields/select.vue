@@ -100,6 +100,7 @@
 <style lang="stylus">
 	.field.v-select
 		background white
+		font-family inherit
 		.selected-tag
 			margin 3px 3px 0 0
 			padding 0 5px 0 8px

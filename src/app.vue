@@ -5,6 +5,7 @@
 	import Logo from 'src/components/app/logo.vue';
 	import SidebarUser from 'src/components/app/sidebar-user.vue';
 	import SidebarMenu from 'src/components/app/sidebar-menu.vue';
+	import 'src/styles/bootstrap.less';
 	import 'src/styles/admin-lte.less';
 	import 'src/styles/common.styl';
 	import 'src/styles/modal.styl';
@@ -87,6 +88,7 @@
 				router-view
 </template>
 <style lang="stylus">
+	@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700&subset=cyrillic');
 	.main-header .sidebar-toggle
 		padding 15px
 		i
