@@ -7,8 +7,6 @@
 	import SidebarMenu from 'src/components/app/sidebar-menu.vue';
 	import 'src/styles/bootstrap.less';
 	import 'src/styles/admin-lte.less';
-	import 'src/styles/common.styl';
-	import 'src/styles/modal.styl';
 
 	export default {
 		computed: mapGetters(['user', 'skin', 'title', 'logoTitle', 'shortTitle', 'metaData', 'locale']),
@@ -88,3 +86,41 @@
 					router-view
 		spinner(v-else)
 </template>
+<style lang="stylus">
+	@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700&subset=cyrillic');
+	@import '~src/styles/common.styl';
+	@import '~src/styles/modal.styl';
+	html, body
+		height auto
+	.main-sidebar
+		.user-panel
+			height 38px
+			.info
+				overflow ellipsis
+				max-width 170px
+				left auto
+				padding 2px 0 0 0
+		.logout-button
+			display block
+			absolute 0 0 0 false
+			width 50px
+			padding-top 9px
+			text-align center
+	.main-header
+		.sidebar-toggle
+			padding 15px
+			i
+				backface-visibility hidden
+				display block
+				size 20px
+				font-size 22px
+				line-height @height
+			&:before
+				content none
+	.sidebar-menu li > a > .fas
+		width 20px
+	.content-wrapper
+		padding-top 50px
+		margin-top -50px
+		min-height 100vh
+</style>
