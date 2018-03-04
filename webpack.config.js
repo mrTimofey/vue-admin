@@ -233,9 +233,7 @@ else {
 	config.output.filename += '?[chunkhash:6]';
 	config.output.chunkFilename += '?[chunkhash:6]';
 	config.plugins.push(
-		new ExtractText({
-			filename: 'styles.css?[hash:6]'
-		}),
+		new ExtractText('styles.css?[hash:6]'),
 		new webpack.optimize.UglifyJsPlugin({
 			comment: true,
 			compress: {
