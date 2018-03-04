@@ -159,7 +159,7 @@ const config = {
 		extensions: ['.js', '.json', '.vue', '.styl', '.less', '.css']
 	},
 	resolveLoader: {
-		modules: ['node_modules', 'lib']
+		modules: ['node_modules', path.resolve(__dirname, 'lib')]
 	},
 	plugins: [
 		new webpack.DefinePlugin({
