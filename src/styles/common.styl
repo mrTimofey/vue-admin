@@ -1,29 +1,88 @@
-.wrapper
-	min-height 100vh
-	> .overlay
-		font-size 40px
-		absolute 50% 50% false false
-		margin -20px -20px 0 0
-		color white
-a
-	cursor pointer
-.btn-group.nowrap
-	display flex
-	> .btn
-		flex 0 0 auto
-.modal-content, .box
-	min-height 100px
-	.overlay
-		absolute 0
-		background rgba(white, 0.7)
-		z-index 50
-		.fas
-			absolute 50% false false 50%
-			margin-left -15px
-			margin-top -15px
-			color black
-			font-size 30px
-.fa, .fas, .far, .fab
-	backface-visibility hidden
-	&:before
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700&subset=cyrillic');
+html.vue-admin-front, .vue-admin-front body
+	height auto
+.vue-admin-front
+	.wrapper
+		min-height 100vh
+		> .overlay
+			font-size 40px
+			absolute 50% 50% false false
+			margin -20px -20px 0 0
+			color white
+	a
+		cursor pointer
+	.btn-group.nowrap
+		display flex
+		> .btn
+			flex 0 0 auto
+	.modal-content, .box
+		min-height 100px
+		.overlay
+			absolute 0
+			background rgba(white, 0.7)
+			z-index 50
+			.fas
+				absolute 50% false false 50%
+				margin-left -15px
+				margin-top -15px
+				color black
+				font-size 30px
+	.fa, .fas, .far, .fab
 		backface-visibility hidden
+		&:before
+			backface-visibility hidden
+	.main-sidebar
+		.user-panel
+			height 38px
+			.info
+				overflow ellipsis
+				max-width 170px
+				left auto
+				padding 2px 0 0 0
+		.logout-button
+			display block
+			absolute 0 0 0 false
+			width 50px
+			padding-top 9px
+			text-align center
+	.main-header
+		.sidebar-toggle
+			padding 15px
+			i
+				backface-visibility hidden
+				display block
+				size 20px
+				font-size 22px
+				line-height @height
+			&:before
+				content none
+	.sidebar-menu li > a > .fas
+		width 20px
+	.content-wrapper
+		padding-top 50px
+		margin-top -50px
+		min-height 100vh
+	.modal
+		display block
+		overflow auto
+	.modal-enter-active
+		opacity 1
+		transition opacity 0.2s ease-out
+		.modal-dialog, .modal-close
+			transform none
+			transition transform 0.2s ease-out
+	.modal-enter
+		opacity 0
+		.modal-dialog, .modal-close
+			transform scale(0.98) translateY(-15px)
+	.modal-header
+		position relative
+		box-sizing border-box
+		min-height 56px
+		padding-right @min-height
+		.close
+			absolute 0 0 false false
+			line-height @min-height
+			width @min-height
+			text-align center
+			margin-top 0

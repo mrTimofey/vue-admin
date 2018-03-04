@@ -2,6 +2,10 @@ import Vue from 'vue';
 import Modal, { MasterComponent as ModalMasterComponent } from 'src/plugins/modal';
 import { sync } from 'vuex-router-sync';
 
+import 'src/styles/bootstrap.less';
+import 'src/styles/admin-lte.less';
+import 'src/styles/common.styl';
+
 import { filenameToCamelCase, requireAll } from 'src/utils';
 
 Vue.use(Modal);

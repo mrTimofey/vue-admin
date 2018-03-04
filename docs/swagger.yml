@@ -328,7 +328,7 @@ components:
           properties:
             css:
               type: string
-              description: inline css or css file link for WYSIWYG editor
+              description: inline CSS or CSS file link for WYSIWYG editor
         image_path:
           type: string
           description: images base path

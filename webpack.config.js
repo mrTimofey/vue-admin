@@ -85,7 +85,6 @@ const config = {
 			'vue-i18n',
 			'vuex',
 			'vuex-router-sync',
-			'vue-select',
 			'vuedraggable'
 		]
 	},
@@ -176,19 +175,6 @@ const config = {
 function addStyleRules(extract = false) {
 	for (let rule of [
 		{
-			test: /\.styl$/,
-			use: [
-				{
-					loader: 'css-loader',
-					options: options.css
-				},
-				{
-					loader: 'stylus-loader',
-					options: options.stylus
-				}
-			]
-		},
-		{
 			test: /\.less$/,
 			use: [
 				{
@@ -198,6 +184,19 @@ function addStyleRules(extract = false) {
 				{
 					loader: 'less-loader',
 					options: options.less
+				}
+			]
+		},
+		{
+			test: /\.styl$/,
+			use: [
+				{
+					loader: 'css-loader',
+					options: options.css
+				},
+				{
+					loader: 'stylus-loader',
+					options: options.stylus
 				}
 			]
 		},
