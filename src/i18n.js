@@ -27,7 +27,7 @@ export function setLocale(lang) {
 	http.defaults.headers.common['Accept-Language'] = lang;
 	if (i18n.locale !== lang) {
 		i18n.locale = lang;
-		return loaded.contains(lang) ? Promise.resolve() : load(lang);
+		return loaded.includes(lang) ? Promise.resolve() : load(lang);
 	}
 	return Promise.resolve();
 }
@@ -35,7 +35,7 @@ export function setLocale(lang) {
 export function setFallbackLocale(lang) {
 	if (i18n.fallbackLocale !== lang) {
 		i18n.fallbackLocale = lang;
-		return loaded.contains(lang) ? Promise.resolve() : load(lang);
+		return loaded.includes(lang) ? Promise.resolve() : load(lang);
 	}
 	return Promise.resolve();
 }

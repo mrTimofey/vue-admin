@@ -4,5 +4,5 @@ import i18n from 'src/i18n';
 export default v => {
 	if (!(v instanceof Date)) v = convert2date(v);
 	if (!v) return '';
-	return i18n.d(v, 'short');
+	return i18n.d(v, 'short') || v.toLocaleDateString();
 };
