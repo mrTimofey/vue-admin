@@ -1,4 +1,4 @@
-import Base from 'vue-select';
+import Base from 'vue-select/src/components/Select.vue';
 
 export default {
 	extends: Base,

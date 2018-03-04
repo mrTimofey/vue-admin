@@ -68,6 +68,7 @@ export default new Vuex.Store({
 		fetchMetaData({ commit }) {
 			return http.get('meta').then(res => {
 				commit('setMetaData', res.data);
+				if (res.data.skin) commit('setSkin', res.data);
 			});
 		},
 		logout({ commit }) {

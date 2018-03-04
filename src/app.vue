@@ -56,10 +56,10 @@
 						const onLoaded = () => {
 							window.document.body.classList.add('skin-' + v);
 						};
-						System.import(/* webpackChunkName: "skins/[request]" */ `src/styles/skins/${v}`)
+						import(/* webpackChunkName: "skins/[request]" */ `src/styles/skins/${v}`)
 							.then(onLoaded)
 							.catch(() => {
-								System.import(/* webpackChunkName: "skins/[request]" */ `admin-lte/dist/css/skins/skin-${v}`)
+								import(/* webpackChunkName: "skins/[request]" */ `admin-lte/dist/css/skins/skin-${v}.min.css`)
 									.then(onLoaded);
 							});
 					}
@@ -70,35 +70,21 @@
 	};
 </script>
 <template lang="pug">
-	spinner(v-if="!locale")
-	.wrapper.hold-transition.sidebar-mini(v-else ':class'="{ 'sidebar-collapse': sidebarCollapse, 'sidebar-open': !sidebarCollapse }")
-		transition(name="modal"): modal.modal(innerClass="modal-dialog")
-		template(v-if="user === false")
-			login-form('@done'="init()")
-		template(v-else-if="metaData")
-			header.main-header
-				logo
-				nav.navbar.navbar-static-top(role="navigation")
-					a.sidebar-toggle('@click.prevent'="sidebarCollapse = !sidebarCollapse"): i.fas.fa-bars
-			aside.main-sidebar
-				section.sidebar
-					sidebar-user(':user'="user")
-					sidebar-menu
-			.content-wrapper
-				router-view
+	.wrapper.hold-transition.sidebar-mini(':class'="{ 'sidebar-collapse': sidebarCollapse, 'sidebar-open': !sidebarCollapse }")
+		template(v-if="locale")
+			transition(name="modal"): modal.modal(innerClass="modal-dialog")
+			template(v-if="user === false")
+				login-form('@done'="init()")
+			template(v-else-if="metaData")
+				header.main-header
+					logo
+					nav.navbar.navbar-static-top(role="navigation")
+						a.sidebar-toggle('@click.prevent'="sidebarCollapse = !sidebarCollapse"): i.fas.fa-bars
+				aside.main-sidebar
+					section.sidebar
+						sidebar-user(':user'="user")
+						sidebar-menu
+				.content-wrapper
+					router-view
+		spinner(v-else)
 </template>
-<style lang="stylus">
-	@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700&subset=cyrillic');
-	.main-header .sidebar-toggle
-		padding 15px
-		i
-			backface-visibility hidden
-			display block
-			size 20px
-			font-size 22px
-			line-height @height
-		&:before
-			content none
-	.sidebar-menu li > a > .fas
-		width 20px
-</style>

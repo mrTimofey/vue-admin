@@ -15,10 +15,10 @@ function load(lang) {
 		i18n.setNumberFormat(lang, data.num);
 		loaded.push(lang);
 	};
-	return System.import(/* webpackChunkName: "lang/[request]" */ `src/lang/${lang}`)
+	return import(/* webpackChunkName: "lang/[request]" */ `src/lang/${lang}`)
 		.then(onLoaded)
 		.catch(() => {
-			System.import(/* webpackChunkName: "lang/[request]" */ `_local/src/lang/${lang}`).then(onLoaded);
+			import(/* webpackChunkName: "lang/[request]" */ `_local/src/lang/${lang}`).then(onLoaded);
 		});
 }
 

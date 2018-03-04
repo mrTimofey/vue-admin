@@ -295,6 +295,11 @@ components:
       type: object
       description: Meta data containing information about available entities, actions, navigation links, etc.
       properties:
+        skin:
+          type: string
+          description: AdminLTE skin name
+          default: 'blue'
+          example: 'red'
         nav:
           type: array
           description: main navigation menu items

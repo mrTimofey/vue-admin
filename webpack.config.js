@@ -63,14 +63,14 @@ const vueConfig = {
 	options: {
 		template: options.pug,
 		loaders: {
-			stylus: `vue-style-loader!css-loader?${options.css}!stylus-loader?${options.stylus}`
-		},
-		transformToRequire: {
-			img: 'src',
-			image: 'xlink:href',
-			a: 'href'
-		},
-		buble: options.buble
+			stylus: `css-loader?${options.css}!stylus-loader?${options.stylus}`,
+			js: [
+				{
+					loader: 'buble-loader',
+					options: options.buble
+				}
+			]
+		}
 	}
 };
 
@@ -158,6 +158,9 @@ const config = {
 		},
 		extensions: ['.js', '.json', '.vue', '.styl', '.less', '.css']
 	},
+	resolveLoader: {
+		modules: ['node_modules', 'lib']
+	},
 	plugins: [
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(dev ? 'development' : 'production'),
@@ -222,6 +225,7 @@ if (dev) {
 	// it does not make any sense since virtual file system is used in dev mode, webpack just requires this option
 	config.output.path = path.resolve(__dirname, 'dist');
 	config.devtool = '#sourcemap';
+	vueConfig.options.loaders.stylus = 'vue-style-loader!' + vueConfig.options.loaders.stylus;
 }
 else {
 	addStyleRules(true);
@@ -229,7 +233,9 @@ else {
 	config.output.filename += '?[chunkhash:6]';
 	config.output.chunkFilename += '?[chunkhash:6]';
 	config.plugins.push(
-		new ExtractText('styles.css?[hash:6]'),
+		new ExtractText({
+			filename: 'styles.css?[hash:6]'
+		}),
 		new webpack.optimize.UglifyJsPlugin({
 			comment: true,
 			compress: {
@@ -237,6 +243,11 @@ else {
 			}
 		})
 	);
+
+	vueConfig.options.loaders.stylus = ExtractText.extract({
+		use: vueConfig.options.loaders.stylus,
+		fallback: 'vue-style-loader'
+	});
 
 	vueConfig.options.extractCSS = true;
 

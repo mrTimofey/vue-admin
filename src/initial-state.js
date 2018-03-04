@@ -4,7 +4,7 @@ export default {
 	shortTitle: 'AP',
 	title: 'Admin Panel',
 	metaData: null,
-	locale: 'en',
-	fallbackLocale: 'en',
+	locale: null,
+	fallbackLocale: null,
 	skin: 'blue'
 };

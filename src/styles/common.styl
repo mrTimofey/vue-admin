@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700&subset=cyrillic');
 html, body
 	overflow hidden
 .main-sidebar
@@ -14,11 +15,29 @@ html, body
 		width 50px
 		padding-top 9px
 		text-align center
+.main-header
+	.sidebar-toggle
+		padding 15px
+		i
+			backface-visibility hidden
+			display block
+			size 20px
+			font-size 22px
+			line-height @height
+		&:before
+			content none
+.sidebar-menu li > a > .fas
+	width 20px
 .content-wrapper
 	padding-top 50px
 	margin-top -50px
 .wrapper
 	min-height 100vh
+	> .overlay
+		font-size 40px
+		absolute 50% 50% false false
+		margin -20px -20px 0 0
+		color white
 a
 	cursor pointer
 .btn-group.nowrap
@@ -26,6 +45,7 @@ a
 	> .btn
 		flex 0 0 auto
 .modal-content, .box
+	min-height 100px
 	.overlay
 		absolute 0
 		background rgba(white, 0.7)

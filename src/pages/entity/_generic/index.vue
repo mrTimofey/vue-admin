@@ -24,6 +24,7 @@
 				items: null,
 				error: null,
 				loading: false,
+				initialLoading: false,
 				limit: null
 			};
 		},
@@ -139,6 +140,7 @@
 					})
 					.then(() => {
 						this.loading = false;
+						this.initialLoading = false;
 					});
 			},
 			destroy(item) {
@@ -235,6 +237,7 @@
 			this.searchStagger = 300;
 		},
 		beforeMount() {
+			this.initialLoading = true;
 			this.update();
 		},
 		beforeRouteUpdate(to, old, next) {
@@ -243,6 +246,7 @@
 				this.total = 0;
 				this.lastPage = 1;
 				this.limit = null;
+				this.initialLoading = true;
 			}
 			next();
 			this.$nextTick(() => {
@@ -257,49 +261,50 @@
 		.content
 			.box
 				spinner(v-if="loading")
-				.box-header.with-border
-					.row
-						.col-lg-9.col-md-6
-							field.inline.per-page(':title'="$t('perPage') + ':'" type="select" required ':options'="limitOptions" v-model="selectedLimit" ':searchable'="false")
-							!=' '
-							router-link.btn.btn-success(v-if="!meta.permissions || meta.permissions.create !== false" ':to'="basePath + '/item/new'") {{ $t('create') }}
-						.col-lg-3.col-md-6
-							field(v-if="meta.searchable" ':placeholder'="$t('search')" ':stagger'="searchStagger" v-model="searchQuery")
-					entity-filters(':fields'="meta.filter_fields" v-model="filterParams")
-				.box-body.table-responsive.no-padding(v-if="items")
-					entity-table(v-if="items.length"
-						bulk sortable
-						':items'="items"
-						':fields'="meta.index_fields"
-						':permissions'="meta.permissions"
-						':primaryKey'="primaryKey"
-						':entity'="entity"
-						':has-item-actions'="hasItemActions()"
-						':has-bulk-actions'="hasBulkActions()"
-						':sort-params.sync'="sortParams"
-						'@destroy'="destroy"
-						'@bulk-destroy'="bulkDestroy"
-						'@update'="updateItem")
-						each pos in ['before', 'after']
-							template(v-if=("hasItemActions('" + pos + "')") slot=("item-actions-" + pos) slot-scope="{ item, index }")
-								.btn(v-for=("action in itemActions('" + pos + "', item, index)")
-										':class'="['btn-' + (action.btn || 'default'), action.class || {}]"
-										'@click'="callItemAction(action.action, item, index)"
-										':title'="action.title || ''")
-									i.fas(v-if="action.fa" ':class'="'fa-' + action.fa")
-									!=' '
-									span(v-if="action.text" v-html="action.text")
-							template(v-if=("hasBulkActions('" + pos + "')") slot=("bulk-actions-" + pos) slot-scope="{ selection }")
-								.btn(v-for=("action in bulkActions('" + pos + "')")
-										':class'="['btn-' + (action.btn || 'default'), action.class || {}]"
-										'@click'="callBulkAction(action.action, selection)"
-										':title'="action.title || ''")
-									i.fas(v-if="action.fa" ':class'="'fa-' + action.fa")
-									!=' '
-									span(v-if="action.text" v-html="action.text")
-					.well.well-sm(v-else, style="margin:10px") {{ $t('nothingFound') }}
-				pager.box-footer(v-model="page" ':last-page'="lastPage" ':loading'="loading" ':total'="total" ':limit'="limit")
-</template>
+				div(v-show="!initialLoading")
+					.box-header.with-border
+						.row
+							.col-lg-9.col-md-6
+								field.inline.per-page(':title'="$t('perPage') + ':'" type="select" required ':options'="limitOptions" v-model="selectedLimit" ':searchable'="false")
+								!=' '
+								router-link.btn.btn-success(v-if="!meta.permissions || meta.permissions.create !== false" ':to'="basePath + '/item/new'") {{ $t('create') }}
+							.col-lg-3.col-md-6
+								field(v-if="meta.searchable" ':placeholder'="$t('search')" ':stagger'="searchStagger" v-model="searchQuery")
+						entity-filters(':fields'="meta.filter_fields" v-model="filterParams")
+					.box-body.table-responsive.no-padding(v-if="items")
+						entity-table(v-if="items.length"
+							bulk sortable
+							':items'="items"
+							':fields'="meta.index_fields"
+							':permissions'="meta.permissions"
+							':primaryKey'="primaryKey"
+							':entity'="entity"
+							':has-item-actions'="hasItemActions()"
+							':has-bulk-actions'="hasBulkActions()"
+							':sort-params.sync'="sortParams"
+							'@destroy'="destroy"
+							'@bulk-destroy'="bulkDestroy"
+							'@update'="updateItem")
+							each pos in ['before', 'after']
+								template(v-if=("hasItemActions('" + pos + "')") slot=("item-actions-" + pos) slot-scope="{ item, index }")
+									.btn(v-for=("action in itemActions('" + pos + "', item, index)")
+											':class'="['btn-' + (action.btn || 'default'), action.class || {}]"
+											'@click'="callItemAction(action.action, item, index)"
+											':title'="action.title || ''")
+										i.fas(v-if="action.fa" ':class'="'fa-' + action.fa")
+										!=' '
+										span(v-if="action.text" v-html="action.text")
+								template(v-if=("hasBulkActions('" + pos + "')") slot=("bulk-actions-" + pos) slot-scope="{ selection }")
+									.btn(v-for=("action in bulkActions('" + pos + "')")
+											':class'="['btn-' + (action.btn || 'default'), action.class || {}]"
+											'@click'="callBulkAction(action.action, selection)"
+											':title'="action.title || ''")
+										i.fas(v-if="action.fa" ':class'="'fa-' + action.fa")
+										!=' '
+										span(v-if="action.text" v-html="action.text")
+						.well.well-sm(v-else, style="margin:10px") {{ $t('nothingFound') }}
+					pager.box-footer(v-model="page" ':last-page'="lastPage" ':loading'="loading" ':total'="total" ':limit'="limit")
+	</template>
 <style lang="stylus">
 	.entity-index-page
 		.pagination, .pager
