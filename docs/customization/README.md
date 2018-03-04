@@ -13,36 +13,36 @@ Package structure:
     * `components` - all reusable components should be here
     	* `app` - application layout components
     		* `logo.vue` - top-left corner logotype
-    		* `sidebar-menu.vue` and `sidebar-menu-item.vue` - sidebar main navigation (better do not touch it :) these components strongly depend on configuration fetched from a server API and they are not designed to be customized by any other way)
+    		* `sidebar-menu.vue` and `sidebar-menu-item.vue` - sidebar main navigation (better do not touch it: these components strongly depend on configuration fetched from a server API and they are not designed to be customized by any other way)
     		* `sidebar-user.vue` - current user and logout button
-		* `displays` - display components, usable as a `Display` component with `type` prop set to a display component file name (`<display type="field-name"></display>`)
+		* `displays` - display components, usable as a `Display` component with `type` prop set to a display component file name (`<display type="field-name"></display>`), [read more here](custom-displays.md)
         * `entity` - components exposed within all entity page components as `Entity{FileName}`
-        * `fields` - fields, usable as a `Field` component with `type` prop set to a field component file name (`<field type="field-name"></field>`)
-        * `modals` - modal components, can be used within any component as `this.$modal.open('modal-name', props)`, `this.$modal.close()`
+        * `fields` - fields, usable as a `Field` component with `type` prop set to a field component file name (`<field type="field-name"></field>`), [read more here](custom-fields.md)
+        * `modals` - modal components, can be used within any component as `this.$modal.open('modal-name', props)`, `this.$modal.close()`, [read more here](custom-modal-windows.md)
         * `shared` - components registered globally via `Vue.component('file-name', component)`
     * `filters` - Vue.js filters, registered globally via `Vue.filter('file-name', filter)`
     * `directives` - Vue.js directives, registered globally via `Vue.directive('file-name', directive)`
     * `lang` - translations, files named `{lang}.js` (`en` and `ru` are supported by default, see [vue-i18n](https://github.com/kazupon/vue-i18n) for more information); you can add your custom translations based on default ones to provide different languages support
     * `pages` - route components, each file here will be pointed to the corresponding route same as its file name (excluding files and folders starting with underscore `_`)
         * `entities` - entity pages, create folder to extend or replace default pages
-            * `_generic` - default entity page components (mind the underscore `_` - this folder's routes are registered explicitly in `router.js`; you can copy this folder with a name of your entity to fully replace default pages with custom ones)
+            * `_generic` - default entity page components (mind the underscore `_` - this folder's routes are registered explicitly in `router.js`; you can copy this folder with a name of your entity to fully replace default pages with custom ones), [read more here](extending-entity-pages.md)
                 * `index.vue` - entity list
                 * `item.vue` - entity create/edit form
                 * `bulk-update.vue` - entity bulk update
 	* `styles`
-		* `skins` - there you can add your custom AdminLTE skin style, just create a file and set a `skin` field same as a file name in `initial-state.js`
-		* `admin-lte.less` - [AdminLTE](https://adminlte.io) style imports
-		* `bootstrap.less` - [Bootstrap 3](https://getbootstrap.com/docs/3.3/) style imports
+		* `skins` - there you can add your custom AdminLTE skin style, just create a file and set a `skin` field in `initial-state.js` same as a file name
+		* `admin-lte.less` - [AdminLTE](https://adminlte.io) style imports (rewriting is not recommended, but you can change AdminLTE or Bootstrap variables in `variables.less`)
+		* `bootstrap.less` - [Bootstrap 3](https://getbootstrap.com/docs/3.3/) style imports (rewriting is not recommended, but you can change AdminLTE or Bootstrap variables in `variables.less`)
 		* `variables.less` - LESS variables for AdminLTE and Bootstrap 3, there you can completely or partially redefine default values
-		* `wysiwyg.styl` - WYSIWYG ([CKEditor](https://ckeditor.com/)) field default styles (keep in mind that it is highly recommended to provide a CSS file generated from your frontend styles and passed with API meta data)
+		* `wysiwyg.styl` - WYSIWYG ([CKEditor](https://ckeditor.com/)) field default styles (keep in mind that it is highly recommended to provide a CSS file generated from your frontend styles and [passed with API meta data](/server-api-prerequisities.md) or as a [WYSIWYG field prop](/fields.md#wysiwyg))
     * `app.vue` - application root component
     * `entry.js` - application entry file
-    * `http.js` - http service ([Axios](https://github.com/axios/axios))
+    * `http.js` - configured, ready-to-use http service ([Axios](https://github.com/axios/axios))
     * `i18n.js` - translation plugin config ([vue-i18n](https://github.com/kazupon/vue-i18n))
-    * `initial-state.js` - exports initial Vuex store state
+    * `initial-state.js` - exports initial Vuex store state (you can change such things as a page title and AdminLTE skin here)
     * `router.js` - [vue-router](https://github.com/vuejs/vue-router) config
     * `store.js` - [vuex](https://github.com/vuejs/vuex) store config
-    * `shared.styl` - shared stylus variables included everywhere by default
+    * `shared.styl` - shared stylus variables included everywhere, [read more here](global-style-variables.md)
     * `layout.pug` - application layout template
     * `ckeditor-config.js` - [CKEditor](https://ckeditor.com/) 4 configuration
 
