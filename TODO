@@ -1,9 +1,7 @@
-item page actions
-default sort support
+bulk update
 columns user preferences
 bootstrap 4
 different list views support
-support some form layouts
+provide a way to customize form layout
 wysiwyg - migrate to CKEditor 5
-bulk update
 inline entities
