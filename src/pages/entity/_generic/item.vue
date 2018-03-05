@@ -1,7 +1,6 @@
 <script>
 	import http from 'src/http';
 	import { asFormData, parsePlaceholders, httpErrorModalData, formatFieldErrors } from 'src/utils';
-	import EntityHeader from 'src/components/entity/header.vue';
 
 	function defaultFieldValue(field) {
 		if (field.type === 'boolean' || field.type === 'bool' || field.type === 'checkbox') return false;
@@ -10,7 +9,6 @@
 	}
 
 	export default {
-		components: { EntityHeader },
 		props: {
 			entity: {
 				type: String,

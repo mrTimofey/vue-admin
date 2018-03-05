@@ -2,12 +2,11 @@
 	import http from 'src/http';
 	import { asFormData, httpErrorModalData } from 'src/utils';
 	import EntityFilters from 'src/components/entity/filters.vue';
-	import EntityHeader from 'src/components/entity/header.vue';
 
 	const DEFAULT_LIMIT = 25;
 
 	export default {
-		components: { EntityFilters, EntityHeader },
+		components: { EntityFilters },
 		props: {
 			entity: {
 				type: String,
