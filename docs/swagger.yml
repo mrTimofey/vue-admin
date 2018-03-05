@@ -180,10 +180,11 @@ components:
             title:
               type: string
               description: link title (can be omitted if entity is provided and entity has a title)
-            fa:
+            icon:
               type: string
               description:
                 any valid [Font Awesome 5 icon name](http://fontawesome.io/icons/)
+              example: 'fas fa-user'
             entity:
               type: string
               description: entity name (this item will be a link to an entity home page)
@@ -308,7 +309,7 @@ components:
           example:
             - Header
             - entity: posts
-              fa: newspaper
+              icon: 'fas fa-newspaper'
             - route: /entity/posts/item/1
               title: Edit item \#1
             - path: 'https://facebook.com'
@@ -316,7 +317,7 @@ components:
             - title: Link group
               items:
                 - entity: users
-                  fa: user
+                  icon: 'fas fa-user'
         entities:
           type: object
           description: entities meta data

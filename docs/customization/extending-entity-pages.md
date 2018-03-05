@@ -20,7 +20,7 @@ Default index component relies on computed properties or data entries allowing y
 * `itemActionsBefore: Array<Object>|function(item: Object, index: Number)` -
 	data/computed array or method returning a list of custom actions that will be inserted **before** standard edit/delete actions.
 Each action is an object with fields:
-	* `fa: string` - FontAwesome icon name
+	* `icon: string` - FontAwesome icon class
 	* `text: string` - text inside button (HTML is allowed)
 	* `btn: string` - Bootstrap btn type (`default`, `danger`, `info`, etc.)
 	* `class: string|Array|Object` - custom class(es), should be a valid Vue value for `v-bind:class`

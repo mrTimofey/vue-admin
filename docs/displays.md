@@ -39,7 +39,7 @@ Formats a `boolean` or `null` value with Font Awesome icon, text and color.
 Value variants can be `checked`, `unchecked` and `unknown` for `true`, `false` and `null` respectively.
 
 Supported props:
-* `fa` - Font Awesome icon names for each value variant, default is `{ checked: 'check', uncheked: 'times', unknown: 'question-circle' }`
+* `icon` - Font Awesome icon class for each value variant, default is `{ checked: 'fas fa-check', uncheked: 'fas fa-times', unknown: 'fas fa-question-circle' }`
 * `text` - same for text, no text by default
 * `color` - same for color, can be any Bootstrap color mode for `text-*` class (`primary`, `info`, `danger`, etc.), default is `{ checked: 'primary', unknown: 'muted' }`
 

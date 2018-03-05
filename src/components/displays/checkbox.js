@@ -2,19 +2,19 @@ export default {
 	functional: true,
 	props: {
 		value: Boolean,
-		fa: null,
+		icon: null,
 		text: null,
 		color: null
 	},
 	render(h, { props }) {
 		const v = props.value,
-			icon = (props.fa === undefined || props.fa === true) ? {} : props.fa,
+			icon = (props.icon === undefined || props.icon === true) ? {} : props.icon,
 			color = (props.color === undefined || props.color === true) ? {} : props.color;
 
 		function iconClass() {
-			if (v === true) return icon.checked || 'check';
-			if (v === false) return icon.unchecked || 'times';
-			return icon.unknown || 'question-circle';
+			if (v === true) return icon.checked || 'fas fa-check';
+			if (v === false) return icon.unchecked || 'fas fa-times';
+			return icon.unknown || 'fas fa-question-circle';
 		}
 
 		function rootClass() {
@@ -35,7 +35,7 @@ export default {
 		const text = getText();
 
 		return h('span', { class: rootClass() }, [
-			icon && h('i', { class: ['fas', 'fa-' + iconClass()]}),
+			icon && h('i', { class: iconClass() }),
 			' ',
 			text && h('span', { domProps: { innerHTML: text } })
 		]);

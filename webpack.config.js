@@ -157,6 +157,9 @@ const config = {
 		},
 		extensions: ['.js', '.json', '.vue', '.styl', '.less', '.css']
 	},
+	resolveLoader: {
+		modules: ['node_modules', path.resolve(__dirname, 'lib')]
+	},
 	plugins: [
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(dev ? 'development' : 'production'),

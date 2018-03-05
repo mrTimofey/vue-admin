@@ -204,18 +204,19 @@
 			cursor pointer
 			position relative
 			&:after
-				content '\e150'
+				content '\f0dc'
 				display block
 				absolute false 8px 7px false
 				line-height 20px
-				font-family 'Glyphicons Halflings'
+				font-size 16px
+				font-family 'Font Awesome\ 5 Free'
 				opacity 0.25
 				color $c-dark-grey
 			&.asc:after
-				content '\e155'
+				content '\f15d'
 				opacity 1
 			&.desc:after
-				content '\e156'
+				content '\f15e'
 				opacity 1
 			&:hover:after
 				color $c-black

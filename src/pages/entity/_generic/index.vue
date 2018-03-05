@@ -291,7 +291,7 @@
 											':class'="['btn-' + (action.btn || 'default'), action.class || {}]"
 											'@click'="callItemAction(action.action, item, index)"
 											':title'="action.title || ''")
-										i.fas(v-if="action.fa" ':class'="'fa-' + action.fa")
+										i(v-if="action.icon" ':class'="action.icon")
 										!=' '
 										span(v-if="action.text" v-html="action.text")
 								template(v-if=("hasBulkActions('" + pos + "')") slot=("bulk-actions-" + pos) slot-scope="{ selection }")
@@ -299,7 +299,7 @@
 											':class'="['btn-' + (action.btn || 'default'), action.class || {}]"
 											'@click'="callBulkAction(action.action, selection)"
 											':title'="action.title || ''")
-										i.fas(v-if="action.fa" ':class'="'fa-' + action.fa")
+										i(v-if="action.icon" ':class'="action.icon")
 										!=' '
 										span(v-if="action.text" v-html="action.text")
 						.well.well-sm(v-else, style="margin:10px") {{ $t('nothingFound') }}
