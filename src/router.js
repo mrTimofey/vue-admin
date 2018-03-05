@@ -6,7 +6,6 @@ import { filenameToCamelCase, requireAll } from 'src/utils';
 
 import EntityGenericIndex from 'src/pages/entity/_generic/index.vue';
 import EntityGenericItem from 'src/pages/entity/_generic/item.vue';
-import EntityGenericBulkUpdate from 'src/pages/entity/_generic/bulk-update.vue';
 
 Vue.use(Router);
 
@@ -73,11 +72,6 @@ routes.push({
 routes.push({
 	component: EntityGenericItem,
 	path: '/entity/:entity/item/:id',
-	props: true
-});
-routes.push({
-	component: EntityGenericBulkUpdate,
-	path: '/entity/:entity/bulk-update',
 	props: true
 });
 

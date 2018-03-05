@@ -64,7 +64,7 @@
 				return this.hasItemActions || this.permitted('update') || this.permitted('destroy');
 			},
 			showBulkActions() {
-				return this.bulk && (this.hasBulkActions || this.permitted('update') || this.permitted('destroy'));
+				return this.bulk && (this.hasBulkActions || this.permitted('destroy'));
 			},
 			colspan() {
 				return (this.columns && this.columns.length || 0) +
@@ -189,9 +189,6 @@
 		tfoot.bulk-actions(v-if="showBulkActions && selection.length"): tr: td(':colspan'="colspan")
 			.btn-group.btn-group-xs
 				slot(name="bulk-actions-before" ':selection'="selection")
-				//- TODO
-				//- router-link.btn.btn-primary(v-if="permitted('update')" ':to'="{ path: path + '/bulk-update', query: { keys: selection } }")
-					i.fas.fa-edit
 				.btn.btn-danger(v-if="permitted('destroy')" '@click'="emitBulkAction('destroy')")
 					i.fas.fa-trash
 				slot(name="bulk-actions-after" ':selection'="selection")

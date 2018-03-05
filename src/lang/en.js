@@ -56,7 +56,6 @@ export default {
 		elementList: 'List',
 		nothingFound: 'Nothing found',
 		noSelectOptions: 'Nothing to select',
-		bulkUpdate: 'Bulk edit',
 		elementsOnPage: 'Elements shown',
 		map: {
 			instructions: 'Click on the map to place a point',

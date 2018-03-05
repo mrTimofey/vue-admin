@@ -56,7 +56,6 @@ export default {
 		elementList: 'Список',
 		nothingFound: 'Ничего не найдено',
 		noSelectOptions: 'Нет вариантов',
-		bulkUpdate: 'Изменение нескольких элементов',
 		elementsOnPage: 'На странице',
 		map: {
 			instructions: 'Нажмите на карту, чтобы установить точку',
