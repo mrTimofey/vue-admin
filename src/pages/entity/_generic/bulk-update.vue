@@ -35,12 +35,12 @@
 	};
 </script>
 <template lang="pug">
-	.entity-bulk-update-page(':class'="entity + '-bulk-update-page'")
-		entity-header(':title'="title" ':subtitle'="subtitle")
-			template(slot="breadcrumbs")
-				li: router-link(':to'="basePath") {{ meta && meta.title || $t('elementList') }}
-				li.active: span {{ $t('bulkUpdate') }}
-		.content
-			.box
-				spinner(v-if="loading")
+	page.entity-bulk-update-page(':class'="entity + '-bulk-update-page'")
+		span(slot="title")!='{{ title }} '
+			smal(v-if="subtitle") {{ subtitle }}
+		template(slot="breadcrumbs")
+			li: router-link(':to'="basePath") {{ meta && meta.title || $t('elementList') }}
+			li.active: span {{ $t('bulkUpdate') }}
+		.box
+			spinner(v-if="loading")
 </template>

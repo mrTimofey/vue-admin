@@ -208,33 +208,33 @@
 	};
 </script>
 <template lang="pug">
-	.entity-item-page(':class'="entity + '-item-page'")
-		entity-header(':title'="title" ':subtitle'="subtitle")
-			template(slot="breadcrumbs")
-				li: router-link(':to'="basePath") {{ meta && meta.title || $t('elementList') }}
-				li.active: span {{ subtitle }}
-		.content(v-if="fields")
-			.box
-				spinner(v-if="loading")
-				form.box-body(@submit.prevent="saveAndBack()" v-if="item")
-					field(v-for="field in fields" ':key'="field.name"
-						v-show="!fieldHidden(field.name)"
-						':disabled'="fieldDisabled(field.name)"
-						':object'="item"
-						v-bind="field"
-						v-model="item[field.name]"
-						':errors'="fieldErrors[field.name]")
-					.btn-group
-						button.btn.btn-success {{ $t('saveAndReturn') }}
-						button.btn.btn-success('@click.prevent'="save()") {{ $t('save') }}
-					!=' '
-					.btn-group.dropup(':class'="{ open: actionsOpen }")
-						button.btn.btn-default.dropdown-toggle(type="button" '@click.stop'="toggleActions()"): span.caret
-						ul.dropdown-menu
-							li: a(type="button" '@click'="toggleActions(), reset()") {{ $t('reset') }}
-							li(v-if="!creating && permitted('destroy')"): a(type="button" '@click'="toggleActions(), destroy()"): span.text-danger {{ $t('delete') }}
-							li: a('@click'="toggleActions(), back()") {{ $t('back') }}
-		.content(v-else): .callout.callout-warning
+	page.entity-item-page(':class'="entity + '-item-page'")
+		span(slot="title")!='{{ title }} '
+			small {{ subtitle }}
+		template(slot="breadcrumbs")
+			li: router-link(':to'="basePath") {{ meta && meta.title || $t('elementList') }}
+			li.active: span {{ subtitle }}
+		.box(v-if="fields")
+			spinner(v-if="loading")
+			form.box-body(@submit.prevent="saveAndBack()" v-if="item")
+				field(v-for="field in fields" ':key'="field.name"
+					v-show="!fieldHidden(field.name)"
+					':disabled'="fieldDisabled(field.name)"
+					':object'="item"
+					v-bind="field"
+					v-model="item[field.name]"
+					':errors'="fieldErrors[field.name]")
+				.btn-group
+					button.btn.btn-success {{ $t('saveAndReturn') }}
+					button.btn.btn-success('@click.prevent'="save()") {{ $t('save') }}
+				!=' '
+				.btn-group.dropup(':class'="{ open: actionsOpen }")
+					button.btn.btn-default.dropdown-toggle(type="button" '@click.stop'="toggleActions()"): span.caret
+					ul.dropdown-menu
+						li: a(type="button" '@click'="toggleActions(), reset()") {{ $t('reset') }}
+						li(v-if="!creating && permitted('destroy')"): a(type="button" '@click'="toggleActions(), destroy()"): span.text-danger {{ $t('delete') }}
+						li: a('@click'="toggleActions(), back()") {{ $t('back') }}
+		.callout.callout-warning(v-else)
 			h4 {{ $t('noMetaMessage') }}
 			code.
 				ModelHandler::setItemFields() or Model::setFillable()
