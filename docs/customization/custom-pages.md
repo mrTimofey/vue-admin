@@ -9,7 +9,7 @@ Examples:
 
 ## URL postfix and parameters
 
-You can provide additional route postfix for any of your pages by adding a `routePath` component field. It is convenient when you want to some parts pf URL to be mapped to component prop. Example:
+You can provide additional route postfix for any of your pages by adding a `routePath` component field. It is convenient when you want to some parts of URL to be mapped to component prop. Example:
 
 ```html
 <!-- admin/src/pages/page-with-param.vue -->
@@ -23,5 +23,25 @@ You can provide additional route postfix for any of your pages by adding a `rout
     div
         h1 Page /admin/page-with-param/{{ id }}/details
         p Details for ID {{ id }}
+</template>
+```
+
+## Page layout
+
+You can use a shared `page` component which provides a standard page layout with all necessary slots.
+
+```html
+<template lang="pug">
+    page.custom-page
+    	span(slot="title") Page title
+    		!=' '
+    		small Page subtitle
+		span(slot="breadcrumbs")
+			//- home page entry is already here
+			li: router-link(to="somewhere") Somewhere
+			li There
+		//- any page content bellow
+		.box
+			.box-body Page content
 </template>
 ```
