@@ -14,10 +14,10 @@ const appConfig = require('./_config'),
 	sourcePath = process.env.SOURCE_PATH || appConfig.sourcePath,
 	customTemplatePath = path.resolve(sourcePath, 'src/layout.pug'),
 	template = fs.existsSync(customTemplatePath) ? customTemplatePath : path.resolve(__dirname, 'src/layout.pug'),
-	customStylusSharedFile = path.resolve(sourcePath, 'src/shared.styl'),
+	customStylusSharedFile = path.resolve(sourcePath, 'src/styles/shared.styl'),
 	stylusImports = [
 		path.resolve(process.cwd(), 'node_modules/kouto-swiss/index.styl'),
-		path.resolve(__dirname, 'src/shared.styl')
+		path.resolve(__dirname, 'src/styles/shared.styl')
 	];
 
 // append custom shared stylus file
@@ -156,9 +156,6 @@ const config = {
 			_local: __dirname
 		},
 		extensions: ['.js', '.json', '.vue', '.styl', '.less', '.css']
-	},
-	resolveLoader: {
-		modules: ['node_modules', path.resolve(__dirname, 'lib')]
 	},
 	plugins: [
 		new webpack.DefinePlugin({
