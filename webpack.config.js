@@ -103,7 +103,6 @@ const config = {
 			{
 				test: /\.js$/,
 				loader: 'buble-loader',
-				include: /src\//,
 				options: options.buble
 			},
 			{
@@ -158,7 +157,10 @@ const config = {
 		extensions: ['.js', '.json', '.vue', '.styl', '.less', '.css']
 	},
 	resolveLoader: {
-		modules: ['node_modules', path.resolve(__dirname, 'lib')]
+		modules: [
+			path.resolve(process.cwd(), 'node_modules'),
+			path.resolve(__dirname, 'node_modules')
+		]
 	},
 	plugins: [
 		new webpack.DefinePlugin({
