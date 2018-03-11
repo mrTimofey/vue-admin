@@ -23,5 +23,8 @@ export { MasterComponent };
 export default {
 	install(Vue) {
 		Vue.prototype.$modal = $modal;
+	},
+	component(name, comp) {
+		MasterComponent.components[name] = comp;
 	}
 };

@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Modal, { MasterComponent as ModalMasterComponent } from 'src/plugins/modal';
+import Modal from 'src/plugins/modal';
 import { sync } from 'vuex-router-sync';
 
 import 'src/styles/bootstrap.less';
@@ -46,7 +46,7 @@ requireAll([
 	require.context('src/components/modals/', true, /\.(vue|js)$/),
 	require.context('_local/src/components/modals/', true, /\.(vue|js)$/)
 ], (component, name) => {
-	ModalMasterComponent.components[filenameToCamelCase(name)] = component;
+	Modal.component(filenameToCamelCase(name), component);
 });
 
 const root = new Vue({ store, router, i18n, ...app });

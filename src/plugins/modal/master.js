@@ -1,3 +1,19 @@
+function classArray(input) {
+	if (!input) return [];
+	if (Array.isArray(input)) return input;
+	return input.toString().split(' ').filter(s => s);
+}
+
+function closeOnEscape(vm) {
+	const onEscape = e => {
+		if (e.keyCode === 27 || e.key === 'Escape' || e.key === 'Esc') {
+			window.removeEventListener('keydown', onEscape);
+			vm.close();
+		}
+	};
+	window.addEventListener('keydown', onEscape);
+}
+
 export default {
 	props: {
 		tag: String,
@@ -13,41 +29,33 @@ export default {
 	data: () => ({
 		comp: null,
 		compProps: null,
-		size: null
+		compClass: null
 	}),
+	computed: {
+		innerClassArray() {
+			return classArray(this.innerClass).concat(classArray(this.compClass));
+		}
+	},
 	methods: {
-		openModal(name, props, size) {
-			if (!name) throw new Error('Vue modal plugin: can not open undefined modal');
-			this.size = typeof size === 'string' ? size : null;
-			this.$emit('before-open', { comp: name, compProps: props });
-			this.comp = name;
-			this.compProps = props;
-			this.$emit('opened', this.$data);
-			const onEscape = e => {
-				if (e.keyCode === 27 || e.key === 'Escape' || e.key === 'Esc') {
-					window.removeEventListener('keydown', onEscape);
-					this.close();
-				}
-			};
-			window.addEventListener('keydown', onEscape);
-			return new Promise(resolve => {
-				this.$once('closed', result => resolve(result));
+		openModal(comp, compProps, compClass) {
+			if (!comp) throw new Error('Vue modal plugin: trying to open modal without component name');
+			const data = { comp, compProps, compClass };
+			this.$emit('before-open', data);
+			this.$nextTick(() => {
+				Object.keys(data).forEach(k => { this.$data[k] = data[k]; });
+				this.$emit('opened', data);
+				closeOnEscape(this);
 			});
+			return new Promise(resolve => { this.$once('closed', resolve); });
 		},
 		close(result = null) {
 			this.$emit('before-close', this.$data);
 			this.$nextTick(() => {
 				this.comp = null;
 				this.compProps = null;
+				this.compClass = null;
 				this.$emit('closed', result);
 			});
-		},
-		getInnerClass() {
-			let sizeClass = this.size ? ` modal-${this.size}` : '';
-			if (typeof this.innerClass === 'string') {
-				return this.innerClass + sizeClass;
-			}
-			return this.innerClass.join(' ') + sizeClass;
 		}
 	},
 	created() {
@@ -68,7 +76,7 @@ export default {
 				h(
 					this.innerTag,
 					{
-						class: this.getInnerClass()
+						class: this.innerClassArray
 					},
 					[
 						this.$slots.innerBefore,

@@ -113,7 +113,7 @@
 				this.$modal.open('confirm', {
 					title: this.$t('deleteElement') + '?',
 					text: this.initialState.title || this.initialState.name
-				}, 'sm').then(result => {
+				}, 'modal-sm').then(result => {
 					if (result === true) {
 						this.loading = true;
 						http.delete(this.itemApiPath)
@@ -154,7 +154,7 @@
 			save() {
 				this.submit(() => {
 					this.$router.replace(this.itemPathFor(this.item));
-					this.$modal.open('success', { text: this.$t('savedMessage') }, 'sm');
+					this.$modal.open('success', { text: this.$t('savedMessage') }, 'modal-sm');
 				});
 			},
 			reset() {
