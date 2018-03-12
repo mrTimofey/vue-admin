@@ -34,6 +34,7 @@ Package structure:
 		* `admin-lte.less` - [AdminLTE](https://adminlte.io) style imports (rewriting is not recommended, but you can change AdminLTE or Bootstrap variables in `variables.less`)
 		* `bootstrap.less` - [Bootstrap 3](https://getbootstrap.com/docs/3.3/) style imports (rewriting is not recommended, but you can change AdminLTE or Bootstrap variables in `variables.less`)
 		* `variables.less` - LESS variables for AdminLTE and Bootstrap 3, there you can completely or partially redefine default values
+		* `shared.styl` - shared stylus variables included everywhere, [read more here](global-style-variables.md)
 		* `wysiwyg.styl` - WYSIWYG ([CKEditor](https://ckeditor.com/)) field default styles (keep in mind that it is highly recommended to provide a CSS file generated from your frontend styles and [passed with API meta data](/server-api-prerequisities.md) or as a [WYSIWYG field prop](/fields.md#wysiwyg))
     * `app.vue` - application root component
     * `entry.js` - application entry file
@@ -42,7 +43,6 @@ Package structure:
     * `initial-state.js` - exports initial Vuex store state (you can change such things as a page title and AdminLTE skin here)
     * `router.js` - [vue-router](https://github.com/vuejs/vue-router) config
     * `store.js` - [vuex](https://github.com/vuejs/vuex) store config
-    * `shared.styl` - shared stylus variables included everywhere, [read more here](global-style-variables.md)
     * `layout.pug` - application layout template
     * `ckeditor-config.js` - [CKEditor](https://ckeditor.com/) 4 configuration
 
