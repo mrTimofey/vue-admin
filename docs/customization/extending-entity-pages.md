@@ -9,7 +9,7 @@ Start from that:
 ```javascript
 // admin/src/pages/entities/your-entity-name/index.js (or index.vue)
 
-import Base from 'src/pages/entities/_generic/index.vue'
+import Base from 'vue-admin-front/src/pages/entity/_generic/index.vue'
 
 export default {
     extends: Base
@@ -42,7 +42,7 @@ Start from that:
 ```javascript
 // admin/src/pages/entities/your-entity-name/item.js (or item.vue)
 
-import Base from 'src/pages/entities/_generic/item.vue'
+import Base from 'vue-admin-front/src/pages/entity/_generic/item.vue'
 
 export default {
     extends: Base,
