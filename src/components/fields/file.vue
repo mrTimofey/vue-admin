@@ -63,8 +63,10 @@
 	};
 </script>
 <template lang="pug">
-	.field-file
-		.field-file-btns.btn-group(':class'="size ? ('btn-group-' + size) : ''")
+	.field-file(':class'="[size ? 'size-' + size : null, { uploading }]")
+		.progress.active(v-if="uploading" ':class'="size ? ('progress-' + size) : ''")
+			.progress-bar.progress-bar-striped(':style'="{ width: uploadProgress * 100 + '%' }")
+		.field-file-btns.btn-group(v-else ':class'="size ? ('btn-group-' + size) : ''")
 			.btn.btn-danger(v-if="value" '@click'="clearValue" ':disabled'="disabled"): i.fas.fa-trash
 			label.btn.btn-default(v-else ':disabled'="disabled || uploading")
 				input(type="file" style="display:none" '@change'="onFileChange" ':accept'="accept" ':disabled'="disabled || uploading")
@@ -74,10 +76,16 @@
 				i.fas.fa-download
 				!=' {{ valueLabel || value }}'
 			.btn.btn-warning.field-file-upload-pending(v-else-if="value") {{ uploadMessage || $t('uploadMessage') }}
-		.progress.progress-sm.active(v-if="uploading")
-			.progress-bar.progress-bar-striped(':style'="{ width: uploadProgress * 100 + '%' }")
 </template>
 <style lang="stylus">
+	.field-file .progress
+		margin 0 !important
+	.field-file.uploading.size-xs
+		padding 8px 0 7px 0
+	.field-file.uploading.size-sm
+		padding 10px 0
+	.field-file.uploading.size-md
+		padding 7px 0
 	.field-file-btns
 		display flex
 		align-items center
