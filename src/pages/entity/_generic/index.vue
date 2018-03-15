@@ -189,19 +189,25 @@
 				let data = { [field]: value, __field: field };
 				if (value instanceof File || value instanceof FileList)
 					data = asFormData(data);
-				if (!this.itemUpdateTimeout) this.itemUpdateTimeout = {};
-				clearTimeout(this.itemUpdateTimeout[item[this.primaryKey]]);
-				this.itemUpdateTimeout[item[this.primaryKey]] = setTimeout(() => {
-					http.post(this.updateApiPath(item), data)
-						.then(res => {
+				if (!this.pendingUpdates) this.pendingUpdates = {};
+				if (!this.pendingUpdates[item[this.primaryKey]])
+					this.pendingUpdates[item[this.primaryKey]] = { t: null, p: null };
+				else
+					clearTimeout(this.pendingUpdates[item[this.primaryKey]].t);
+
+				this.pendingUpdates[item[this.primaryKey]].t = setTimeout(() => {
+					const p = http.post(this.updateApiPath(item), data);
+					this.pendingUpdates[item[this.primaryKey]].p = p;
+					p.then(res => {
+						if (p === this.pendingUpdates[item[this.primaryKey]].p)
 							item[field] = res.data[field];
-						})
-						.catch(err => {
-							this.$modal.open('error', {
-								...httpErrorModalData(err),
-								title: this.$t('errors.saveElement')
-							});
+					});
+					p.catch(err => {
+						this.$modal.open('error', {
+							...httpErrorModalData(err),
+							title: this.$t('errors.saveElement')
 						});
+					});
 				}, 300);
 			},
 			hasItemActions(pos) {
