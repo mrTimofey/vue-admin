@@ -178,4 +178,5 @@
 		':value'="value"
 		':on-create'="allowCreate && onCreate || null"
 		'@input'="emitValue")
+	input.form-control(v-else disabled readonly ':placeholder'="$t('loading') + '...'")
 </template>
