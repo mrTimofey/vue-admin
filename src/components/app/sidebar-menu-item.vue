@@ -41,20 +41,20 @@
 <template lang="pug">
 	li.header(v-if="typeof item === 'string'" v-html="item")
 	li(v-else-if="item.path"): a(':href'="href")
-		i(v-if="item.icon" ':class'="item.icon")
+		i.item-icon(v-if="item.icon" ':class'="item.icon")
 		!=' '
 		span(v-html="item.title")
 	router-link(v-else-if="item.route" tag="li" ':to'="href"): a
-		i(v-if="item.icon" ':class'="item.icon")
+		i.item-icon(v-if="item.icon" ':class'="item.icon")
 		!=' '
 		span(v-html="item.title")
 	router-link(v-else-if="item.entity && available(item.entity, 'index')" tag="li" ':to'="href"): a
-		i(v-if="item.icon" ':class'="item.icon")
+		i.item-icon(v-if="item.icon" ':class'="item.icon")
 		!=' '
 		span(v-html="item.title || entitiesData[item.entity].title || ('[' + $t('undefined') + ']')")
 	li.treeview(v-else-if="item.items && item.items.length" ':class'="{ 'menu-open': expanded, active: hasActiveItem }")
 		a('@click.prevent'="toggle()" style="cursor:pointer")
-			i(v-if="item.icon" ':class'="item.icon")
+			i.item-icon(v-if="item.icon" ':class'="item.icon")
 			!=' '
 			span(v-html="item.title")
 			!=' '
