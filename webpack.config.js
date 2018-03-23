@@ -3,7 +3,7 @@ const path = require('path'),
 	qs = require('qs'),
 	webpack = require('webpack'),
 	HTMLPlugin = require('html-webpack-plugin'),
-	ExtractText = require('extract-text-webpack-plugin');
+	MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const appConfig = require('./_config'),
 	dev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development',
@@ -78,7 +78,7 @@ const vueConfig = {
 const config = {
 	devtool: false,
 	mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
-	entry: 'src/entry.js',
+	entry: './src/entry.js',
 	output: {
 		publicPath,
 		filename: '[name].js',
@@ -209,11 +209,7 @@ function addStyleRules(extract = false) {
 			]
 		}
 	]) {
-		if (extract) rule.use = ExtractText.extract({
-			use: rule.use,
-			fallback: 'style-loader'
-		});
-		else rule.use = ['style-loader', ...rule.use];
+		rule.use = [extract ? MiniCssExtractPlugin.loader : 'style-loader', ...rule.use];
 		config.module.rules.push(rule);
 	}
 }
@@ -231,15 +227,10 @@ else {
 	config.output.filename += '?[chunkhash:6]';
 	config.output.chunkFilename += '?[chunkhash:6]';
 	config.plugins.push(
-		new ExtractText('styles.css?[hash:6]')
+		new MiniCssExtractPlugin()
 	);
 
-	vueConfig.options.loaders.stylus = ExtractText.extract({
-		use: vueConfig.options.loaders.stylus,
-		fallback: 'vue-style-loader'
-	});
-
-	vueConfig.options.extractCSS = true;
+	vueConfig.options.loaders.stylus = MiniCssExtractPlugin.loader + '!' + vueConfig.options.loaders.stylus;
 
 	config.performance = {
 		hints: 'warning'
