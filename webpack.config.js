@@ -166,7 +166,7 @@ const config = {
 			name: 'rtm'
 		},
 		splitChunks: {
-			chunks: 'all'
+			chunks: 'async'
 		}
 	}
 };
