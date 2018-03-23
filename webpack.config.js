@@ -76,19 +76,9 @@ const vueConfig = {
 
 // noinspection JSUnresolvedFunction
 const config = {
-	entry: {
-		app: 'src/entry.js',
-		vendor: [
-			'axios',
-			'vue',
-			'vue-router',
-			'vue-i18n',
-			'vuex',
-			'vuex-router-sync',
-			'vuedraggable'
-		]
-	},
 	devtool: false,
+	mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+	entry: 'src/entry.js',
 	output: {
 		publicPath,
 		filename: '[name].js',
@@ -169,9 +159,16 @@ const config = {
 			apiRootPath: JSON.stringify(apiRoot),
 			googleMapsApiKey: JSON.stringify(appConfig.googleMapsApiKey || false)
 		}),
-		new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
 		new HTMLPlugin({ template })
-	]
+	],
+	optimization: {
+		runtimeChunk: {
+			name: 'rtm'
+		},
+		splitChunks: {
+			chunks: 'all'
+		}
+	}
 };
 
 function addStyleRules(extract = false) {
@@ -234,13 +231,7 @@ else {
 	config.output.filename += '?[chunkhash:6]';
 	config.output.chunkFilename += '?[chunkhash:6]';
 	config.plugins.push(
-		new ExtractText('styles.css?[hash:6]'),
-		new webpack.optimize.UglifyJsPlugin({
-			comment: true,
-			compress: {
-				warnings: false
-			}
-		})
+		new ExtractText('styles.css?[hash:6]')
 	);
 
 	vueConfig.options.loaders.stylus = ExtractText.extract({

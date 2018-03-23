@@ -16,7 +16,7 @@ if (appConfig.apiProxy) {
 
 // modify webpack config to work with a hot middleware
 // noinspection JSValidateTypes
-webpackConfig.entry.app = ['webpack-hot-middleware/client', webpackConfig.entry.app];
+webpackConfig.entry = ['webpack-hot-middleware/client', webpackConfig.entry];
 webpackConfig.plugins.push(
 	new webpack.HotModuleReplacementPlugin(),
 	new webpack.NoEmitOnErrorsPlugin()
