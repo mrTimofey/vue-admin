@@ -78,7 +78,7 @@ const vueConfig = {
 const config = {
 	devtool: false,
 	mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
-	entry: './src/entry.js',
+	entry: 'src/entry.js',
 	output: {
 		publicPath,
 		filename: '[name].js',
