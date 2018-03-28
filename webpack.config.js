@@ -212,6 +212,13 @@ function addStyleRules(extract = false) {
 		rule.use = [extract ? MiniCssExtractPlugin.loader : 'style-loader', ...rule.use];
 		config.module.rules.push(rule);
 	}
+
+	vueConfig.options.loaders.stylus =
+		(extract ? MiniCssExtractPlugin.loader : 'vue-style-loader') + '!' + vueConfig.options.loaders.stylus;
+
+	if (extract) config.plugins.push(
+		new MiniCssExtractPlugin()
+	);
 }
 
 if (dev) {
@@ -219,18 +226,12 @@ if (dev) {
 	// it does not make any sense since virtual file system is used in dev mode, webpack just requires this option
 	config.output.path = path.resolve(__dirname, 'dist');
 	config.devtool = '#sourcemap';
-	vueConfig.options.loaders.stylus = 'vue-style-loader!' + vueConfig.options.loaders.stylus;
 }
 else {
 	addStyleRules(true);
 	config.output.path = buildDest;
 	config.output.filename += '?[chunkhash:6]';
 	config.output.chunkFilename += '?[chunkhash:6]';
-	config.plugins.push(
-		new MiniCssExtractPlugin()
-	);
-
-	vueConfig.options.loaders.stylus = MiniCssExtractPlugin.loader + '!' + vueConfig.options.loaders.stylus;
 
 	config.performance = {
 		hints: 'warning'
