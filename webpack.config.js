@@ -217,7 +217,7 @@ function addStyleRules(extract = false) {
 		(extract ? MiniCssExtractPlugin.loader : 'vue-style-loader') + '!' + vueConfig.options.loaders.stylus;
 
 	if (extract) config.plugins.push(
-		new MiniCssExtractPlugin()
+		new MiniCssExtractPlugin({ filename: '[name].css?[hash:6]' })
 	);
 }
 
