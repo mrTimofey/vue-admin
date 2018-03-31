@@ -5,6 +5,7 @@
 		return { lat: p[0], lng: p[1] };
 	}
 
+	// noinspection JSUnusedGlobalSymbols
 	export default {
 		props: {
 			title: null,
@@ -45,6 +46,7 @@
 		methods: {
 			emitValue(obj) {
 				if (!this.value && !obj.point) return;
+				// noinspection JSUnresolvedFunction
 				this.$emit('input', {
 					zoom: obj.zoom || this.gmap.getZoom(),
 					point: obj.point || this.valuePoint
@@ -54,13 +56,15 @@
 				this.$emit('input', null);
 			},
 			onClick({ latLng }) {
-				this.emitValue({ point: [latLng.lat(), latLng.lng()] });
+				this.emitValue({ point: [latLng.lat(), latLng.lng()]});
 			},
 			onZoomChange() {
+				// noinspection JSUnresolvedFunction
 				this.emitValue({ zoom: this.gmap.getZoom() });
 			},
 			init() {
 				this.apiLoaded = true;
+				// noinspection ES6ModulesDependencies
 				this.gmap = new google.maps.Map(this.$refs.map, {
 					zoom: this.valueZoom,
 					center: pointToObj(this.valuePoint)
@@ -71,16 +75,22 @@
 				this.initSearch();
 			},
 			initSearch() {
+				// noinspection ES6ModulesDependencies, JSUnresolvedFunction
 				const search = new google.maps.places.Autocomplete(this.$refs.searchInput);
+				// noinspection JSUnresolvedFunction
 				search.bindTo('bounds', this.gmap);
 				search.addListener('place_changed', () => {
+					// noinspection JSUnresolvedFunction
 					const place = search.getPlace();
 					if (!place.geometry) return;
 					if (place.geometry.viewport) {
+						// noinspection JSUnresolvedFunction
 						this.gmap.fitBounds(place.geometry.viewport);
 					}
 					if (place.geometry.location) {
+						// noinspection JSUnresolvedFunction
 						this.gmap.setCenter(place.geometry.location);
+						// noinspection JSUnresolvedFunction
 						this.emitValue({
 							zoom: this.gmap.getZoom(),
 							point: [place.geometry.location.lat(), place.geometry.location.lng()]
@@ -92,12 +102,15 @@
 				if (typeof google === 'undefined') return;
 				if (!this.value || !this.value.point) {
 					if (this.gmapPoint) {
+						// noinspection JSUnresolvedFunction
 						this.gmapPoint.setMap(null);
 						delete this.gmapPoint;
 					}
 				}
 				else {
-					if (!this.gmapPoint) this.gmapPoint = new google.maps.Marker({ map: this.gmap });
+					if (!this.gmapPoint)
+						// noinspection ES6ModulesDependencies, JSUnresolvedFunction
+						this.gmapPoint = new google.maps.Marker({ map: this.gmap });
 					this.gmapPoint.setPosition(pointToObj(this.value.point));
 				}
 			}
@@ -118,7 +131,7 @@
 	};
 </script>
 <template lang="pug">
-	.field-geo-point(':class'="{ disabled }")
+	.field-geo-point(:class="{ disabled }")
 		.alert.alert-warning(v-if="noApiKey")
 			p {{ $t('map.googleApiKeyWarning') }}
 			br
@@ -132,10 +145,10 @@
 		template(v-else)
 			.map-search
 				input.form-control(ref="searchInput")
-			.map-wrapper(ref="map" ':style'="{ height: heightWithUnit }")
+			.map-wrapper(ref="map" :style="{ height: heightWithUnit }")
 			.map-stats
 				template(v-if="value")
-					a.text-danger('@click.prevent'="clearValue")
+					a.text-danger(@click.prevent="clearValue")
 						i.fas.fa-trash
 						!=' '
 						b {{ $t('map.removePoint') }}

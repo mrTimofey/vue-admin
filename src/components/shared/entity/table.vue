@@ -1,6 +1,7 @@
 <script>
 	import makeTitle from 'src/filters/title';
 
+	// noinspection JSUnusedGlobalSymbols
 	export default {
 		name: 'EntityTable',
 		props: {
@@ -44,7 +45,8 @@
 				return '/entity/' + this.entity;
 			},
 			columns() {
-				if (this.fields) return this.fields.filter(field => field.type !== 'hidden').map(this.makeField);
+				if (this.fields) // noinspection JSUnresolvedFunction
+					return this.fields.filter(field => field.type !== 'hidden').map(this.makeField);
 				return this.items[0] && Object.keys(this.items[0]).map(this.makeField);
 			},
 			sorted() {
@@ -76,6 +78,7 @@
 					return this.selection.length === this.items.length;
 				},
 				set(v) {
+					// noinspection JSUnresolvedFunction
 					this.selection = v ? this.items.map(item => item[this.primaryKey]) : [];
 				}
 			}
@@ -152,46 +155,46 @@
 				input(type="checkbox" v-model="allSelected")
 				.styled-checkbox-indicator
 			th(v-for="field in columns"
-				':class'="{ sortable: field.sort, asc: field.sort && field.sort.dir === true, desc: field.sort && field.sort.dir === false, ['item-cell-' + field.name.replace('_', '-')]: true }"
-				'@click'="field.sort && sort(field, !$event.shiftKey)")
-				slot(':name'="'header-' + field.name.replace('_', '-')" ':field'="field")
+				:class="{ sortable: field.sort, asc: field.sort && field.sort.dir === true, desc: field.sort && field.sort.dir === false, ['item-cell-' + field.name.replace('_', '-')]: true }"
+				@click="field.sort && sort(field, !$event.shiftKey)")
+				slot(:name="'header-' + field.name.replace('_', '-')" :field="field")
 					span(v-html="field.title")
 				!=' '
 				small.sort-num(v-if="field.sort && field.sort.index !== null") {{ field.sort.index + 1 }}
 			th.table-item-actions(v-if="showItemActions")
 		tbody: tr(v-for="(item, i) in items"
-			':class'="{ selected: selection.indexOf(item[primaryKey]) > -1 }"
-			':key'="itemKey(item, i)"
-			':id'="itemKey(item, i)")
+			:class="{ selected: selection.indexOf(item[primaryKey]) > -1 }"
+			:key="itemKey(item, i)"
+			:id="itemKey(item, i)")
 			td.item-bulk-cell(v-if="showBulkActions"): label.styled-checkbox
-				input(type="checkbox" ':value'="item[primaryKey]" v-model="selection")
+				input(type="checkbox" :value="item[primaryKey]" v-model="selection")
 				.styled-checkbox-indicator
 			td(v-for="field in columns"
-				':class'="'item-cell-' + field.name.split('_').join('-')"
-				':key'="fieldKey(item, i, field)"
-				':id'="fieldKey(item, i, field)")
-				slot(':name'="'item-cell-' + field.name.replace('_', '-')" ':item'="item" ':index'="i" ':field'="field")
+				:class="'item-cell-' + field.name.split('_').join('-')"
+				:key="fieldKey(item, i, field)"
+				:id="fieldKey(item, i, field)")
+				slot(:name="'item-cell-' + field.name.replace('_', '-')" :item="item" :index="i" :field="field")
 					field(v-if="field.editable && permitted('update')"
 						v-bind="field"
-						':value'="item[field.name]"
-						':object'="item"
+						:value="item[field.name]"
+						:object="item"
 						title=""
-						'@input'="$emit('update', item, field.name, $event)")
-					display(v-else ':value'="item[field.name]" ':object'="item" v-bind="field")
+						@input="$emit('update', item, field.name, $event)")
+					display(v-else :value="item[field.name]" :object="item" v-bind="field")
 			td.table-item-actions(v-if="showItemActions")
 				.btn-group.btn-group-xs.nowrap
-					slot(name="item-actions-before" ':item'="item" ':index'="i")
-					router-link.btn.btn-primary(v-if="permitted('update')" ':to'="path + '/item/' + item[primaryKey]")
+					slot(name="item-actions-before" :item="item" :index="i")
+					router-link.btn.btn-primary(v-if="permitted('update')" :to="path + '/item/' + item[primaryKey]")
 						i.fas.fa-edit
-					.btn.btn-danger(v-if="permitted('destroy')" '@click'="$emit('destroy', item)")
+					.btn.btn-danger(v-if="permitted('destroy')" @click="$emit('destroy', item)")
 						i.fas.fa-trash
-					slot(name="item-actions-after" ':item'="item" ':index'="i")
-		tfoot.bulk-actions(v-if="showBulkActions && selection.length"): tr: td(':colspan'="colspan")
+					slot(name="item-actions-after" :item="item" :index="i")
+		tfoot.bulk-actions(v-if="showBulkActions && selection.length"): tr: td(:colspan="colspan")
 			.btn-group.btn-group-xs
-				slot(name="bulk-actions-before" ':selection'="selection")
-				.btn.btn-danger(v-if="permitted('destroy')" '@click'="emitBulkAction('destroy')")
+				slot(name="bulk-actions-before" :selection="selection")
+				.btn.btn-danger(v-if="permitted('destroy')" @click="emitBulkAction('destroy')")
 					i.fas.fa-trash
-				slot(name="bulk-actions-after" ':selection'="selection")
+				slot(name="bulk-actions-after" :selection="selection")
 </template>
 <style lang="stylus">
 	.entity-table

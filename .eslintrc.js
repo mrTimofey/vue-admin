@@ -15,7 +15,9 @@ module.exports = {
 		routerBasePath: true,
 		googleMapsApiKey: true,
 		apiRootPath: true,
-		development: true
+		development: true,
+		google: true,
+		CKEDITOR: true
 	},
 	env: {
 		browser: true,

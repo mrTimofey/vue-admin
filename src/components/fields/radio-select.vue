@@ -2,6 +2,7 @@
 	import 'src/styles/checkbox.styl';
 	import { transformedOptions } from 'src/utils/fields';
 
+	// noinspection JSUnusedGlobalSymbols
 	export default {
 		props: {
 			options: {
@@ -31,7 +32,7 @@
 		div(v-for="opt in transformedOptions"): label.styled-checkbox.radio
 			span.styled-checkbox-label(v-html="opt.label")
 			!=' '
-			input(type="radio" ':value'="opt.value" '@change'="emitValue(opt.value)"
-				':checked'="value === opt.value" ':disabled'="disabled")
+			input(type="radio" :value="opt.value" @change="emitValue(opt.value)"
+				:checked="value === opt.value" :disabled="disabled")
 			.styled-checkbox-indicator
 </template>

@@ -1,5 +1,6 @@
 import parsePlaceholders from 'src/filters/placeholders';
 
+// noinspection JSUnusedGlobalSymbols
 export default {
 	functional: true,
 	props: {
@@ -53,6 +54,7 @@ export default {
 		if (Array.isArray(props.value)) {
 			const rendered = [];
 			for (let i in props.value) {
+				// noinspection JSUnfilteredForInLoop
 				rendered.push(renderItem(props.value[i]));
 				// space between elements
 				if (i < props.value.length - 1) rendered.push(' ');

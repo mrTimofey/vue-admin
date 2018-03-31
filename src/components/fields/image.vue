@@ -4,6 +4,7 @@
 	import { httpErrorModalData } from 'src/utils';
 	import BaseFileField from './file.vue';
 
+	// noinspection JSUnusedGlobalSymbols
 	export default {
 		components: { BaseFileField },
 		props: {
@@ -80,13 +81,14 @@
 </script>
 <template lang="pug">
 	.field-image
-		.field-image-preview.img-thumbnail(v-if="src"): img(':src'="src")
-		base-file-field(':accept'="accept"
-			':placeholder'="placeholder || $t('chooseImage')"
-			':disabled'="disabled || uploading" ':value'="fileValue" '@input'="emitValue($event)"
-			':upload-message'="uploadMessage"
-			':value-label'="valueLabel"
-			':size'="size")
+		.field-image-preview.img-thumbnail(v-if="src"): img(:src="src")
+		base-file-field(
+			:accept="accept"
+			:placeholder="placeholder || $t('chooseImage')"
+			:disabled="disabled || uploading" :value="fileValue" @input="emitValue($event)"
+			:upload-message="uploadMessage"
+			:value-label="valueLabel"
+			:size="size")
 </template>
 <style lang="stylus">
 	.field-image-preview

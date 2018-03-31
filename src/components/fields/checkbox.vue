@@ -21,8 +21,8 @@
 </script>
 <template lang="pug">
 	label.styled-checkbox
-		span.styled-checkbox-label(v-html="label || placeholder || title" ':class'="{ 'text-muted': disabled }")
+		span.styled-checkbox-label(v-html="label || placeholder || title" :class="{ 'text-muted': disabled }")
 		!=' '
-		input(type="checkbox" ':checked'="value" '@change'="emitValue" ':disabled'="disabled")
+		input(type="checkbox" :checked="value" @change="emitValue" :disabled="disabled")
 		.styled-checkbox-indicator
 </template>

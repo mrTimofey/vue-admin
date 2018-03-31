@@ -4,6 +4,7 @@
 	import Draggable from 'vuedraggable';
 	import http from 'src/http';
 
+	// noinspection JSUnusedGlobalSymbols
 	export default {
 		props: {
 			value: Array,
@@ -29,6 +30,7 @@
 		methods: {
 			fileInputChanged(e) {
 				if (!e.target.files.length || this.updating || this.disabled) return;
+				// noinspection JSUnresolvedFunction
 				const value = this.value ? this.value.slice() : [];
 				this.updating = true;
 				const data = new FormData();
@@ -47,6 +49,7 @@
 			},
 			remove(item) {
 				if (this.disabled) return;
+				// noinspection JSUnresolvedFunction
 				const value = this.value.slice();
 				value.splice(value.indexOf(item), 1);
 				this.$emit('input', value);
@@ -56,16 +59,16 @@
 	};
 </script>
 <template lang="pug">
-	.field-gallery(':class'="{ updating, disabled }")
-		draggable.list(':value'="value" v-model="images" v-show="images && images.length")
-			.image(v-for="id in images" ':key'="id")
+	.field-gallery(:class="{ updating, disabled }")
+		draggable.list(:value="value" v-model="images" v-show="images && images.length")
+			.image(v-for="id in images" :key="id")
 				.btn-group
-					button.btn.btn-danger.btn-xs('@mousedown.stop.prevent'="remove(id)" ':disabled'="disabled"): i.fas.fa-trash
-					a.btn.btn-default.btn-xs(':href'="imagePath + '/' + id" target="_blank"): i.fas.fa-eye
-				img(':src'="imagePath + '/admin-thumb/' + id")
+					button.btn.btn-danger.btn-xs(@mousedown.stop.prevent="remove(id)" :disabled="disabled"): i.fas.fa-trash
+					a.btn.btn-default.btn-xs(:href="imagePath + '/' + id" target="_blank"): i.fas.fa-eye
+				img(:src="imagePath + '/admin-thumb/' + id")
 		form: label
-			a.btn.btn-default.btn-sm(':class'="{ disabled: updating || disabled }") {{ $t('uploadImages') }}
-			input.hidden(type="file" multiple accept="image/*" '@change'="fileInputChanged" ':disabled'="disabled")
+			a.btn.btn-default.btn-sm(:class="{ disabled: updating || disabled }") {{ $t('uploadImages') }}
+			input.hidden(type="file" multiple accept="image/*" @change="fileInputChanged" :disabled="disabled")
 </template>
 <style lang="stylus">
 	.field-gallery

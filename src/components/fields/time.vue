@@ -1,6 +1,7 @@
 <script>
 	import { emitValue, trimValue } from 'src/utils/fields';
 
+	// noinspection JSUnusedGlobalSymbols
 	export default {
 		props: {
 			placeholder: String,
@@ -18,9 +19,9 @@
 </script>
 <template lang="pug">
 	input.form-control(type="time"
-		':value'="value"
-		'@input'="emitValue"
-		'@blur'="trimValue"
-		':placeholder'="placeholder"
-		':disabled'="disabled")
+		:value="value"
+		@input="emitValue"
+		@blur="trimValue"
+		:placeholder="placeholder"
+		:disabled="disabled")
 </template>

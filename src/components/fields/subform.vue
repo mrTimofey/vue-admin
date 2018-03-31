@@ -25,14 +25,14 @@
 	};
 </script>
 <template lang="pug">
-	.field-subform(':class'="{ 'subform-inline': inline }")
-		field(v-for="(field, k) in fields" ':key'="k"
+	.field-subform(:class="{ 'subform-inline': inline }")
+		field(v-for="(field, k) in fields" :key="k"
 			v-bind="field"
-			':style'="{ flexGrow: field.inlineSize || 1 }"
-			':value'="value && value[k] !== undefined ? value[k] : null"
-			':disabled'="disabled"
-			':errors'="errors && errors[k]"
-			'@input'="updateItem(k, $event)")
+			:style="{ flexGrow: field.inlineSize || 1 }"
+			:value="value && value[k] !== undefined ? value[k] : null"
+			:disabled="disabled"
+			:errors="errors && errors[k]"
+			@input="updateItem(k, $event)")
 </template>
 <style lang="stylus">
 	.field-subform

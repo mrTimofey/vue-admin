@@ -1,4 +1,5 @@
 <script>
+	// noinspection JSUnusedGlobalSymbols
 	export default {
 		props: {
 			value: Object,
@@ -30,17 +31,17 @@
 	};
 </script>
 <template lang="pug">
-	table.table.table-bordered.table-condensed.field-meta
+	table.table.table-bordered.table-condensed.field-key-value
 		tbody
 			tr(v-for="key in keys")
 				th {{ key }}
-				td: input.form-control(':placeholder'="$t('noValue')"
-					':value'="value && value[key]"
-					'@input'="onInput(key, $event.target.value)"
-					'@blur'="trim(key, $event.target.value)")
+				td: input.form-control(:placeholder="$t('noValue')"
+					:value="value && value[key]"
+					@input="onInput(key, $event.target.value)"
+					@blur="trim(key, $event.target.value)")
 </template>
 <style lang="stylus">
-	.field-meta
+	.field-key-value
 		th
 			vertical-align middle !important
 			text-align right

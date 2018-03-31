@@ -63,16 +63,16 @@
 	};
 </script>
 <template lang="pug">
-	.field-file(':class'="[size ? 'size-' + size : null, { uploading }]")
-		.progress.active(v-if="uploading" ':class'="size ? ('progress-' + size) : ''")
-			.progress-bar.progress-bar-striped(':style'="{ width: uploadProgress * 100 + '%' }")
-		.field-file-btns.btn-group(v-else ':class'="size ? ('btn-group-' + size) : ''")
-			.btn.btn-danger(v-if="value" '@click'="clearValue" ':disabled'="disabled"): i.fas.fa-trash
-			label.btn.btn-default(v-else ':disabled'="disabled || uploading")
-				input(type="file" style="display:none" '@change'="onFileChange" ':accept'="accept" ':disabled'="disabled || uploading")
+	.field-file(:class="[size ? 'size-' + size : null, { uploading }]")
+		.progress.active(v-if="uploading" :class="size ? ('progress-' + size) : ''")
+			.progress-bar.progress-bar-striped(:style="{ width: uploadProgress * 100 + '%' }")
+		.field-file-btns.btn-group(v-else :class="size ? ('btn-group-' + size) : ''")
+			.btn.btn-danger(v-if="value" @click="clearValue" :disabled="disabled"): i.fas.fa-trash
+			label.btn.btn-default(v-else :disabled="disabled || uploading")
+				input(type="file" style="display:none" @change="onFileChange" :accept="accept" :disabled="disabled || uploading")
 				i.fas.fa-upload
 				!=' {{ placeholder || $t(\'chooseFile\') }}'
-			a.btn.btn-default(v-if="uploaded" ':href'="value" target="_blank")
+			a.btn.btn-default(v-if="uploaded" :href="value" target="_blank")
 				i.fas.fa-download
 				!=' {{ valueLabel || value }}'
 			.btn.btn-warning.field-file-upload-pending(v-else-if="value") {{ uploadMessage || $t('uploadMessage') }}

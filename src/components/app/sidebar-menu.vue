@@ -11,5 +11,5 @@
 </script>
 <template lang="pug">
 	.sidebar-menu
-		sidebar-menu-item(v-for="(item, i) in mainNav" ':key'="i" ':item'="item")
+		sidebar-menu-item(v-for="(item, i) in mainNav" :key="i" :item="item")
 </template>

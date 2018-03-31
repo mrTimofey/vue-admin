@@ -66,19 +66,19 @@
 	};
 </script>
 <template lang="pug">
-	.wrapper.hold-transition.sidebar-mini(':class'="{ 'sidebar-collapse': sidebarCollapse, 'sidebar-open': !sidebarCollapse }")
+	.wrapper.hold-transition.sidebar-mini(:class="{ 'sidebar-collapse': sidebarCollapse, 'sidebar-open': !sidebarCollapse }")
 		template(v-if="locale")
 			transition(name="modal"): modal.modal(innerClass="modal-dialog")
 			template(v-if="user === false")
-				login-form('@done'="init()")
+				login-form(@done="init()")
 			template(v-else-if="metaData")
 				header.main-header
 					logo
 					nav.navbar.navbar-static-top(role="navigation")
-						a.sidebar-toggle('@click.prevent'="sidebarCollapse = !sidebarCollapse"): i.fas.fa-bars
+						a.sidebar-toggle(@click.prevent="sidebarCollapse = !sidebarCollapse"): i.fas.fa-bars
 				aside.main-sidebar
 					section.sidebar
-						sidebar-user(':user'="user")
+						sidebar-user(:user="user")
 						sidebar-menu
 				.content-wrapper
 					router-view

@@ -1,6 +1,7 @@
 <script>
 	import FieldCheckbox from './checkbox.vue';
 
+	// noinspection JSUnusedGlobalSymbols
 	export default {
 		components: { FieldCheckbox },
 		props: {
@@ -43,13 +44,13 @@
 </script>
 <template lang="pug">
 	.field-color.form-inline
-		field-checkbox(v-if="!required" v-model="hasValue" ':label'="hasValue ? ($t('color') + ':') : $t('noColor')" ':disabled'="disabled")
+		field-checkbox(v-if="!required" v-model="hasValue" :label="hasValue ? ($t('color') + ':') : $t('noColor')" :disabled="disabled")
 		!=' '
 		input(v-if="hasValue || required" type="color"
-			':value'="colorValue"
-			'@input'="emitValue"
-			':placeholder'="placeholder"
-			':disabled'="disabled")
+			:value="colorValue"
+			:placeholder="placeholder"
+			:disabled="disabled"
+			@input="emitValue")
 </template>
 <style lang="stylus">
 	.field-color

@@ -73,6 +73,7 @@
 			searchRemote(query, loading) {
 				if (!this.onSearch) return;
 				clearTimeout(this.searchTimeout);
+				// noinspection JSCheckFunctionSignatures
 				this.searchTimeout = setTimeout(() => {
 					loading(true);
 					this.onSearch(query).then(() => loading(false));
@@ -82,20 +83,20 @@
 	};
 </script>
 <template lang="pug">
-	vue-select(ref="vueSelect" ':class'="{ required, empty: value === null || value === undefined }"
-		':value'="selectValue"
-		':on-change'="emitValue"
-		':multiple'="multiple"
-		':options'="transformedOptions"
-		':placeholder'="placeholder"
-		':taggable'="!!onCreate"
-		':push-tags'="false"
-		':create-option'="onCreate"
-		':disabled'="disabled"
-		':searchable'="searchable"
-		':disable-search-filter'="!!onSearch"
-		'@search'="searchRemote")
-		span(slot="no-options") {{ $t('noSelectOptions') }}
+	vue-select(ref="vueSelect" :class="{ required, empty: value === null || value === undefined }"
+		:value="selectValue"
+		:on-change="emitValue"
+		:multiple="multiple"
+		:options="transformedOptions"
+		:placeholder="placeholder"
+		:taggable="!!onCreate"
+		:push-tags="false"
+		:create-option="onCreate"
+		:disabled="disabled"
+		:searchable="searchable"
+		:disable-search-filter="!!onSearch"
+		@search="searchRemote")
+			span(slot="no-options") {{ $t('noSelectOptions') }}
 </template>
 <style lang="stylus">
 	.field.v-select

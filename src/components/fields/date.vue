@@ -1,4 +1,5 @@
 <script>
+	// noinspection JSUnusedGlobalSymbols
 	export default {
 		props: {
 			placeholder: String,
@@ -30,6 +31,6 @@
 <template lang="pug">
 	input.form-control(type="date"
 		v-model="date"
-		':placeholder'="placeholder"
-		':disabled'="disabled")
+		:placeholder="placeholder"
+		:disabled="disabled")
 </template>

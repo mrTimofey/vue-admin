@@ -5,6 +5,7 @@
 
 	const fetchPromisePool = {};
 
+	// noinspection JSUnusedGlobalSymbols
 	export default {
 		components: { FieldSelect },
 		props: {
@@ -132,6 +133,7 @@
 			},
 			onCreate(value) {
 				this.creating = true;
+				// noinspection JSCheckFunctionSignatures
 				http.post(this.apiPath, { ...this.createDefaults, [this.createField]: value })
 					.then(res => {
 						delete fetchPromisePool[this.promiseKey];
@@ -169,14 +171,14 @@
 </script>
 <template lang="pug">
 	field-select(v-if="options"
-		':required'="required"
-		':disabled'="disabled || creating"
-		':placeholder'="placeholder"
-		':multiple'="multiple"
-		':options'="options"
-		':on-search'="update"
-		':value'="value"
-		':on-create'="allowCreate && onCreate || null"
-		'@input'="emitValue")
-	input.form-control(v-else disabled readonly ':placeholder'="$t('loading') + '...'")
+		:required="required"
+		:disabled="disabled || creating"
+		:placeholder="placeholder"
+		:multiple="multiple"
+		:options="options"
+		:on-search="update"
+		:value="value"
+		:on-create="allowCreate && onCreate || null"
+		@input="emitValue")
+	input.form-control(v-else disabled readonly :placeholder="$t('loading') + '...'")
 </template>

@@ -1,6 +1,7 @@
 <script>
 	import { emitValue } from 'src/utils/fields';
 
+	// noinspection JSUnusedGlobalSymbols
 	export default {
 		props: {
 			placeholder: String,
@@ -21,9 +22,9 @@
 	};
 </script>
 <template lang="pug">
-	input.form-control(type="password" ':autocomplete'="autocomplete ? 'on' : 'new-password'"
-		':value'="value"
-		'@input'="emitValue"
-		':placeholder'="placeholder"
-		':disabled'="disabled")
+	input.form-control(type="password" :autocomplete="autocomplete ? 'on' : 'new-password'"
+		:value="value"
+		@input="emitValue"
+		:placeholder="placeholder"
+		:disabled="disabled")
 </template>

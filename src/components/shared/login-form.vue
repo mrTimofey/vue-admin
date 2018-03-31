@@ -3,6 +3,7 @@
 	import { authenticate } from 'src/http';
 	import { httpErrorModalData } from 'src/utils';
 
+	// noinspection JSUnusedGlobalSymbols
 	export default {
 		name: 'LoginForm',
 		data: () => ({
@@ -46,10 +47,10 @@
 				span(v-else) {{ $t('authenticateMessage') }}
 			form(@submit.prevent="login()")
 				.form-group.has-feedback
-					input.form-control(':placeholder'="$t('login')" v-model="form.login")
+					input.form-control(:placeholder="$t('login')" v-model="form.login")
 				.form-group.has-feedback
-					input.form-control(type="password" ':placeholder'="$t('password')" v-model="form.password")
-				field(type="checkbox" v-model="form.remember" ':label'="$t('rememberMe')")
+					input.form-control(type="password" :placeholder="$t('password')" v-model="form.password")
+				field(type="checkbox" v-model="form.remember" :label="$t('rememberMe')")
 				.row
 					.col-xs-4
 						button.btn.btn-primary.btn-block.btn-flat(type='submit' v-bind:class="{disabled: loading}") {{ $t('login') }}

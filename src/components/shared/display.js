@@ -23,6 +23,7 @@ requireAll([
 	else comp.props = ['title', 'type', 'value', 'object'];
 });
 
+// noinspection JSUnusedGlobalSymbols
 export default {
 	name: 'Display',
 	functional: true,

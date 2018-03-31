@@ -54,5 +54,6 @@
 </script>
 <template lang="pug">
 	.entity-filters: .row
-		.col-lg-3.col-md-4(v-for="field in fields"): field(v-bind="field" ':value'="fieldValues[field.name]" '@input'="onChange(field, $event)")
+		.col-lg-3.col-md-4(v-for="field in fields")
+			field(v-bind="field" :value="fieldValues[field.name]" @input="onChange(field, $event)")
 </template>

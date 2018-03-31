@@ -5,6 +5,7 @@
 		return idCounter++;
 	}
 
+	// noinspection JSUnusedGlobalSymbols
 	export default {
 		props: {
 			value: Array,
@@ -38,6 +39,7 @@
 		},
 		methods: {
 			emitInternal(v) {
+				// noinspection JSUnusedGlobalSymbols
 				this.internalInput = true;
 				this.$emit('input', v);
 			},
@@ -92,16 +94,16 @@
 <template lang="pug">
 	.field-array
 		table.table(v-if="keys && valueLength > 0"): tbody
-			tr(v-for="num in valueLength" ':key'="keys[num - 1]")
+			tr(v-for="num in valueLength" :key="keys[num - 1]")
 				td.td-field
 					field(v-bind="itemProps"
-						':value'="value && value[num - 1] || null"
-						':disabled'="disabled"
-						':errors'="errors && errors[num - 1]"
-						'@input'="updateItem(num - 1, $event)")
+						:value="value && value[num - 1] || null"
+						:disabled="disabled"
+						:errors="errors && errors[num - 1]"
+						@input="updateItem(num - 1, $event)")
 				td.td-actions(v-if="!length && valueLength > min")
-					.btn.btn-xs.btn-danger('@click'="removeItem(num - 1)" ':disabled'="disabled"): i.fas.fa-trash
-		.btn.btn-sm.btn-default(v-if="!length && valueLength < max" '@click'="addItem()" ':disabled'="disabled")
+					.btn.btn-xs.btn-danger(@click="removeItem(num - 1)" :disabled="disabled"): i.fas.fa-trash
+		.btn.btn-sm.btn-default(v-if="!length && valueLength < max" @click="addItem()" :disabled="disabled")
 			i.fas.fa-plus
 			!=' {{ addLabel }}'
 </template>

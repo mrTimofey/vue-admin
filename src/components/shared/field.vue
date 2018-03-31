@@ -27,6 +27,7 @@
 		else comp.props = ['title', 'type'];
 	});
 
+	// noinspection JSUnusedGlobalSymbols
 	export default {
 		name: 'Field',
 		components,
@@ -66,10 +67,10 @@
 	};
 </script>
 <template lang="pug">
-	.form-group(':class'="{ 'has-error': errorsText !== null }")
-		.field-title(v-if="title" v-html="title" ':class'="{ 'text-danger': errors }")
+	.form-group(:class="{ 'has-error': errorsText !== null }")
+		.field-title(v-if="title" v-html="title" :class="{ 'text-danger': errors }")
 		!=' '
-		component.field(':is'="'field-' + (typeAliases[type] || type)" v-bind="$props" '@input'="update($event)")
+		component.field(:is="'field-' + (typeAliases[type] || type)" v-bind="$props" @input="update($event)")
 		!=' '
 		span.help-block(v-if="errorsText") {{ errorsText }}
 </template>

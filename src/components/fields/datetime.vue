@@ -1,4 +1,5 @@
 <script>
+	// noinspection JSUnusedGlobalSymbols
 	export default {
 		props: {
 			placeholder: String,
@@ -47,12 +48,12 @@
 	.field-datetime.form-inline
 		input.form-control(type="date"
 			v-model="date"
-			':placeholder'="placeholder"
-			':disabled'="disabled")
+			:placeholder="placeholder"
+			:disabled="disabled")
 		!=' '
 		input.form-control(type="time"
 			v-model="time"
-			':placeholder'="placeholder"
-			':disabled'="disabled"
-			'@blur'="onTimeBlur")
+			:placeholder="placeholder"
+			:disabled="disabled"
+			@blur="onTimeBlur")
 </template>

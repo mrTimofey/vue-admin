@@ -1,5 +1,5 @@
 <template functional lang="pug">
-	.display-color(v-if="props.value" ':style'="{ background: '#' + props.value }")
+	.display-color(v-if="props.value" :style="{ background: '#' + props.value }")
 </template>
 <style lang="stylus">
 	.display-color

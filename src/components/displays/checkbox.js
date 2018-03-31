@@ -1,3 +1,4 @@
+// noinspection JSUnusedGlobalSymbols
 export default {
 	functional: true,
 	props: {

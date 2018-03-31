@@ -5,6 +5,7 @@
 		return res;
 	}
 
+	// noinspection JSUnusedGlobalSymbols
 	export default {
 		name: 'Pager',
 		props: {
@@ -68,40 +69,40 @@
 	};
 </script>
 <template lang="pug">
-	nav.pager-wrapper(':class'="{ loading }" v-if="lastPage > 1 || total")
+	nav.pager-wrapper(:class="{ loading }" v-if="lastPage > 1 || total")
 		template(v-if="lastPage > 1")
 			ul.pagination.hidden-xs
 				li(':class'!="{ disabled: page === 1 }")
-					a(@click.prevent="change(page - 1)" v-if!="page > 1" ':href'="href(page - 1)") &laquo;
+					a(@click.prevent="change(page - 1)" v-if!="page > 1" :href="href(page - 1)") &laquo;
 					span(v-else) &laquo;
 				template(v-if!="noWindow")
-					li(v-for="i in lastPage" ':class'="{ active: page === i }")
+					li(v-for="i in lastPage" :class="{ active: page === i }")
 						span(v-if="i === page") {{ i }}
-						a(v-else @click.prevent="change(i)" ':href'="href(i)") {{ i }}
+						a(v-else @click.prevent="change(i)" :href="href(i)") {{ i }}
 				template(v-else)
 					template(v-if="leftWindow")
-						li(v-for="i in leftWindow" ':class'="{ active: page === i }")
+						li(v-for="i in leftWindow" :class="{ active: page === i }")
 							span(v-if="i === page") {{ i }}
-							a(v-else @click.prevent="change(i)" ':href'="href(i)") {{ i }}
+							a(v-else @click.prevent="change(i)" :href="href(i)") {{ i }}
 						li.dots: span ...
-					li(v-for="i in currentWindow" ':class'="{ active: page === i }")
+					li(v-for="i in currentWindow" :class="{ active: page === i }")
 						span(v-if="i === page") {{ i }}
-						a(v-else @click.prevent="change(i)" ':href'="href(i)") {{ i }}
+						a(v-else @click.prevent="change(i)" :href="href(i)") {{ i }}
 					template(v-if="rightWindow")
 						li.dots: span ...
-						li(v-for="i in rightWindow" ':class'="{ active: page === i }")
+						li(v-for="i in rightWindow" :class="{ active: page === i }")
 							span(v-if="i === page") {{ i }}
-							a(v-else @click.prevent="change(i)" ':href'="href(i)") {{ i }}
+							a(v-else @click.prevent="change(i)" :href="href(i)") {{ i }}
 				li(':class'!="{ disabled: page === lastPage }")
-					a(@click.prevent="change(page + 1)" v-if="page !== lastPage" ':href'="href(page + 1)") &raquo;
+					a(@click.prevent="change(page + 1)" v-if="page !== lastPage" :href="href(page + 1)") &raquo;
 					span(v-else) &raquo;
 			ul.pagination.visible-xs
 				li.previous(':class'!="{ disabled: page === 1 }")
-					a(@click.prevent="change(page - 1)" v-if!="page > 1" ':href'="href(page - 1)") &laquo;
+					a(@click.prevent="change(page - 1)" v-if!="page > 1" :href="href(page - 1)") &laquo;
 					span(v-else) &laquo;
 				li.disabled: span {{ page }} / {{ lastPage }}
 				li.next(':class'!="{ disabled: page === lastPage }")
-					a(@click.prevent="change(page + 1)" v-if="page !== lastPage" ':href'="href(page + 1)") &raquo;
+					a(@click.prevent="change(page + 1)" v-if="page !== lastPage" :href="href(page + 1)") &raquo;
 					span(v-else) &raquo;
 		.well.well-sm(v-if="limit && total")
 			!='{{ $t(\'elementsOnPage\') }}: '

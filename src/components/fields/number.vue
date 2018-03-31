@@ -1,4 +1,5 @@
 <script>
+	// noinspection JSUnusedGlobalSymbols
 	export default {
 		props: {
 			type: String,
@@ -40,9 +41,9 @@
 </script>
 <template lang="pug">
 	input.form-control(
-		':value'="value"
-		'@input'="emitValue"
-		'@blur'="onBlur"
-		':placeholder'="placeholder"
-		':disabled'="disabled")
+		:value="value"
+		@input="emitValue"
+		@blur="onBlur"
+		:placeholder="placeholder"
+		:disabled="disabled")
 </template>
