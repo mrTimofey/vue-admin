@@ -263,6 +263,7 @@
 <template lang="pug">
 	page.entity-index-page(:class="entity + '-index-page'")
 		span(slot="title") {{ title }}
+		li(slot="breadcrumbs") {{ title }}
 		.box
 			spinner(v-if="loading")
 			div(v-show="!initialLoading")
