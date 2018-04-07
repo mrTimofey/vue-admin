@@ -1,6 +1,7 @@
 function classArray(input) {
 	if (!input) return [];
 	if (Array.isArray(input)) return input;
+	// noinspection JSCheckFunctionSignatures
 	return input.toString().split(' ').filter(s => s);
 }
 

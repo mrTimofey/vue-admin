@@ -68,7 +68,7 @@
 <template lang="pug">
 	.wrapper.hold-transition.sidebar-mini(:class="{ 'sidebar-collapse': sidebarCollapse, 'sidebar-open': !sidebarCollapse }")
 		template(v-if="locale")
-			transition(name="modal"): modal.modal(innerClass="modal-dialog")
+			transition(name="modal"): modal.modal(inner-class="modal-dialog")
 			template(v-if="user === false")
 				login-form(@done="init()")
 			template(v-else-if="metaData")
