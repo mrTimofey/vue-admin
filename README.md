@@ -12,11 +12,14 @@ This is the last package you will ever need to build your custom dashboard or ad
 
 ## Why?
 
-I was so tired of looking for a robust solution for dashboards and administrative panels. For they are many and still all of them are a piece of something bad. And I made this module with all the love my heart can give and I am confident you will feel that love after typing `npm i -S vue-admin-front` in the console.
+I was so tired of looking for a robust solution for dashboards and administrative panels.
+For they are many and still all of them are a piece of something bad.
+And I made this module with all the love my heart can give and I am confident you will feel that love after typing
+`npm i -S vue-admin-front` in the console.
 
 ## Docs?
 
-Yes, [here it is](https://mr-timofey.gitbooks.io/vue-admin).
+Yes, [click here](https://mr-timofey.gitbooks.io/vue-admin).
 
 ## Demo?
 
@@ -24,7 +27,9 @@ Work in progress.
 
 ## What about server solutions?
 
-Only [PHP7.1/Laravel based solution](https://github.com/mrTimofey/laravel-admin-api) exists at the moment. Making more of them will be very appreciated. [Read the docs](https://mr-timofey.gitbooks.io/vue-admin/server-api-prerequisities.html) for more info.
+Only [PHP7.1/Laravel based solution](https://github.com/mrTimofey/laravel-admin-api) exists at the moment.
+Making more of them will be very appreciated.
+[Read the docs](https://mr-timofey.gitbooks.io/vue-admin/server-api-prerequisities.html) for more info.
 
 ## How to use?
 
