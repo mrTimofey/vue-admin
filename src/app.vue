@@ -2,6 +2,7 @@
 	import http from 'src/http';
 	import { mapActions, mapGetters, mapMutations } from 'vuex';
 	import { MasterComponent as Modal } from 'src/plugins/modal';
+	import { MasterComponent as Notifications } from 'src/plugins/notifications';
 	import Logo from 'src/components/app/logo.vue';
 	import SidebarUser from 'src/components/app/sidebar-user.vue';
 	import SidebarMenu from 'src/components/app/sidebar-menu.vue';
@@ -62,13 +63,14 @@
 				}
 			}
 		},
-		components: { Modal, Logo, SidebarUser, SidebarMenu }
+		components: { Modal, Notifications, Logo, SidebarUser, SidebarMenu }
 	};
 </script>
 <template lang="pug">
 	.wrapper.hold-transition.sidebar-mini(:class="{ 'sidebar-collapse': sidebarCollapse, 'sidebar-open': !sidebarCollapse }")
 		template(v-if="locale")
 			transition(name="modal"): modal.modal(inner-class="modal-dialog")
+			notifications
 			template(v-if="user === false")
 				login-form(@done="init()")
 			template(v-else-if="metaData")

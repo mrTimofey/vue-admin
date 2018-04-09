@@ -14,6 +14,7 @@
   * [Available display types](displays.md#available-display-types)
 * [Modals](modals.md)
   * [Available modal windows](modals.md#available-modal-windows)
+* [Notifications](notifications.md)
 * [Customization](customization/README.md)
   * [Custom field types](customization/custom-fields.md)
   * [Custom display types](customization/custom-displays.md)

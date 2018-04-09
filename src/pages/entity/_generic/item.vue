@@ -154,7 +154,7 @@
 			save() {
 				this.submit(() => {
 					this.$router.replace(this.itemPathFor(this.item));
-					this.$modal.open('success', { text: this.$t('savedMessage') }, 'modal-sm');
+					this.$notify(this.$t('savedMessage'), { class: 'alert-success' });
 				});
 			},
 			reset() {

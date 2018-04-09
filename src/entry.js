@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Modal from 'src/plugins/modal';
+import Notifications from 'src/plugins/notifications';
 import { sync } from 'vuex-router-sync';
 
 import 'src/styles/bootstrap.less';
@@ -9,6 +10,7 @@ import 'src/styles/common.styl';
 import { filenameToCamelCase, requireAll } from 'src/utils';
 
 Vue.use(Modal);
+Vue.use(Notifications);
 
 import store from 'src/store';
 import router from 'src/router';
