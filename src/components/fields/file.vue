@@ -2,6 +2,43 @@
 	import http from 'src/http';
 	import { httpErrorModalData } from 'src/utils';
 
+	const uploads = [];
+	let uploading = false;
+
+	function upload({ data, vm }) {
+		vm.uploading = true;
+		return http.post('upload/files', data, { onUploadProgress: vm.progressUpload })
+			.then(res => {
+				vm.$emit('input', res.data[0]);
+			})
+			.catch(err => {
+				vm.$modal.open('error', httpErrorModalData(err));
+			})
+			.then(() => {
+				vm.uploading = false;
+				vm.uploadProgress = 0;
+			});
+	}
+
+	function uploadNext() {
+		if (uploads[0]) {
+			if (uploading) uploads[0].vm.uploadInQueue = true;
+			else {
+				uploading = true;
+				uploads[0].vm.uploadInQueue = false;
+				upload(uploads.shift()).then(() => {
+					uploading = false;
+					uploadNext();
+				});
+			}
+		}
+	}
+
+	function queueUpload(data, vm) {
+		uploads.push({ data, vm });
+		uploadNext();
+	}
+
 	export default {
 		props: {
 			placeholder: String,
@@ -24,6 +61,7 @@
 		},
 		data: () => ({
 			uploading: false,
+			uploadInQueue: false,
 			uploadProgress: 0
 		}),
 		computed: {
@@ -38,20 +76,9 @@
 			onFileChange(e) {
 				if (this.disabled) return;
 				if (this.ajaxMode) {
-					this.uploading = true;
 					const data = new FormData();
 					data.append('files[]', e.target.files[0]);
-					http.post('upload/files', data, { onUploadProgress: this.progressUpload })
-						.then(res => {
-							this.$emit('input', res.data[0]);
-						})
-						.catch(err => {
-							this.$modal.open('error', httpErrorModalData(err));
-						})
-						.then(() => {
-							this.uploading = false;
-							this.uploadProgress = 0;
-						});
+					queueUpload(data, this);
 				}
 				else this.$emit('input', e.target.files[0]);
 			},
@@ -63,9 +90,10 @@
 	};
 </script>
 <template lang="pug">
-	.field-file(:class="[size ? 'size-' + size : null, { uploading }]")
-		.progress.active(v-if="uploading" :class="size ? ('progress-' + size) : ''")
-			.progress-bar.progress-bar-striped(:style="{ width: uploadProgress * 100 + '%' }")
+	.field-file(:class="[size ? 'size-' + size : null, { uploading: uploading || uploadInQueue }]")
+		.progress.active(v-if="uploading || uploadInQueue" :class="[size ? ('progress-' + size) : null]")
+			.progress-bar.progress-bar-striped(
+				:style="{ width: (uploadInQueue ? 100 : (uploadProgress * 100)) + '%', opacity: uploadInQueue ? 0.5 : 1 }")
 		.field-file-btns.btn-group(v-else :class="size ? ('btn-group-' + size) : ''")
 			.btn.btn-danger(v-if="value" @click="clearValue" :disabled="disabled"): i.fas.fa-trash
 			label.btn.btn-default(v-else :disabled="disabled || uploading")
