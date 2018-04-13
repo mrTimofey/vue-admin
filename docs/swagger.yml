@@ -1,8 +1,8 @@
 openapi: 3.0.1
 info:
   title: vue-admin-front API
-  description: API specification used to interact with the vue-admin-front
-  version: 0.1.0
+  description: Backend agnostic API specification used to interact administrative interface frontend SPA
+  version: 0.1.1
 servers:
   - url: /api/admin
 components:
@@ -52,6 +52,7 @@ components:
           description: Retry timeout in seconds
   requestBodies:
     entityItemData:
+      required: true
       content:
         application/json:
           schema:
@@ -61,20 +62,21 @@ components:
             description: |
               Use multipart/form-data body only if you are going to upload files.
               Each upload file field name must be prepended with `file__` special prefix.
-              File name or ID must be returned on successful response processing.
+              For example, if you upload file to the `image_id` field you should name binary data field as `file__image_id`.
+              File name or ID must be returned (without `file__` prefix) after successful response processing.
             properties:
               __json_data:
                 type: string
                 format: json
-                description: JSON encoded item fields data
+                description: JSON encoded non-file item field values, same format as the `application/json` request body
                 example: '{"name": "Post name", "content": "<p>Post content</p>"}'
             additionalProperties:
               oneOf:
                 - type: string
                   format: binary
-                  description: file__image_id
+                  description: file__{field}
                 - type: array
-                  description: files array, field name must be appended with [] (file__image_id[])
+                  description: files array, field name must be appended with [] (file__{field}[])
                   items:
                     type: string
                     format: binary
@@ -117,15 +119,15 @@ components:
         type: object
         additionalProperties: true
       description: |
-        Apply query filters from request query string. Supported actions:
+        Apply query filters from request query string. API backend must support these actions:
         * filters[field]=value - field equals to value
         * filters[!field]=value - field not equals to value
         * filters[>~field]=value - field is more than or equals to value
         * filters[<~field]=value - field is less than or equals to value
         * filters[>field]=value - field is more than value
         * filters[<field]=value - field is less than value
-        * filters[field][]=value1&filters[field][]=value2... - field equals to one of provided values (IN)
-        * filters[!field][]=value1&filters[!field][]=value2... - field not equals to any of provided values (NOT IN)
+        * filters[field][]=value1&filters[field][]=value2... - field equals to one of provided values (WHERE IN)
+        * filters[!field][]=value1&filters[!field][]=value2... - field not equals to any of provided values (WHERE NOT IN)
         * filters[field] - field value is not null (IS NOT NULL)
         * filters[!field] - field value is null (IS NULL)
     scopes:
@@ -135,7 +137,9 @@ components:
         type: object
         additionalProperties: true
       description: |
-        Apply model filters with custom logic (known as 'scopes' in Laravel) from request query string. Syntax:
+        Apply complex filters with custom logic (known as 'scopes' in Laravel) from request query string.
+        The main idea is to provide some custom filtering/ordering/etc. logic for entities.
+        Syntax:
         * scopes[scopeName] - scope without parameters
         * scopes[scopeName][]=param1&scopes[scopeName][]=param2 - pass scope parameters
     search:
@@ -157,7 +161,7 @@ components:
   schemas:
     User:
       type: object
-      description: User
+      description: Authorized user object
       properties:
         id:
           type: integer
@@ -193,7 +197,7 @@ components:
               description: custom URL or relative path (use this for external or unmanaged custom links)
             route:
               type: string
-              description: route within administrative interface (use this for managed links)
+              description: route within administrative interface (use this for SPA managed links)
             items:
               type: array
               description: inner items (this item will be expandable group if provided)
@@ -218,7 +222,7 @@ components:
           description: human readable field title
         disabled:
           type: boolean
-          description: disable editing
+          description: disable editing (for editable fields)
       additionalProperties:
         description: anything else depending on a field type
       required: [name]
@@ -234,9 +238,11 @@ components:
           type: string
           description: entity primary key name
           default: 'id'
+          example: 'key'
         create_title:
           type: string
           description: new item form title
+          default: 'New element'
           example: 'Create new post'
         item_title:
           type: string
@@ -271,13 +277,13 @@ components:
               - properties:
                   editable:
                     type: boolean
-                    description: allow inline editing
+                    description: allow inline editing (`display` component will be replaced with `field`)
                   sortable:
                     type: boolean
-                    description: allow sort by this field
+                    description: allow sort by this field (enables sorting button on table column header)
                   sortableAs:
                     type: string
-                    description: sortable using a field other than `this.name`
+                    description: sortable using a field other than a field name
         item_fields:
           type: array
           description: editing/creating fields
@@ -286,7 +292,7 @@ components:
               - $ref: '#/components/schemas/FieldDescription'
               - properties:
                   default:
-                    description: default value
+                    description: default value (can be `'now'` for date/datetime fields)
         filter_fields:
           type: array
           description: index filter fields
@@ -298,7 +304,7 @@ components:
       properties:
         skin:
           type: string
-          description: AdminLTE skin name
+          description: AdminLTE built-in or custom skin name
           default: 'blue'
           example: 'red'
         nav:
@@ -325,14 +331,14 @@ components:
             $ref: '#/components/schemas/EntityDescription'
         wysiwyg:
           type: object
-          description: WYSIWYG editor configuration
+          description: WYSIWYG editor default configuration
           properties:
             css:
               type: string
               description: inline CSS or CSS file link for WYSIWYG editor
         image_path:
           type: string
-          description: images base path
+          description: images base path (prepended to any image field values like `<img src="{prefix}{field value}">`)
       additionalProperties: true
       required: [nav, entities]
     EntityItem:
@@ -476,10 +482,8 @@ paths:
           $ref: '#/components/responses/401'
   /locale:
     get:
-      description: Get server locale preferences
+      description: Get locale preferences
       tags: [meta]
-      security:
-        - bearer: []
       responses:
         200:
           description: Locale preferences
@@ -586,43 +590,6 @@ paths:
           $ref: '#/components/responses/401'
         403:
           $ref: '#/components/responses/403'
-  /entity/{entity}/bulk:
-    parameters:
-      - $ref: '#/components/parameters/entity'
-    post:
-      description: Update multiple entity items
-      tags: [entity]
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                keys:
-                  type: array
-                  description: list of item keys (IDs)
-                  items:
-                    description: item key
-                fields:
-                  type: object
-                  description: fields to update
-                  additionalProperties: true
-              example:
-                keys: [1, 2, 3]
-                fields:
-                  type: 'event'
-                  starts_at: '2018-01-01 12:00:00'
-      responses:
-        200:
-          description: Entity items successfully updated
-        401:
-          $ref: '#/components/responses/401'
-        403:
-          $ref: '#/components/responses/403'
-        413:
-          $ref: '#/components/responses/413'
-        422:
-          $ref: '#/components/responses/422'
   /entity/{entity}/{id}:
     parameters:
       - $ref: '#/components/parameters/entity'
