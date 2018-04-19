@@ -11,6 +11,10 @@
 			disabled: {
 				type: Boolean,
 				default: false
+			},
+			pipe: {
+				type: String,
+				default: 'admin-thumb'
 			}
 		},
 		data: () => ({
@@ -65,7 +69,7 @@
 				.btn-group
 					button.btn.btn-danger.btn-xs(@mousedown.stop.prevent="remove(id)" :disabled="disabled"): i.fas.fa-trash
 					a.btn.btn-default.btn-xs(:href="imagePath + '/' + id" target="_blank"): i.fas.fa-eye
-				img(:src="imagePath + '/admin-thumb/' + id")
+				img(:src="imagePath + '/' + (id.endsWith('.svg') ? '' : (pipe + '/')) + id")
 		form: label
 			a.btn.btn-default.btn-sm(:class="{ disabled: updating || disabled }") {{ $t('uploadImages') }}
 			input.hidden(type="file" multiple accept="image/*" @change="fileInputChanged" :disabled="disabled")
