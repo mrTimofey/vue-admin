@@ -95,7 +95,7 @@ File upload input.
 
 Supported props:
 * `placeholder` - `chooseFile` translation message entry by default ('Choose file' for `en`)
-* `ajaxMode` - upload file just after choosing a file, `false` by default
+* `ajaxMode` - upload file just after choosing a file, `false` by default, requires `POST {basePath}/upload/files` API method.
 * `accept` - sets file input's `accept` attribute
 * `size` - upload Bootstrap button size (sm, xs)
 * `uploadMessage` - message indicating file about to upload
@@ -123,7 +123,7 @@ Image gallery editor with drag-n-drop ordering.
 `v-model` is an array of string values representing image file names. Image preview path will be prepended with `imagePath` acquired from server API with meta-data.
 
 **IMPORTANT**
-This field requires additional server API method `POST {basePath}/gallery` to accept `multipart/form-data` uploads with multiple images.
+This field requires additional server API method `POST {basePath}/upload/images` to accept `multipart/form-data` uploads with multiple images.
 
 ### geo-point
 
@@ -149,7 +149,7 @@ Image upload input.
 
 Supported props:
 * `placeholder` - `chooseImage` translation message entry by default ('Choose image' for `en`)
-* `ajaxMode` - upload image just after choosing a file, `false` by default
+* `ajaxMode` - upload image just after choosing a file, `false` by default, requires `POST {basePath}/upload/images` API method.
 * `accept` - accept file input attribute, `'image/*'` by default
 * `size` - upload Bootstrap button size (sm, xs)
 * `uploadMessage` - message indicating file about to upload
