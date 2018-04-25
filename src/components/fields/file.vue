@@ -22,7 +22,7 @@
 
 	function uploadNext() {
 		if (uploads[0]) {
-			if (uploading) uploads[0].vm.uploadInQueue = true;
+			if (uploading) uploads.forEach(upload => { upload.vm.uploadInQueue = true; });
 			else {
 				uploading = true;
 				uploads[0].vm.uploadInQueue = false;
@@ -92,7 +92,7 @@
 <template lang="pug">
 	.field-file(:class="[size ? 'size-' + size : null, { uploading: uploading || uploadInQueue }]")
 		.progress.active(v-if="uploading || uploadInQueue" :class="[size ? ('progress-' + size) : null]")
-			.progress-bar.progress-bar-striped(
+			.progress-bar.progress-bar-striped(:key="uploadInQueue ? 'queue' : 'progress'"
 				:style="{ width: (uploadInQueue ? 100 : (uploadProgress * 100)) + '%', opacity: uploadInQueue ? 0.5 : 1 }")
 		.field-file-btns.btn-group(v-else :class="size ? ('btn-group-' + size) : ''")
 			.btn.btn-danger(v-if="value" @click="clearValue" :disabled="disabled"): i.fas.fa-trash
