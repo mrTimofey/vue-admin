@@ -1,6 +1,6 @@
 {
   "name": "vue-admin-front",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Vue.js based admin panel frontend",
   "main": "index.js",
   "author": "Timofey Tiunov <timoxa17@gmail.com>",
@@ -11,7 +11,7 @@
     "dev": "node index",
     "build": "NODE_ENV=production webpack --config webpack.config.js --progress --hide-modules"
   },
-  "license": "ISC",
+  "license": "MIT",
   "homepage": "https://github.com/mrTimofey/vue-admin",
   "repository": "https://github.com/mrTimofey/vue-admin.git",
   "dependencies": {

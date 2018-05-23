@@ -95,7 +95,7 @@
 			.progress-bar.progress-bar-striped(:key="uploadInQueue ? 'queue' : 'progress'"
 				:style="{ width: (uploadInQueue ? 100 : (uploadProgress * 100)) + '%', opacity: uploadInQueue ? 0.5 : 1 }")
 		.field-file-btns.btn-group(v-else :class="size ? ('btn-group-' + size) : ''")
-			.btn.btn-danger(v-if="value" @click="clearValue" :disabled="disabled"): i.fas.fa-trash
+			.btn.btn-danger(v-if="value" @click="clearValue()" :disabled="disabled"): i.fas.fa-trash
 			label.btn.btn-default(v-else :disabled="disabled || uploading")
 				input(type="file" style="display:none" @change="onFileChange" :accept="accept" :disabled="disabled || uploading")
 				i.fas.fa-upload

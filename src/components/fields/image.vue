@@ -39,7 +39,7 @@
 		methods: {
 			emitValue(v) {
 				if (this.disabled) return;
-				if (this.ajaxMode) {
+				if (this.ajaxMode && v !== null) {
 					this.uploading = true;
 					const data = new FormData();
 					data.append('images[]', v);
@@ -82,10 +82,10 @@
 <template lang="pug">
 	.field-image
 		.field-image-preview.img-thumbnail(v-if="src"): img(:src="src")
-		base-file-field(
+		base-file-field(:value="fileValue" @input="emitValue($event)"
 			:accept="accept"
 			:placeholder="placeholder || $t('chooseImage')"
-			:disabled="disabled || uploading" :value="fileValue" @input="emitValue($event)"
+			:disabled="disabled || uploading"
 			:upload-message="uploadMessage"
 			:value-label="valueLabel"
 			:size="size")
