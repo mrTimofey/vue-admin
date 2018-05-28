@@ -9,7 +9,10 @@ Examples:
 
 ## URL postfix and parameters
 
-You can provide additional route postfix for any of your pages by adding a `routePath` component field. It is convenient when you want to some parts of URL to be mapped to component prop. Example:
+You can provide additional route postfix for any of your pages by adding a `routePath` component field.
+It is convenient when you want dynamic URL segments to be mapped to component props.
+`routePath` should be compatible with `vue-router` path definition described [here](https://router.vuejs.org/guide/essentials/dynamic-matching.html).
+Example:
 
 ```html
 <!-- admin/src/pages/page-with-param.vue -->
@@ -45,3 +48,7 @@ You can use a shared `page` component which provides a standard page layout with
 			.box-body Page content
 </template>
 ```
+
+## User interface and styles
+
+You can find a big variety of style capabilities in the official [AdminLTE demo page](https://adminlte.io/themes/AdminLTE/index2.html).

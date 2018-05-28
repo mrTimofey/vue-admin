@@ -28,7 +28,6 @@ Package structure:
             * `_generic` - default entity page components (mind the underscore `_` - this folder's routes are registered explicitly in `router.js`; you can copy this folder with a name of your entity to fully replace default pages with custom ones), [read more here](extending-entity-pages.md)
                 * `index.vue` - entity list
                 * `item.vue` - entity create/edit form
-                * `bulk-update.vue` - entity bulk update
 	* `styles`
 		* `skins` - there you can add your custom AdminLTE skin style, just create a file and set a `skin` field in `initial-state.js` same as a file name
 		* `admin-lte.less` - [AdminLTE](https://adminlte.io) style imports (rewriting is not recommended, but you can change AdminLTE or Bootstrap variables in `variables.less`)
@@ -116,7 +115,7 @@ Package structure:
     
     ```javascript
     // Add some functionality provided by original component
-    // admin/src/pages/entity/users/item.vue
+    // admin/src/pages/entity/users/item.js
     
     import baseComponent from 'src/pages/entity/_generic/item.vue';
     
