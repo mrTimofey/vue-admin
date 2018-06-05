@@ -51,9 +51,7 @@
     "webpack-hot-middleware": "^2.22.2"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.2"
-  },
-  "peerDependencies": {
-    "webpack-cli": "^2.0.14"
+    "babel-eslint": "^8.2.2",
+    "webpack-command": "^0.2.0"
   }
 }
