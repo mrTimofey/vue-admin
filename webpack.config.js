@@ -190,7 +190,7 @@ function addStyleRules(extract = false) {
 			]
 		},
 		{
-			test: /\.styl$/,
+			test: /\.styl(us)?$/,
 			use: [
 				{
 					loader: 'css-loader',
