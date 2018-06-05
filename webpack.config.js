@@ -1,9 +1,10 @@
 const path = require('path'),
 	fs = require('fs'),
 	qs = require('qs'),
-	webpack = require('webpack'),
+	{ DefinePlugin } = require('webpack'),
 	HTMLPlugin = require('html-webpack-plugin'),
-	MiniCssExtractPlugin = require('mini-css-extract-plugin');
+	MiniCssExtractPlugin = require('mini-css-extract-plugin'),
+	{ VueLoaderPlugin } = require('vue-loader');
 
 const appConfig = require('./_config'),
 	dev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development',
@@ -57,23 +58,6 @@ const options = {
 	})
 };
 
-const vueConfig = {
-	test: /\.vue$/,
-	loader: 'vue-loader',
-	options: {
-		template: options.pug,
-		loaders: {
-			stylus: `css-loader?${options.css}!stylus-loader?${options.stylus}`,
-			js: [
-				{
-					loader: 'buble-loader',
-					options: options.buble
-				}
-			]
-		}
-	}
-};
-
 // noinspection JSUnresolvedFunction
 const config = {
 	devtool: false,
@@ -89,16 +73,34 @@ const config = {
 
 			// source files
 
-			vueConfig,
+			{
+				test: /\.vue$/,
+				loader: 'vue-loader'
+			},
 			{
 				test: /\.js$/,
 				loader: 'buble-loader',
+				// needed for vue-loader to correctly import modules' components
+				exclude: file => /node_modules/.test(file) && !/\.vue\.js/.test(file),
 				options: options.buble
 			},
 			{
 				test: /\.pug$/,
-				loader: 'pug-loader',
-				options: options.pug
+				oneOf: [
+					// this applies to <template lang="pug"> in Vue components
+					{
+						resourceQuery: /^\?vue/,
+						loader: 'pug-plain-loader',
+						options: options.pug
+					},
+					// this applies to pug imports inside JavaScript
+					{
+						use: ['raw-loader', {
+							loader: 'pug-plain-loader',
+							options: options.pug
+						}]
+					}
+				]
 			},
 
 			// assets
@@ -153,13 +155,14 @@ const config = {
 		]
 	},
 	plugins: [
-		new webpack.DefinePlugin({
+		new DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(dev ? 'development' : 'production'),
 			routerBasePath: JSON.stringify(basePath),
 			apiRootPath: JSON.stringify(apiRoot),
 			googleMapsApiKey: JSON.stringify(appConfig.googleMapsApiKey || false)
 		}),
-		new HTMLPlugin({ template })
+		new HTMLPlugin({ template }),
+		new VueLoaderPlugin()
 	],
 	optimization: {
 		runtimeChunk: {
@@ -209,12 +212,9 @@ function addStyleRules(extract = false) {
 			]
 		}
 	]) {
-		rule.use = [extract ? MiniCssExtractPlugin.loader : 'style-loader', ...rule.use];
+		rule.use = [extract ? MiniCssExtractPlugin.loader : 'vue-style-loader', ...rule.use];
 		config.module.rules.push(rule);
 	}
-
-	vueConfig.options.loaders.stylus =
-		(extract ? MiniCssExtractPlugin.loader : 'vue-style-loader') + '!' + vueConfig.options.loaders.stylus;
 
 	if (extract) config.plugins.push(
 		new MiniCssExtractPlugin({ filename: '[name].css?[hash:6]' })
