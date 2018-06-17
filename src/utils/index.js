@@ -183,7 +183,7 @@ export function httpErrorModalData(err) {
 export function formatFieldErrors(errors) {
 	const obj = {};
 	for (let path of Object.keys(errors)) {
-		const names = path.split('.');
+		const names = path.replace(/^files__/, '').split('.');
 		let currentDepthObj = obj;
 		for (let i = 0; i < names.length - 1; ++i) {
 			currentDepthObj[names[i]] = currentDepthObj[names[i]] || {};
