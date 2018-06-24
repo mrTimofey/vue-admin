@@ -23,7 +23,7 @@ Yes, [click here](https://mr-timofey.gitbooks.io/vue-admin).
 
 ## Demo?
 
-Work in progress.
+[Demo with Laravel 5.6 backend](http://admin.shit-free.space).
 
 ## What about server solutions?
 
