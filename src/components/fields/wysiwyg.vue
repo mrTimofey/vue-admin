@@ -38,7 +38,8 @@
 				this.changedTimeout = setTimeout(() => {
 					// noinspection JSCheckFunctionSignatures
 					const value = this.ckeInstance.getData();
-					if (value !== this.value) this.$emit('input', value);
+					if (!value && this.value !== null) this.$emit('input', null);
+					else if (value !== this.value) this.$emit('input', value);
 					else // noinspection JSUnusedGlobalSymbols
 						this.changedInside = false;
 				}, this.debounce);
@@ -61,7 +62,7 @@
 					stylesSet: 'admin',
 					...ckeConfig.instanceConfig
 				});
-				this.ckeInstance.setData(this.value);
+				this.ckeInstance.setData(this.value || '');
 				this.addListeners();
 			});
 		},
@@ -82,7 +83,7 @@
 				this.removeListeners();
 				clearTimeout(this.valueUpdatedTimeout);
 				this.valueUpdatedTimeout = setTimeout(() => {
-					this.ckeInstance.setData(v, { noSnapshot: true });
+					this.ckeInstance.setData(v || '', { noSnapshot: true });
 					setTimeout(() => {
 						this.addListeners();
 					}, 0);
