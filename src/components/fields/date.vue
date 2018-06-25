@@ -16,7 +16,8 @@
 					return this.value ? this.value.substr(0, 10) : null;
 				},
 				set(v) {
-					this.$emit('input', v);
+					if (!v && this.value !== null) this.$emit('input', null);
+					else if (v !== this.value) this.$emit('input', v);
 				}
 			}
 		},
