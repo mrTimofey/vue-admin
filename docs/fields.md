@@ -160,13 +160,14 @@ Supported props:
 * JavaScript `File` object - interpreted as an image file about to upload
 * `null`
 
-### meta
+### key-value
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/key-value.vue)
 
 Aliases: meta
 
-Key-value pairs. Widget is a 2-column table where first column contains predefined fixed keys and second contains text inputs.
+Key-value pairs.
+Widget is a 2-column table where first column contains predefined fixed keys and second contains text inputs.
 Convenient for representing meta/OpenGraph/etc. values.
 
 Supported props:
