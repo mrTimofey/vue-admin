@@ -3,7 +3,6 @@ const path = require('path'),
 	qs = require('qs'),
 	{ DefinePlugin } = require('webpack'),
 	HTMLPlugin = require('html-webpack-plugin'),
-	MiniCssExtractPlugin = require('mini-css-extract-plugin'),
 	{ VueLoaderPlugin } = require('vue-loader');
 
 const appConfig = require('./_config'),
@@ -48,7 +47,6 @@ const options = {
 		basedir: __dirname
 	}),
 	css: new Options({
-		minimize: true,
 		import: false
 	}),
 	less: {},
@@ -174,7 +172,7 @@ const config = {
 	}
 };
 
-function addStyleRules(extract = false) {
+function addStyleRules(loader) {
 	for (let rule of [
 		{
 			test: /\.less$/,
@@ -212,13 +210,9 @@ function addStyleRules(extract = false) {
 			]
 		}
 	]) {
-		rule.use = [extract ? MiniCssExtractPlugin.loader : 'vue-style-loader', ...rule.use];
+		rule.use = [loader || 'vue-style-loader', ...rule.use];
 		config.module.rules.push(rule);
 	}
-
-	if (extract) config.plugins.push(
-		new MiniCssExtractPlugin({ filename: '[name].css?[hash:6]' })
-	);
 }
 
 if (dev) {
@@ -228,10 +222,29 @@ if (dev) {
 	config.devtool = '#sourcemap';
 }
 else {
-	addStyleRules(true);
+	const MiniCssExtractPlugin = require('mini-css-extract-plugin'),
+		OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'),
+		UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+	addStyleRules(MiniCssExtractPlugin.loader);
+
 	config.output.path = buildDest;
 	config.output.filename += '?[chunkhash:6]';
 	config.output.chunkFilename += '?[chunkhash:6]';
+
+	config.plugins.push(
+		new MiniCssExtractPlugin({ filename: '[name].css?[hash:6]' })
+	);
+
+	config.optimization.minimizer = [
+		new UglifyJsPlugin({
+			cache: true,
+			parallel: true
+		}),
+		new OptimizeCSSAssetsPlugin({
+			assetNameRegExp: /\.css(\?.*)?$/
+		})
+	];
 
 	config.performance = {
 		hints: 'warning'
