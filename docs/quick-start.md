@@ -3,7 +3,7 @@
 1. Install the package:
     
     ```bash
-    npm i -S vue-admin-front cross-env rimraf
+    npm i -S vue-admin-front cross-env rimraf webpack-command
     ```
 
 2. Add npm scripts to your `package.json`:
@@ -12,7 +12,7 @@
     {
         "scripts": {
             "admin:dev": "node node_modules/vue-admin-front/index.js",
-            "admin:build": "rimraf public/admin-dist && cross-env NODE_ENV=production webpack --config node_modules/vue-admin-front/webpack.config.js --progress --hide-modules"
+            "admin:build": "rimraf public/admin-dist && cross-env NODE_ENV=production webpack --config node_modules/vue-admin-front/webpack.config.js"
         }
     }
     ```
