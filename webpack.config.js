@@ -79,7 +79,7 @@ const config = {
 				test: /\.js$/,
 				loader: 'buble-loader',
 				// needed for vue-loader to correctly import modules' components
-				exclude: file => /node_modules/.test(file) && !/\.vue\.js/.test(file),
+				exclude: file => /node_modules/.test(file) && !/\.vue\.js/.test(file) && !/node_modules\/vue-admin-front/.test(file),
 				options: options.buble
 			},
 			{
