@@ -709,13 +709,14 @@ paths:
               type: object
               properties:
                 'files[]':
-                  desctiption: files to upload
+                  description: files to upload
                   type: array
                   items:
                     type: string
                     format: binary
       responses:
         200:
+          description: files successdully uploaded
           content:
             application/json:
               schema:
@@ -737,13 +738,14 @@ paths:
               type: object
               properties:
                 'images[]':
-                  desctiption: images to upload
+                  description: images to upload
                   type: array
                   items:
                     type: string
                     format: binary
       responses:
         200:
+          description: images successfully uploaded
           content:
             application/json:
               schema:
