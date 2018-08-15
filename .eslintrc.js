@@ -1,10 +1,10 @@
 module.exports = {
-	parser: 'babel-eslint',
 	parserOptions: {
 		ecmaVersion: 8,
 		sourceType: 'module',
 		ecmaFeatures: {
 			impliedStrict: true,
+			experimentalObjectRestSpread: true
 		}
 	},
 	root: true,
@@ -12,12 +12,7 @@ module.exports = {
 		document: true,
 		navigator: true,
 		window: true,
-		routerBasePath: true,
-		googleMapsApiKey: true,
-		apiRootPath: true,
-		development: true,
-		google: true,
-		CKEDITOR: true
+		apiBaseURL: true
 	},
 	env: {
 		browser: true,
@@ -54,8 +49,9 @@ module.exports = {
 		'valid-typeof': 2,
 		'array-callback-return': 1,
 		'block-scoped-var': 1,
+		'dot-notation': 2,
 		'eqeqeq': [1, 'smart'],
-		'no-alert': 0,
+		'no-alert': 2,
 		'no-case-declarations': 2,
 		'no-empty-function': 1,
 		'no-empty-pattern': 2,
@@ -95,7 +91,7 @@ module.exports = {
 		'handle-callback-err': 1,
 		'block-spacing': [1, 'always'],
 		'brace-style': [1, 'stroustrup', { allowSingleLine: true }],
-		'camelcase': 0,
+		'camelcase': 1,
 		'comma-dangle': [1, 'never'],
 		'comma-spacing': 1,
 		'comma-style': 1,
