@@ -22,6 +22,7 @@ export default {
 
 		const primaryKey = props.entity && parent.$store.getters.entitiesData[props.entity].primary || 'id',
 			editAllowed = !parent.$store.getters.entitiesData[props.entity].permissions ||
+				parent.$store.getters.entitiesData[props.entity].permissions.item !== false &&
 				parent.$store.getters.entitiesData[props.entity].permissions.update !== false,
 
 			// make title from props.display or try to guess it

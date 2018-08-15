@@ -184,7 +184,7 @@
 			td.table-item-actions(v-if="showItemActions")
 				.btn-group.btn-group-xs.nowrap
 					slot(name="item-actions-before" :item="item" :index="i")
-					router-link.btn.btn-primary(v-if="permitted('update')" :to="path + '/item/' + item[primaryKey]")
+					router-link.btn.btn-primary(v-if="permitted('item') && permitted('update')" :to="path + '/item/' + item[primaryKey]")
 						i.fas.fa-edit
 					.btn.btn-danger(v-if="permitted('destroy')" @click="$emit('destroy', item)")
 						i.fas.fa-trash
