@@ -64,7 +64,7 @@
 </script>
 <template lang="pug">
 	.field-gallery(:class="{ updating, disabled }")
-		draggable.list(:value="value" v-model="images" v-show="images && images.length")
+		draggable.list(v-model="images" v-show="images && images.length")
 			.image(v-for="id in images" :key="id")
 				.btn-group
 					button.btn.btn-danger.btn-xs(@mousedown.stop.prevent="remove(id)" :disabled="disabled"): i.fas.fa-trash
