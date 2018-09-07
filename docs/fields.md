@@ -172,6 +172,7 @@ Convenient for representing meta/OpenGraph/etc. values.
 
 Supported props:
 * `keys` - keys array (`['title', 'description', 'keywords']` by default)
+* `placeholder` - string for generic placeholder or object to set per-key placeholder
 
 `v-model` object with fields from `props.keys` or `null`. This object contains only non-empty text values. Value is set to `null` if no text provided.
 

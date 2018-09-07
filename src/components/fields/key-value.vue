@@ -14,7 +14,8 @@
 					'description',
 					'keywords'
 				])
-			}
+			},
+			placeholder: [Object, String]
 		},
 		methods: {
 			trim(k, v) {
@@ -35,7 +36,7 @@
 		tbody
 			tr(v-for="key in keys")
 				th {{ key }}
-				td: input.form-control(:placeholder="$t('noValue')"
+				td: input.form-control(:placeholder="placeholder && (placeholder[key] || placeholder) || $t('noValue')"
 					:value="value && value[key]"
 					@input="onInput(key, $event.target.value)"
 					@blur="trim(key, $event.target.value)")
