@@ -311,13 +311,15 @@
 										i(v-if="action.icon" :class="action.icon")
 										!=' '
 										span(v-if="action.text" v-html="action.text")
-					.well.well-sm(v-else, style="margin:10px") {{ $t('nothingFound') }}
+					.empty-message.well.well-sm(v-else) {{ $t('nothingFound') }}
 				pager.box-footer(v-model="page" :last-page="lastPage" :loading="loading" :total="total" :limit="limit")
-	</template>
+</template>
 <style lang="stylus">
 	.entity-index-page
 		.pagination, .pager
 			margin 0
+		.empty-message
+			margin 10px
 		.per-page
 			.field
 				width 70px
