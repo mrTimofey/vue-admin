@@ -238,8 +238,11 @@ else {
 
 	config.optimization.minimizer = [
 		new UglifyJsPlugin({
-			cache: true,
-			parallel: true
+			minify(file, sourceMap) {
+				const uglifyJsOptions = {};
+				if (sourceMap) uglifyJsOptions.sourceMap = { content: sourceMap };
+				return require('terser').minify(file, uglifyJsOptions);
+			}
 		}),
 		new OptimizeCSSAssetsPlugin({
 			assetNameRegExp: /\.css(\?.*)?$/
