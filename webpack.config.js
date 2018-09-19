@@ -224,7 +224,7 @@ if (dev) {
 else {
 	const MiniCssExtractPlugin = require('mini-css-extract-plugin'),
 		OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'),
-		UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+		MinifyPlugin = require('terser-webpack-plugin');
 
 	addStyleRules(MiniCssExtractPlugin.loader);
 
@@ -237,12 +237,9 @@ else {
 	);
 
 	config.optimization.minimizer = [
-		new UglifyJsPlugin({
-			minify(file, sourceMap) {
-				const uglifyJsOptions = {};
-				if (sourceMap) uglifyJsOptions.sourceMap = { content: sourceMap };
-				return require('terser').minify(file, uglifyJsOptions);
-			}
+		new MinifyPlugin({
+			cache: true,
+			parallel: true
 		}),
 		new OptimizeCSSAssetsPlugin({
 			assetNameRegExp: /\.css(\?.*)?$/
