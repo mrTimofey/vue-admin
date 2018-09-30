@@ -37,7 +37,7 @@ const devMiddleware = require('webpack-dev-middleware')(compiler, {
 });
 
 // noinspection JSUnresolvedFunction
-compiler.plugin('done', () => {
+compiler.hooks.done.tap('done', () => {
 	const fs = devMiddleware.fileSystem;
 	const filePath = path.join(webpackConfig.output.path, 'index.html');
 	if (fs.existsSync(filePath)) layout = fs.readFileSync(filePath, 'utf-8');
