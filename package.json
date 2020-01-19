@@ -4,12 +4,10 @@
   "description": "Vue.js based admin panel frontend",
   "main": "index.js",
   "author": "Timofey Tiunov <timoxa17@gmail.com>",
-  "engines": {
-    "node": ">=6.4.0"
-  },
   "scripts": {
     "dev": "node index",
-    "build": "NODE_ENV=production wp --config webpack.config.js"
+    "build": "NODE_ENV=production wp --config webpack.config.js",
+    "lint": "eslint --ext .js --ext .vue ./"
   },
   "license": "MIT",
   "homepage": "https://github.com/mrTimofey/vue-admin",
@@ -30,7 +28,6 @@
     "polka": "^0.5.2",
     "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",
-    "qs": "^6.9.1",
     "raw-loader": "^4.0.0",
     "serve-static": "^1.14.1",
     "style-loader": "^1.1.3",
@@ -54,6 +51,7 @@
     "webpackbar": "^4.0.0"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.3",
     "eslint": "^6.8.0",
     "eslint-plugin-filenames": "^1.3.2",
     "eslint-plugin-vue": "^6.1.2"

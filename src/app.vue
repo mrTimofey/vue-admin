@@ -8,35 +8,11 @@
 	import SidebarMenu from 'src/components/app/sidebar-menu.vue';
 
 	export default {
-		computed: mapGetters(['user', 'skin', 'title', 'logoTitle', 'shortTitle', 'metaData', 'locale']),
+		components: { Modal, Notifications, Logo, SidebarUser, SidebarMenu },
 		data: () => ({
-			sidebarCollapse: window.localStorage.adminSidebarCollapse || false
+			sidebarCollapse: window.localStorage.adminSidebarCollapse || false,
 		}),
-		methods: {
-			...mapActions(['fetchLocaleData', 'fetchUser', 'fetchMetaData', 'logout']),
-			...mapMutations(['setUser']),
-			init(user) {
-				const fetchMeta = () => {
-					this.fetchMetaData();
-					// logout on 401 unauthorized response
-					http.interceptors.response.use(null, err => {
-						if (err.response.status === 401) this.logout();
-						throw err;
-					});
-				};
-				if (user) {
-					this.setUser(user);
-					fetchMeta();
-				}
-				else this.fetchUser().then(fetchMeta);
-			}
-		},
-		created() {
-			this.fetchLocaleData().then(this.init);
-		},
-		beforeMount() {
-			window.document.title = this.title;
-		},
+		computed: mapGetters(['user', 'skin', 'title', 'logoTitle', 'shortTitle', 'metaData', 'locale']),
 		watch: {
 			sidebarCollapse(v) {
 				if (v) window.localStorage.adminSidebarCollapse = '1';
@@ -60,10 +36,34 @@
 									.then(onLoaded);
 							});
 					}
-				}
-			}
+				},
+			},
 		},
-		components: { Modal, Notifications, Logo, SidebarUser, SidebarMenu }
+		created() {
+			this.fetchLocaleData().then(this.init);
+		},
+		beforeMount() {
+			window.document.title = this.title;
+		},
+		methods: {
+			...mapActions(['fetchLocaleData', 'fetchUser', 'fetchMetaData', 'logout']),
+			...mapMutations(['setUser']),
+			init(user) {
+				const fetchMeta = () => {
+					this.fetchMetaData();
+					// logout on 401 unauthorized response
+					http.interceptors.response.use(null, err => {
+						if (err.response.status === 401) this.logout();
+						throw err;
+					});
+				};
+				if (user) {
+					this.setUser(user);
+					fetchMeta();
+				}
+				else this.fetchUser().then(fetchMeta);
+			},
+		},
 	};
 </script>
 <template lang="pug">

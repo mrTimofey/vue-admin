@@ -5,7 +5,7 @@ const webpack = require('webpack'),
 	polka = require('polka'),
 	path = require('path');
 
-const appConfig = require('./_config'),
+const appConfig = require('./app-config'),
 	webpackConfig = require('./webpack.config'),
 	app = polka(),
 	port = process.env.PORT || appConfig.port;

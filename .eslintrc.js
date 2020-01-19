@@ -1,7 +1,7 @@
 module.exports = {
 	parser: 'vue-eslint-parser',
 	parserOptions: {
-		ecmaVersion: 9,
+		ecmaVersion: 11,
 		sourceType: 'module',
 		ecmaFeatures: {
 			impliedStrict: true,

@@ -7,6 +7,7 @@
 	export default {
 		props: {
 			timeout: {
+				type: Number,
 				default: 2000,
 			},
 		},

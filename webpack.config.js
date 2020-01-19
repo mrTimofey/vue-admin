@@ -1,11 +1,10 @@
 const path = require('path'),
 	fs = require('fs'),
-	qs = require('qs'),
 	{ DefinePlugin } = require('webpack'),
 	HTMLPlugin = require('html-webpack-plugin'),
 	{ VueLoaderPlugin } = require('vue-loader');
 
-const appConfig = require('./_config'),
+const appConfig = require('./app-config'),
 	dev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development',
 	basePath = process.env.ADMIN_PATH || appConfig.basePath,
 	apiRoot = process.env.API_ROOT || appConfig.apiRoot,
@@ -23,30 +22,20 @@ const appConfig = require('./_config'),
 // append custom shared stylus file
 if (fs.existsSync(customStylusSharedFile)) stylusImports.push(customStylusSharedFile);
 
-// allows options to represent both object and query string
-class Options {
-	constructor(options) {
-		for (let k of Object.keys(options)) this[k] = options[k];
-	}
-	toString() {
-		return qs.stringify(this, { encode: false, arrayFormat: 'brackets' }).replace(/=true/g, '');
-	}
-}
-
 // shared options
 const options = {
-	pug: new Options({
+	pug: {
 		doctype: 'html',
 		basedir: __dirname,
-	}),
-	css: new Options({
+	},
+	css: {
 		import: false,
-	}),
+	},
 	less: {},
-	stylus: new Options({
+	stylus: {
 		import: stylusImports,
 		preferPathResolver: 'webpack',
-	}),
+	},
 };
 
 // noinspection JSUnresolvedFunction

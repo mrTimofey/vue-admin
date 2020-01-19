@@ -6,6 +6,7 @@
 
 	// noinspection JSUnusedGlobalSymbols
 	export default {
+		components: { Draggable },
 		props: {
 			value: Array,
 			disabled: {
@@ -59,7 +60,6 @@
 				this.$emit('input', value);
 			},
 		},
-		components: { Draggable },
 	};
 </script>
 <template lang="pug">

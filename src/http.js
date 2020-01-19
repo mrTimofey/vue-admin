@@ -56,6 +56,7 @@ export function authenticate(login, password, remember = false) {
 
 export function recallToken() {
 	if (!window.localStorage.adminRememberToken) return Promise.reject();
+	// eslint-disable-next-line camelcase
 	return http.post('auth', { remember_token: window.localStorage.adminRememberToken, remember: true })
 		.then(res => {
 			authorize(res.data);
