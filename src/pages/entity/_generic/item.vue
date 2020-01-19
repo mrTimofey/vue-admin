@@ -159,7 +159,8 @@
 			},
 			save() {
 				this.submit(() => {
-					this.$router.replace(this.itemPathFor(this.item));
+					const path = this.itemPathFor(this.item);
+					if (path !== this.$route.fullPath) this.$router.replace(this.itemPathFor(this.item));
 					this.$notify(this.$t('savedMessage'), { class: 'alert-success' });
 				});
 			},
