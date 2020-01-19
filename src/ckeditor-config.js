@@ -1,26 +1,11 @@
 /* eslint-disable camelcase */
 export default {
-	styleSet: [
-		/* {
-			name: 'Example',
-			element: 'span',
-			attributes: {
-				class: 'class-name'
-			},
-			styles: {
-				'background-color': 'yellow'
-			}
-		} */
-	],
-	instanceConfig: {
-		toolbar: [
-			['Source', '-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', '-', 'Maximize'],
-			['Link', 'Unlink', 'Anchor'],
-			['Image', 'Table', 'HorizontalRule', 'SpecialChar'],
-			['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
-			['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
-			['Styles', 'Format'],
+	heading: {
+		options: [
+			{ model: 'paragraph', title: 'Абзац', view: 'p' },
+			{ model: 'heading2', title: 'Заголовок 2', view: 'h2' },
+			{ model: 'heading3', title: 'Заголовок 3', view: 'h3' },
+			{ model: 'heading4', title: 'Заголовок 4', view: 'h4' },
 		],
-		format_tags: 'p;h2;h3;h4',
 	},
 };

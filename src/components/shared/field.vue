@@ -3,7 +3,8 @@
 	import { typeAliases } from 'src/utils/fields';
 
 	const components = {},
-		fieldsProps = {};
+		fieldsProps = {},
+		autoProps = ['title', 'type', 'object'];
 	requireAll([
 		require.context('src/components/fields', true, /\.(vue|js)$/),
 		require.context('_local/src/components/fields', true, /\.(vue|js)$/),
@@ -12,15 +13,11 @@
 		if (comp.props) {
 			if (Array.isArray(comp.props)) {
 				for (let name of comp.props) fieldsProps[name] = null;
-				// remove title tooltip on hover
-				if (comp.props.indexOf('title') === -1) comp.props.push('title');
-				if (comp.props.indexOf('type') === -1) comp.props.push('type');
+				for (const prop of autoProps) if (comp.props.indexOf(prop) === -1) comp.props.push(prop);
 			}
 			else {
 				for (let name of Object.keys(comp.props)) fieldsProps[name] = null;
-				// remove title tooltip on hover
-				if (!comp.props.title) comp.props.title = String;
-				if (!comp.props.type) comp.props.type = String;
+				for (const prop of autoProps) if (!comp.props.hasOwnProperty(prop)) comp.props[prop] = {};
 			}
 		}
 		// remove title tooltip on hover

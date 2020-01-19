@@ -320,12 +320,16 @@ Time interval field.
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/ckeditor.vue)
 
-[CKEditor](https://ckeditor.com/) 4 WYSIWYG field.
+[CKEditor](https://ckeditor.com/) 5 WYSIWYG field.
 
 Supported props:
 * `debounce` - CKEditor->value update debounce timeout in ms (`100` by default)
-* `stylesheet` - absolute path to a custom CSS or just a CSS string (default styles: global wysiwyg CSS from API meta data, `src/styles/wysiwyg.styl` otherwise)
+* `fieldClass` - field class or array of classes, can be used to provide different styles for different fields and entities
 
 `v-model` is a string or `null` for empty string value.
 
-You can customize CKEditor instance configuration by replacing [`src/ckeditor-config.js`](https://github.com/mrTimofey/vue-admin/blob/master/src/ckeditor-config.js) (see [customization section](customization/README.md) for more onformation)
+You can customize CKEditor instance configuration and add text editor style by replacing
+[`src/ckeditor-config.js`](https://github.com/mrTimofey/vue-admin/blob/master/src/ckeditor-config.js)
+(see [customization section](customization/README.md) for more onformation).
+
+Text editor styles should be under `.ck-content` class or the one provided in `fieldClass` prop.

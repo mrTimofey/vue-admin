@@ -4,3 +4,4 @@
 
 * rename config entry `apiProxy` to `proxy`
 * add JavaScript transpiler to Webpack config if you want to support IE11 or other old browsers
+* CKEditor is now of version 5
