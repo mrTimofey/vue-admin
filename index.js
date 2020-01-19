@@ -28,12 +28,12 @@ const devMiddleware = require('webpack-dev-middleware')(compiler, {
 	publicPath: webpackConfig.output.publicPath,
 	stats: {
 		colors: true,
-		chunks: false
+		chunks: false,
 	},
 	watchOptions: {
 		aggregateTimeout: 300,
-		poll: true
-	}
+		poll: true,
+	},
 });
 
 // noinspection JSUnresolvedFunction

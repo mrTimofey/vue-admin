@@ -17,7 +17,7 @@ Vue.use(Notifications);
 // shared components
 requireAll([
 	require.context('src/components/shared/', true, /\.(vue|js)$/),
-	require.context('_local/src/components/shared/', true, /\.(vue|js)$/)
+	require.context('_local/src/components/shared/', true, /\.(vue|js)$/),
 ], (module, name) => {
 	Vue.component(filenameToCamelCase(name), module);
 });
@@ -25,7 +25,7 @@ requireAll([
 // filters
 requireAll([
 	require.context('src/filters/', true, /\.js$/),
-	require.context('_local/src/filters/', true, /\.js$/)
+	require.context('_local/src/filters/', true, /\.js$/),
 ], (module, name) => {
 	Vue.filter(filenameToCamelCase(name), module);
 });
@@ -33,7 +33,7 @@ requireAll([
 // directives
 requireAll([
 	require.context('src/directives/', true, /\.js$/),
-	require.context('_local/src/directives/', true, /\.js$/)
+	require.context('_local/src/directives/', true, /\.js$/),
 ], (module, name) => {
 	Vue.directive(filenameToCamelCase(name), module);
 });
@@ -41,7 +41,7 @@ requireAll([
 // modal components
 requireAll([
 	require.context('src/components/modals/', true, /\.(vue|js)$/),
-	require.context('_local/src/components/modals/', true, /\.(vue|js)$/)
+	require.context('_local/src/components/modals/', true, /\.(vue|js)$/),
 ], (component, name) => {
 	Modal.component(filenameToCamelCase(name), component);
 });

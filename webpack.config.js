@@ -17,7 +17,7 @@ const appConfig = require('./_config'),
 	customStylusSharedFile = path.resolve(sourcePath, 'src/styles/shared.styl'),
 	stylusImports = [
 		path.resolve(process.cwd(), 'node_modules/kouto-swiss/index.styl'),
-		path.resolve(__dirname, 'src/styles/shared.styl')
+		path.resolve(__dirname, 'src/styles/shared.styl'),
 	];
 
 // append custom shared stylus file
@@ -39,21 +39,21 @@ const options = {
 		objectAssign: 'Object.assign',
 		transforms: {
 			dangerousForOf: true,
-			modules: false
-		}
+			modules: false,
+		},
 	}),
 	pug: new Options({
 		doctype: 'html',
-		basedir: __dirname
+		basedir: __dirname,
 	}),
 	css: new Options({
-		import: false
+		import: false,
 	}),
 	less: {},
 	stylus: new Options({
 		import: stylusImports,
-		preferPathResolver: 'webpack'
-	})
+		preferPathResolver: 'webpack',
+	}),
 };
 
 // noinspection JSUnresolvedFunction
@@ -64,7 +64,7 @@ const config = {
 	output: {
 		publicPath,
 		filename: '[name].js',
-		chunkFilename: '[name].js'
+		chunkFilename: '[name].js',
 	},
 	module: {
 		rules: [
@@ -73,14 +73,14 @@ const config = {
 
 			{
 				test: /\.vue$/,
-				loader: 'vue-loader'
+				loader: 'vue-loader',
 			},
 			{
 				test: /\.js$/,
 				loader: 'buble-loader',
 				// needed for vue-loader to correctly import modules' components
 				exclude: file => /node_modules/.test(file) && !/\.vue\.js/.test(file) && !/node_modules\/vue-admin-front/.test(file),
-				options: options.buble
+				options: options.buble,
 			},
 			{
 				test: /\.pug$/,
@@ -89,16 +89,16 @@ const config = {
 					{
 						resourceQuery: /^\?vue/,
 						loader: 'pug-plain-loader',
-						options: options.pug
+						options: options.pug,
 					},
 					// this applies to pug imports inside JavaScript
 					{
 						use: ['raw-loader', {
 							loader: 'pug-plain-loader',
-							options: options.pug
-						}]
-					}
-				]
+							options: options.pug,
+						}],
+					},
+				],
 			},
 
 			// assets
@@ -107,12 +107,12 @@ const config = {
 				test: /\.(woff|woff2|eot|otf|ttf)$/,
 				loader: 'file-loader',
 				options: {
-					name: 'fonts/[name].[ext]?[hash:6]'
-				}
+					name: 'fonts/[name].[ext]?[hash:6]',
+				},
 			},
 			{
 				test: /sprite\.svg$/,
-				loader: 'raw-loader'
+				loader: 'raw-loader',
 			},
 			{
 				test: /\.(png|jpe?g|gif|svg)$/,
@@ -120,56 +120,56 @@ const config = {
 				loader: 'url-loader',
 				options: {
 					limit: 256,
-					name: 'i/[name].[ext]?[hash:6]'
-				}
+					name: 'i/[name].[ext]?[hash:6]',
+				},
 			},
 			{
 				test: /\.(pdf|docx?|pptx?|rtf|txt)$/,
 				loader: 'file-loader',
 				options: {
-					name: 'docs/[name].[ext]?[hash:6]'
-				}
-			}
+					name: 'docs/[name].[ext]?[hash:6]',
+				},
+			},
 
 			// style loading is configured differently in dev/prod mode
-		]
+		],
 	},
 	resolve: {
 		modules: [
 			'node_modules',
 			// look for customized sources first
 			sourcePath,
-			__dirname
+			__dirname,
 		],
 		alias: {
-			_local: __dirname
+			_local: __dirname,
 		},
-		extensions: ['.js', '.json', '.vue', '.styl', '.less', '.css']
+		extensions: ['.js', '.json', '.vue', '.styl', '.less', '.css'],
 	},
 	resolveLoader: {
 		modules: [
 			path.resolve(process.cwd(), 'node_modules'),
-			path.resolve(__dirname, 'node_modules')
-		]
+			path.resolve(__dirname, 'node_modules'),
+		],
 	},
 	plugins: [
 		new DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(dev ? 'development' : 'production'),
 			routerBasePath: JSON.stringify(basePath),
 			apiRootPath: JSON.stringify(apiRoot),
-			googleMapsApiKey: JSON.stringify(appConfig.googleMapsApiKey || false)
+			googleMapsApiKey: JSON.stringify(appConfig.googleMapsApiKey || false),
 		}),
 		new HTMLPlugin({ template }),
-		new VueLoaderPlugin()
+		new VueLoaderPlugin(),
 	],
 	optimization: {
 		runtimeChunk: {
-			name: 'rtm'
+			name: 'rtm',
 		},
 		splitChunks: {
-			chunks: 'async'
-		}
-	}
+			chunks: 'async',
+		},
+	},
 };
 
 function addStyleRules(loader) {
@@ -179,36 +179,36 @@ function addStyleRules(loader) {
 			use: [
 				{
 					loader: 'css-loader',
-					options: options.css
+					options: options.css,
 				},
 				{
 					loader: 'less-loader',
-					options: options.less
-				}
-			]
+					options: options.less,
+				},
+			],
 		},
 		{
 			test: /\.styl(us)?$/,
 			use: [
 				{
 					loader: 'css-loader',
-					options: options.css
+					options: options.css,
 				},
 				{
 					loader: 'stylus-loader',
-					options: options.stylus
-				}
-			]
+					options: options.stylus,
+				},
+			],
 		},
 		{
 			test: /\.css$/,
 			use: [
 				{
 					loader: 'css-loader',
-					options: options.css
-				}
-			]
-		}
+					options: options.css,
+				},
+			],
+		},
 	]) {
 		rule.use = [loader || 'vue-style-loader', ...rule.use];
 		config.module.rules.push(rule);
@@ -239,15 +239,15 @@ else {
 	config.optimization.minimizer = [
 		new MinifyPlugin({
 			cache: true,
-			parallel: true
+			parallel: true,
 		}),
 		new OptimizeCSSAssetsPlugin({
-			assetNameRegExp: /\.css(\?.*)?$/
-		})
+			assetNameRegExp: /\.css(\?.*)?$/,
+		}),
 	];
 
 	config.performance = {
-		hints: 'warning'
+		hints: 'warning',
 	};
 }
 

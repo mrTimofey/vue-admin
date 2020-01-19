@@ -4,7 +4,7 @@ import { typeAliases } from 'src/utils/fields';
 const components = {};
 requireAll([
 	require.context('src/components/displays', true, /\.(vue|js)$/),
-	require.context('_local/src/components/displays', true, /\.(vue|js)$/)
+	require.context('_local/src/components/displays', true, /\.(vue|js)$/),
 ], (comp, name) => {
 	components[name.substr(2).replace(/\.(vue|js)$/, '')] = comp;
 	if (comp.props) {
@@ -32,5 +32,5 @@ export default {
 		return comp ?
 			h(comp, c.data, c.children) :
 			h('div', c.props.value === null || c.props.value === undefined ? '' : c.props.value.toString(), c.children);
-	}
+	},
 };

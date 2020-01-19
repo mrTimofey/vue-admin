@@ -17,7 +17,7 @@ if (process.env.NODE_ENV !== 'production') pathMap = {};
 // register all components in directory as routes (excepting files/folders starting from "_")
 requireAll([
 	require.context('src/pages/', true, /^(?:(?!\/?_).)+\.(vue|js)$/),
-	require.context('_local/src/pages/', true, /^(?:(?!\/?_).)+\.(vue|js)$/)
+	require.context('_local/src/pages/', true, /^(?:(?!\/?_).)+\.(vue|js)$/),
 ], (component, name) => {
 	/** @namespace component.routeMeta */
 	/** @namespace component.routeProps */
@@ -29,7 +29,7 @@ requireAll([
 			// allow components adding their own route parameters
 			(component.routePath ? ('/' + component.routePath) : ''),
 		// add meta fields if there are any
-		meta: component.routeMeta
+		meta: component.routeMeta,
 	};
 
 	if (route.path === '/404') {
@@ -67,12 +67,12 @@ if (route404) routes.push(route404);
 routes.push({
 	component: EntityGenericIndex,
 	path: '/entity/:entity',
-	props: true
+	props: true,
 });
 routes.push({
 	component: EntityGenericItem,
 	path: '/entity/:entity/item/:id',
-	props: true
+	props: true,
 });
 
 // noinspection JSUnresolvedVariable
@@ -89,5 +89,5 @@ export default new Router({
 	stringifyQuery: q => {
 		const result = qs.stringify(q);
 		return result ? ('?' + result) : '';
-	}
+	},
 });

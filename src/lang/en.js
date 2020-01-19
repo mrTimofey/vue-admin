@@ -23,14 +23,14 @@ export default {
 			413: 'File or request body is too large',
 			422: 'Validation error, check form fields',
 			429: 'Too many attempts, try again later',
-			500: 'Something went wrong...'
+			500: 'Something went wrong...',
 		},
 		errors: {
 			login: 'Wrong login or password',
 			createRelation: 'Item creating error',
 			deleteElement: 'Element delete failed',
 			saveElement: 'Element save failed',
-			noResponse: 'No server response'
+			noResponse: 'No server response',
 		},
 		undefined: 'undefined',
 		chooseFile: 'Choose file',
@@ -63,16 +63,16 @@ export default {
 			coords: 'Coordinates',
 			removePoint: 'Remove point',
 			search: 'Find on the map',
-			googleApiKeyWarning: 'Retrieve and configure API key to use Google Maps API.'
-		}
+			googleApiKeyWarning: 'Retrieve and configure API key to use Google Maps API.',
+		},
 	},
 	dateTime: {
 		short: {
-			year: 'numeric', month: 'numeric', day: 'numeric'
+			year: 'numeric', month: 'numeric', day: 'numeric',
 		},
 		long: {
 			year: 'numeric', month: 'numeric', day: 'numeric',
-			hour: 'numeric', minute: 'numeric', hour12: true
-		}
-	}
+			hour: 'numeric', minute: 'numeric', hour12: true,
+		},
+	},
 };

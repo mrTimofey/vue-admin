@@ -23,14 +23,14 @@ export default {
 			413: 'Слишком большой размер файла или запроса',
 			422: 'Ошибка валидации, проверьте правильность заполнения полей',
 			429: 'Слишко много попыток, попробуйте ещё раз позже',
-			500: 'Что-то пошло не так...'
+			500: 'Что-то пошло не так...',
 		},
 		errors: {
 			login: 'Неверный логин или пароль',
 			createRelation: 'Ошибка при создании элемента',
 			deleteElement: 'Не удалось удалить элемент',
 			saveElement: 'Ошибка при сохранении',
-			noResponse: 'Нет ответа сервера'
+			noResponse: 'Нет ответа сервера',
 		},
 		undefined: 'нет значения',
 		chooseFile: 'Выбрать файл',
@@ -63,16 +63,16 @@ export default {
 			coords: 'Координаты',
 			removePoint: 'Убрать точку',
 			search: 'Найти на карте',
-			googleApiKeyWarning: 'Получите и настройте API ключ, чтобы использовать Google Maps API.'
-		}
+			googleApiKeyWarning: 'Получите и настройте API ключ, чтобы использовать Google Maps API.',
+		},
 	},
 	dateTime: {
 		short: {
-			day: 'numeric', month: 'numeric', year: 'numeric'
+			day: 'numeric', month: 'numeric', year: 'numeric',
 		},
 		long: {
 			day: 'numeric', month: 'numeric', year: 'numeric',
-			hour: 'numeric', minute: 'numeric'
-		}
-	}
+			hour: 'numeric', minute: 'numeric',
+		},
+	},
 };

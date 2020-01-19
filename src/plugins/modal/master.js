@@ -20,22 +20,22 @@ export default {
 		tag: String,
 		innerTag: {
 			type: String,
-			default: 'div'
+			default: 'div',
 		},
 		innerClass: {
 			type: [String, Array],
-			default: 'inner'
-		}
+			default: 'inner',
+		},
 	},
 	data: () => ({
 		comp: null,
 		compProps: null,
-		compClass: null
+		compClass: null,
 	}),
 	computed: {
 		innerClassArray() {
 			return classArray(this.innerClass).concat(classArray(this.compClass));
-		}
+		},
 	},
 	methods: {
 		openModal(comp, compProps, compClass) {
@@ -57,7 +57,7 @@ export default {
 				this.compClass = null;
 				this.$emit('closed', result);
 			});
-		}
+		},
 	},
 	created() {
 		this.$modal.masterComponent = this;
@@ -70,25 +70,25 @@ export default {
 					const target = e.target || e.srcElement;
 					if (this.$el !== target && this.$el.contains(target)) return;
 					this.close();
-				}
+				},
 			} },
 			[
 				this.$slots.before,
 				h(
 					this.innerTag,
 					{
-						class: this.innerClassArray
+						class: this.innerClassArray,
 					},
 					[
 						this.$slots.innerBefore,
 						// show modal component itself
 						h(this.comp, { props: this.compProps }, this.$slots.default),
-						this.$slots.innerAfter
+						this.$slots.innerAfter,
 					]
 				),
-				this.$slots.after
+				this.$slots.after,
 			]
 		);
 	},
-	components: {}
+	components: {},
 };

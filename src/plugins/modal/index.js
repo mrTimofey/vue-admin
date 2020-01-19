@@ -5,7 +5,7 @@ const $modal = {
 	},
 	close(result) {
 		this._masterComponent.close(result);
-	}
+	},
 };
 
 Object.defineProperty($modal, 'masterComponent', {
@@ -16,7 +16,7 @@ Object.defineProperty($modal, 'masterComponent', {
 	},
 	get() {
 		return this._masterComponent;
-	}
+	},
 });
 
 export { MasterComponent };
@@ -26,5 +26,5 @@ export default {
 	},
 	component(name, comp) {
 		MasterComponent.components[name] = comp;
-	}
+	},
 };

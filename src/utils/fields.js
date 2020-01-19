@@ -23,18 +23,18 @@ export function transformedOptions() {
 			let value = this.valueField ? opt[this.valueField] : (opt.id || opt.value);
 			options.push({
 				value,
-				label: this.labelField ? opt[this.labelField] : (opt.label || opt.title || opt.name || value)
+				label: this.labelField ? opt[this.labelField] : (opt.label || opt.title || opt.name || value),
 			});
 		}
 		else options.push({
 			value: opt,
-			label: opt.toString()
+			label: opt.toString(),
 		});
 	}
 	else for (let value of Object.keys(this.options)) {
 		options.push({
 			value,
-			label: this.options[value]
+			label: this.options[value],
 		});
 	}
 
@@ -52,5 +52,5 @@ export const typeAliases = {
 	decimal: 'float',
 	collection: 'array',
 	timestamp: 'datetime',
-	meta: 'key-value'
+	meta: 'key-value',
 };

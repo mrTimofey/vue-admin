@@ -18,8 +18,8 @@ export default {
 			['Image', 'Table', 'HorizontalRule', 'SpecialChar'],
 			['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
 			['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
-			['Styles', 'Format']
+			['Styles', 'Format'],
 		],
-		format_tags: 'p;h2;h3;h4'
-	}
+		format_tags: 'p;h2;h3;h4',
+	},
 };

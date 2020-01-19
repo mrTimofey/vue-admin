@@ -28,7 +28,7 @@ export default new Vuex.Store({
 		mainNav: state => state.metaData && state.metaData.nav,
 		imagePath: state => state.metaData && state.metaData.image_path,
 		wysiwygCss: state => state.metaData && state.metaData.wysiwyg && state.metaData.wysiwyg.css,
-		skin: state => state.skin
+		skin: state => state.skin,
 	},
 	mutations: {
 		setUser(state, user) {
@@ -43,7 +43,7 @@ export default new Vuex.Store({
 		},
 		setSkin(state, name) {
 			state.skin = name;
-		}
+		},
 	},
 	actions: {
 		fetchUser({ commit }) {
@@ -61,7 +61,7 @@ export default new Vuex.Store({
 			return http.get('locale').then(
 				res => Promise.all([
 					setLocale(res.data.locale),
-					setFallbackLocale(res.data.fallback_locale)
+					setFallbackLocale(res.data.fallback_locale),
 				]).then(() => commit('setLocaleData', res.data))
 			);
 		},
@@ -74,6 +74,6 @@ export default new Vuex.Store({
 		logout({ commit }) {
 			logout();
 			commit('setUser', false);
-		}
-	}
+		},
+	},
 });

@@ -4,5 +4,5 @@ export default {
 			let target = el.querySelector('input, textarea, select, [tabindex]');
 			(target || el).focus();
 		}, 300);
-	}
+	},
 };

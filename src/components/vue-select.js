@@ -5,8 +5,8 @@ export default {
 	props: {
 		disableSearchFilter: {
 			type: Boolean,
-			default: false
-		}
+			default: false,
+		},
 	},
 	computed: {
 		// fix: support disabling default substring search filter even if there is a custom search
@@ -24,12 +24,12 @@ export default {
 			if (this.taggable && this.search.length && !this.optionExists(this.search))
 				options.unshift(this.search);
 			return options;
-		}
+		},
 	},
 	watch: {
 		search() {
 			// fix: trigger 'search' event with empty value
 			if (this.search.length === 0) this.$emit('search', this.search, this.toggleLoading);
-		}
-	}
+		},
+	},
 };

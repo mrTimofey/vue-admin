@@ -21,5 +21,5 @@ export default {
 	unbind(el) {
 		window.document.removeEventListener('click', el.__vueClickOutside__);
 		delete el.__vueClickOutside__;
-	}
+	},
 };

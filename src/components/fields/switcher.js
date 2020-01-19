@@ -6,6 +6,6 @@ export default {
 	methods: {
 		emitValue({ target }) {
 			this.$emit('input', target.checked ? true : null);
-		}
-	}
+		},
+	},
 };

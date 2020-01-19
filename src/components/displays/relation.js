@@ -9,12 +9,12 @@ export default {
 		entity: String,
 		color: {
 			type: String,
-			default: 'default'
+			default: 'default',
 		},
 		noLink: {
 			type: Boolean,
-			default: false
-		}
+			default: false,
+		},
 	},
 	render(h, { props, parent }) {
 		// skip empty values
@@ -41,14 +41,14 @@ export default {
 				item => h('span', {
 					class: ['label', 'label-' + props.color],
 					domProps: {
-						innerHTML: makeTitle(item)
-					}
+						innerHTML: makeTitle(item),
+					},
 				}) :
 				item => h('router-link', {
 					class: ['btn', 'btn-xs', 'btn-' + props.color],
 					props: {
-						to: `/entity/${props.entity}/item/${item[primaryKey]}`
-					}
+						to: `/entity/${props.entity}/item/${item[primaryKey]}`,
+					},
 				}, [makeTitle(item)]);
 
 		// multiple values
@@ -65,5 +65,5 @@ export default {
 
 		// single value
 		return renderItem(props.value);
-	}
+	},
 };

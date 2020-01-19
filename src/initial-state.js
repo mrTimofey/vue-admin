@@ -6,5 +6,5 @@ export default {
 	metaData: null,
 	locale: null,
 	fallbackLocale: null,
-	skin: 'blue'
+	skin: 'blue',
 };

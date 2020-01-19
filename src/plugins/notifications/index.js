@@ -15,5 +15,5 @@ export { MasterComponent };
 export default {
 	install(Vue) {
 		Vue.prototype.$notify = $notify;
-	}
+	},
 };

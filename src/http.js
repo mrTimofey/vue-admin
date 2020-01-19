@@ -6,9 +6,9 @@ const http = Axios.create({
 	baseURL: apiRootPath,
 	headers: {
 		'X-Requested-With': 'XMLHttpRequest',
-		'Accept': 'application/json'
+		'Accept': 'application/json',
 	},
-	paramsSerializer: qs.stringify
+	paramsSerializer: qs.stringify,
 });
 
 /**
@@ -23,7 +23,7 @@ export function authorize(data = null) {
 		if (data.remember_token) window.localStorage.adminRememberToken = data.remember_token;
 	}
 	if (!window.localStorage.adminApiToken) return;
-	http.defaults.headers['Authorization'] = 'Bearer ' + window.localStorage.adminApiToken;
+	http.defaults.headers.Authorization = 'Bearer ' + window.localStorage.adminApiToken;
 }
 
 /**
@@ -39,7 +39,7 @@ export function logout() {
 	if (authorized()) http.delete('auth');
 	window.localStorage.removeItem('adminApiToken');
 	window.localStorage.removeItem('adminRememberToken');
-	delete http.defaults.headers['Authorization'];
+	delete http.defaults.headers.Authorization;
 }
 
 export function authenticate(login, password, remember = false) {
@@ -68,7 +68,7 @@ export function recallToken() {
 }
 
 export function getApiToken() {
-	return http.defaults.headers['Authorization'] && http.defaults.headers['Authorization'].substr(7);
+	return http.defaults.headers.Authorization && http.defaults.headers.Authorization.substr(7);
 }
 
 authorize();

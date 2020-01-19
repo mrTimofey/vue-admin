@@ -5,7 +5,7 @@ module.exports = {
 	apiProxy: {
 		target: 'http://localhost:8000',
 		prefix: ['/api', '/storage', '/css'],
-		changeOrigin: true
+		changeOrigin: true,
 	},
 
 	// admin panel routes base path
@@ -26,7 +26,7 @@ module.exports = {
 	publicPath: '/admin-dist/',
 
 	// Webpack will try to resolve sources from this path before a package root
-	sourcePath: path.resolve(process.cwd(), 'admin')
+	sourcePath: path.resolve(process.cwd(), 'admin'),
 
 	// Google Maps API key is required to use any of geo field types
 	// googleMapsApiKey: 'key'

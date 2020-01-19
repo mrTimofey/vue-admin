@@ -5,7 +5,7 @@ export default {
 		value: Boolean,
 		icon: null,
 		text: null,
-		color: null
+		color: null,
 	},
 	render(h, { props }) {
 		const v = props.value,
@@ -38,7 +38,7 @@ export default {
 		return h('span', { class: rootClass() }, [
 			icon && h('i', { class: iconClass() }),
 			' ',
-			text && h('span', { domProps: { innerHTML: text } })
+			text && h('span', { domProps: { innerHTML: text } }),
 		]);
-	}
+	},
 };
