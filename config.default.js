@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
 	// application backend proxy
-	apiProxy: {
+	proxy: {
 		target: 'http://localhost:8000',
 		prefix: ['/api', '/storage', '/css'],
 		changeOrigin: true,

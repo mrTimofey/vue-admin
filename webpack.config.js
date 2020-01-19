@@ -35,13 +35,6 @@ class Options {
 
 // shared options
 const options = {
-	buble: new Options({
-		objectAssign: 'Object.assign',
-		transforms: {
-			dangerousForOf: true,
-			modules: false,
-		},
-	}),
 	pug: new Options({
 		doctype: 'html',
 		basedir: __dirname,
@@ -59,7 +52,7 @@ const options = {
 // noinspection JSUnresolvedFunction
 const config = {
 	devtool: false,
-	mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+	mode: dev ? 'development' : 'production',
 	entry: 'src/entry.js',
 	output: {
 		publicPath,
@@ -74,13 +67,6 @@ const config = {
 			{
 				test: /\.vue$/,
 				loader: 'vue-loader',
-			},
-			{
-				test: /\.js$/,
-				loader: 'buble-loader',
-				// needed for vue-loader to correctly import modules' components
-				exclude: file => /node_modules/.test(file) && !/\.vue\.js/.test(file) && !/node_modules\/vue-admin-front/.test(file),
-				options: options.buble,
 			},
 			{
 				test: /\.pug$/,
@@ -216,10 +202,20 @@ function addStyleRules(loader) {
 }
 
 if (dev) {
+	const WebpackBarPlugin = require('webpackbar');
+
 	addStyleRules();
 	// it does not make any sense since virtual file system is used in dev mode, webpack just requires this option
 	config.output.path = path.resolve(__dirname, 'dist');
 	config.devtool = '#sourcemap';
+
+	config.plugins.push(
+		new WebpackBarPlugin({
+			name: 'admin',
+			color: 'blue',
+			reporters: ['fancy'],
+		}),
+	);
 }
 else {
 	const MiniCssExtractPlugin = require('mini-css-extract-plugin'),

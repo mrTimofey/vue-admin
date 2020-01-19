@@ -6,6 +6,7 @@
 * [Quick start](quick-start.md)
 * [Configuration](configuration.md)
   * [Webpack](configuration.md#webpack)
+* [Migration](migration.md)
 * [Entities](entities.md)
 * [HTTP requests](http-requests.md)
 * [Fields](fields.md)
