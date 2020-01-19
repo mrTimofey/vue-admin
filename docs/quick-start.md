@@ -18,7 +18,6 @@
     ```
 
     \**Replace `admin:dev`'s `rimraf public/admin-dist` part if you use different build destination.*
-    \**Replace `admin:build`'s `node_modules/vue-admin-front/webpack.config.js` if you have an extended version of a Webpack config.*
 
 3. [Configure](configuration.md).
 

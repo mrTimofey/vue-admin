@@ -10,20 +10,19 @@ This is the last package you will ever need to build your custom dashboard or ad
 * Type-safe by design
 * Suitable for a fast prototyping
 
-## Why?
+[Demo with Laravel 5.6 backend](http://admin.shit-free.space)
 
-I was so tired of looking for a robust solution for dashboards and administrative panels.
-For they are many and still all of them are a piece of something bad.
-And I made this module with all the love my heart can give and I am confident you will feel that love after typing
-`npm i -S vue-admin-front` in the console.
+[Documentation](https://mr-timofey.gitbooks.io/vue-admin)
 
-## Docs?
+## How does it work?
 
-Yes, [click here](https://mr-timofey.gitbooks.io/vue-admin).
+The package contains all the necessary files for build and development. There is no prebuilt version since
+`vue-admin-front` aims to provide a development environment where you can customize almost everything including
+build-time stuff. But you can use this just as-is by executing a build command described bellow.
 
-## Demo?
-
-[Demo with Laravel 5.6 backend](http://admin.shit-free.space).
+All the things related to your project data structure and data manipulation capabilities should be provided
+by your backend REST API endpoints
+[described in OpenAPI 3 format](https://github.com/mrTimofey/vue-admin/blob/master/docs/swagger.yml)
 
 ## What about server solutions?
 
