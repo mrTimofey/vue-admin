@@ -9,11 +9,11 @@ module.exports = {
 	},
 
 	// admin panel routes base path
-	basePath: '/admin',
+	basePath: '/',
 
 	// api base path
 	// WARNING: do not set this option to same or starting with basePath or publicPath!
-	apiRoot: '/api/admin/',
+	apiRoot: '/api/',
 
 	// admin dev app port
 	port: 8080,

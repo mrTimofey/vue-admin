@@ -35,14 +35,14 @@ Making more of them will be very appreciated.
 
 Install:
 ```bash
-npm i -S vue-admin-front cross-env rimraf webpack-command
+npm i -S vue-admin-front cross-env rimraf webpack-nano
 ```
 
 Add this to package.json scripts:
 ```json
 {
 	"admin:dev": "node node_modules/vue-admin-front/index.js",
-	"admin:build": "rimraf public/admin-dist && cross-env NODE_ENV=production webpack --config node_modules/vue-admin-front/webpack.config.js"
+	"admin:build": "rimraf public/admin-dist && cross-env NODE_ENV=production wp --config node_modules/vue-admin-front/webpack.config.js"
 }
 ```
 
