@@ -10,12 +10,12 @@
 			value: null,
 			required: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			disabled: {
 				type: Boolean,
-				default: false
-			}
+				default: false,
+			},
 		},
 		computed: {
 			hasValue: {
@@ -24,12 +24,12 @@
 				},
 				set(v) {
 					this.$emit('input', v ? '000000' : null);
-				}
+				},
 			},
 			colorValue() {
 				if (!this.value) return null;
 				return '#' + this.value;
-			}
+			},
 		},
 		methods: {
 			emitValue(e) {
@@ -38,8 +38,8 @@
 					if (val !== this.value) this.$emit('input', val);
 				}
 				else if (this.value) this.$emit('input', null);
-			}
-		}
+			},
+		},
 	};
 </script>
 <template lang="pug">

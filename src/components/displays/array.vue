@@ -4,8 +4,8 @@
 		functional: true,
 		props: {
 			value: null,
-			itemProps: Object
-		}
+			itemProps: Object,
+		},
 	};
 </script>
 <template functional lang="pug">

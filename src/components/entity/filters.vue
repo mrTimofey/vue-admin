@@ -6,8 +6,8 @@
 			value: Object,
 			stagger: {
 				type: Number,
-				default: 300
-			}
+				default: 300,
+			},
 		},
 		computed: {
 			fieldValues() {
@@ -22,13 +22,13 @@
 					else data[field.name] = null;
 				}
 				return data;
-			}
+			},
 		},
 		methods: {
 			onChange(field, value) {
 				const data = {
 					filters: this.value && this.value.filters ? { ...this.value.filters } : {},
-					scopes: this.value && this.value.scopes ? { ...this.value.scopes } : {}
+					scopes: this.value && this.value.scopes ? { ...this.value.scopes } : {},
 				};
 				if (Array.isArray(value)) value = value.length ? value.slice().sort() : null;
 				const targetObj = field.scope ? data.scopes : data.filters,
@@ -48,8 +48,8 @@
 					if (!Object.keys(data.scopes).length) delete data.scopes;
 					this.$emit('input', Object.keys(data).length ? data : null);
 				}, this.stagger);
-			}
-		}
+			},
+		},
 	};
 </script>
 <template lang="pug">

@@ -12,15 +12,15 @@
 			value: null,
 			multiple: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			required: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			disabled: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			entity: String,
 			name: String,
@@ -29,25 +29,25 @@
 			valueField: String,
 			limit: {
 				type: Number,
-				default: 25
+				default: 25,
 			},
 			createField: {
 				type: String,
-				default: 'name'
+				default: 'name',
 			},
 			allowCreate: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			createDefaults: {
 				type: Object,
-				default: () => ({})
+				default: () => ({}),
 			},
-			queryParams: Object
+			queryParams: Object,
 		},
 		data: () => ({
 			items: null,
-			creating: false
+			creating: false,
 		}),
 		computed: {
 			entityName() {
@@ -65,11 +65,11 @@
 					value: item[this.valueKey],
 					label: this.display &&
 						(typeof this.display === 'string' ? parsePlaceholders(this.display, item) : this.display(item)) ||
-						`${(item.title || item.name || item.label)} [${item[this.valueKey]}]`
+						`${(item.title || item.name || item.label)} [${item[this.valueKey]}]`,
 				}));
 				if (this.value && this.value.length) return this.value.map(value => ({
 					label: '...',
-					value
+					value,
 				}));
 				return null;
 			},
@@ -78,7 +78,13 @@
 			},
 			promiseKey() {
 				return this.apiPath + '?' + this.limit + '&' + JSON.stringify(this.queryParams);
-			}
+			},
+		},
+		created() {
+			this.update();
+		},
+		beforeDestroy() {
+			delete fetchPromisePool[this.promiseKey];
 		},
 		methods: {
 			emitValue(v) {
@@ -95,7 +101,7 @@
 					fetch = http.get(this.apiPath, { params: {
 						...this.queryParams,
 						search,
-						limit: this.limit
+						limit: this.limit,
 					} })
 						.then(res => res.data.items);
 				}
@@ -105,7 +111,7 @@
 						fetchPromisePool[this.promiseKey] = fetch =
 							http.get(this.apiPath, { params: {
 								...this.queryParams,
-								limit: this.limit
+								limit: this.limit,
 							} })
 								.then(res => res.data.items)
 								.catch(() => ([]));
@@ -116,13 +122,13 @@
 					ids.length ?
 						http.get(this.apiPath, { params: {
 							limit: Array.isArray(this.value) ? this.value.length : 1,
-							filters: { [this.valueKey]: ids }
+							filters: { [this.valueKey]: ids },
 						} })
 							.then(res => res.data.items)
 							.catch(() => ([])) :
 						Promise.resolve([]),
 					// get selectable items
-					fetch
+					fetch,
 				]).then(results => {
 					this.items = results[0].concat(results[1].filter(
 						item => {
@@ -155,18 +161,12 @@
 					.catch(err => {
 						this.$modal.open('error', {
 							...httpErrorModalData(err),
-							title: this.$t('errors.createRelation')
+							title: this.$t('errors.createRelation'),
 						});
 						this.creating = false;
 					});
-			}
+			},
 		},
-		created() {
-			this.update();
-		},
-		beforeDestroy() {
-			delete fetchPromisePool[this.promiseKey];
-		}
 	};
 </script>
 <template lang="pug">

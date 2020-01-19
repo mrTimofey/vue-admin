@@ -12,29 +12,49 @@
 			value: [String, File],
 			disabled: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			ajaxMode: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			accept: {
 				type: String,
-				default: 'image/*'
+				default: 'image/*',
 			},
 			uploadMessage: String,
 			valueLabel: String,
-			size: String
+			size: String,
 		},
 		data: () => ({
 			src: null,
-			uploading: false
+			uploading: false,
 		}),
 		computed: {
 			...mapGetters(['imagePath']),
 			fileValue() {
 				return typeof this.value === 'string' ? (this.imagePath + '/' + this.value) : this.value;
-			}
+			},
+		},
+		watch: {
+			value: {
+				immediate: true,
+				handler(v) {
+					if (!v) {
+						this.src = null;
+						return;
+					}
+					if (typeof v === 'string') this.src = this.imagePath + '/' +
+						(v.endsWith('.svg') ? '' : 'admin-thumb/') + v;
+					else {
+						const reader = new FileReader();
+						reader.onloadend = () => {
+							this.src = reader.result;
+						};
+						reader.readAsDataURL(v);
+					}
+				},
+			},
 		},
 		methods: {
 			emitValue(v) {
@@ -55,28 +75,8 @@
 						});
 				}
 				else this.$emit('input', v);
-			}
+			},
 		},
-		watch: {
-			value: {
-				immediate: true,
-				handler(v) {
-					if (!v) {
-						this.src = null;
-						return;
-					}
-					if (typeof v === 'string') this.src = this.imagePath + '/' +
-						(v.endsWith('.svg') ? '' : 'admin-thumb/') + v;
-					else {
-						const reader = new FileReader();
-						reader.onloadend = () => {
-							this.src = reader.result;
-						};
-						reader.readAsDataURL(v);
-					}
-				}
-			}
-		}
 	};
 </script>
 <template lang="pug">

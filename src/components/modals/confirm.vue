@@ -5,8 +5,8 @@
 			title: String,
 			yes: String,
 			no: String,
-			text: String
-		}
+			text: String,
+		},
 	};
 </script>
 <template lang="pug">

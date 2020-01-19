@@ -9,16 +9,16 @@
 			value: String,
 			disabled: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			autocomplete: {
 				type: Boolean,
-				default: false
-			}
+				default: false,
+			},
 		},
 		methods: {
-			emitValue
-		}
+			emitValue,
+		},
 	};
 </script>
 <template lang="pug">

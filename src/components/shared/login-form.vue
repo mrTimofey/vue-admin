@@ -10,13 +10,13 @@
 			form: {
 				login: '',
 				password: '',
-				remember: true
+				remember: true,
 			},
 			error: '',
-			loading: false
+			loading: false,
 		}),
 		computed: {
-			...mapGetters(['logoTitle'])
+			...mapGetters(['logoTitle']),
 		},
 		methods: {
 			login() {
@@ -33,8 +33,8 @@
 					.then(() => {
 						this.loading = false;
 					});
-			}
-		}
+			},
+		},
 	};
 </script>
 <template lang="pug">

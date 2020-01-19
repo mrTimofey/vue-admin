@@ -7,8 +7,8 @@
 			value: null,
 			disabled: {
 				type: Boolean,
-				default: false
-			}
+				default: false,
+			},
 		},
 		computed: {
 			date: {
@@ -17,7 +17,7 @@
 				},
 				set(v) {
 					this.$emit('input', v ? (v + ' ' + (this.time || '00:00') + ':00') : null);
-				}
+				},
 			},
 			time: {
 				get() {
@@ -27,13 +27,8 @@
 					if (!v) v = '00:00';
 					const date = this.date ? this.date : (new Date()).toISOString().substr(0, 10);
 					this.$emit('input', date + ' ' + v.substr(0, 5) + ':00');
-				}
-			}
-		},
-		methods: {
-			onTimeBlur(e) {
-				if (!e.target.value && this.time) e.target.value = this.time;
-			}
+				},
+			},
 		},
 		created() {
 			if (this.value === 'now') {
@@ -41,7 +36,12 @@
 				now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
 				this.$emit('input', now.toISOString().replace('T', ' ').substr(0, 19));
 			}
-		}
+		},
+		methods: {
+			onTimeBlur(e) {
+				if (!e.target.value && this.time) e.target.value = this.time;
+			},
+		},
 	};
 </script>
 <template lang="pug">

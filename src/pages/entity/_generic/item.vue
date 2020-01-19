@@ -14,9 +14,9 @@
 				type: String,
 				default() {
 					return this.$route.path.split('/')[2];
-				}
+				},
 			},
-			id: null
+			id: null,
 		},
 		data() {
 			return {
@@ -25,7 +25,7 @@
 				loading: false,
 				item: null,
 				initialState: null,
-				actionsOpen: false
+				actionsOpen: false,
 			};
 		},
 		computed: {
@@ -61,7 +61,13 @@
 			},
 			hasErrors() {
 				return this.error || Object.keys(this.fieldErrors).length;
-			}
+			},
+		},
+		created() {
+			this.update();
+		},
+		beforeDestroy() {
+			window.removeEventListener('click', this.closeActions);
 		},
 		methods: {
 			setNewItem() {
@@ -112,7 +118,7 @@
 			destroy() {
 				this.$modal.open('confirm', {
 					title: this.$t('deleteElement') + '?',
-					text: this.initialState.title || this.initialState.name
+					text: this.initialState.title || this.initialState.name,
 				}, 'modal-sm').then(result => {
 					if (result === true) {
 						this.loading = true;
@@ -123,7 +129,7 @@
 							.catch(err => {
 								this.$modal.open('error', {
 									...httpErrorModalData(err),
-									text: this.$t('errors.deleteElement')
+									text: this.$t('errors.deleteElement'),
 								});
 								this.loading = false;
 							});
@@ -144,7 +150,7 @@
 							this.fieldErrors = formatFieldErrors(err.response.data.errors);
 						this.$modal.open('error', {
 							...httpErrorModalData(err),
-							title: this.$t('errors.saveElement')
+							title: this.$t('errors.saveElement'),
 						});
 					})
 					.then(() => {
@@ -184,10 +190,7 @@
 				this.$nextTick(() => {
 					window[(to ? 'add' : 'remove') + 'EventListener']('click', this.closeActions);
 				});
-			}
-		},
-		created() {
-			this.update();
+			},
 		},
 		beforeRouteUpdate(to, old, next) {
 			if (to.path !== old.path) {
@@ -200,9 +203,6 @@
 				this.update();
 			});
 		},
-		beforeDestroy() {
-			window.removeEventListener('click', this.closeActions);
-		}
 	};
 </script>
 <template lang="pug">

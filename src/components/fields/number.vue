@@ -8,16 +8,16 @@
 			value: null,
 			disabled: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			min: {
 				type: Number,
-				default: -Infinity
+				default: -Infinity,
 			},
 			max: {
 				type: Number,
-				default: Infinity
-			}
+				default: Infinity,
+			},
 		},
 		methods: {
 			emitValue(e) {
@@ -35,8 +35,8 @@
 				if (this.value === null) return;
 				if (this.value < this.min) this.$emit('input', this.min);
 				else if (this.value > this.max) this.$emit('input', this.max);
-			}
-		}
+			},
+		},
 	};
 </script>
 <template lang="pug">

@@ -9,24 +9,24 @@
 			title: String,
 			options: {
 				type: [Array, Object],
-				required: true
+				required: true,
 			},
 			value: null,
 			multiple: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			required: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			searchable: {
 				type: Boolean,
-				default: true
+				default: true,
 			},
 			disabled: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			labelField: String,
 			valueField: String,
@@ -34,8 +34,8 @@
 			onCreate: Function,
 			searchDebounce: {
 				type: Number,
-				default: 200
-			}
+				default: 200,
+			},
 		},
 		computed: {
 			transformedOptions,
@@ -43,7 +43,7 @@
 				if (this.multiple) return this.value ?
 					this.transformedOptions.filter(({ value }) => this.value.indexOf(value) !== -1) : [];
 				return this.transformedOptions.find(({ value }) => value === this.value);
-			}
+			},
 		},
 		methods: {
 			emitValue(v) {
@@ -78,8 +78,8 @@
 					loading(true);
 					this.onSearch(query).then(() => loading(false));
 				}, parseInt(this.searchDebounce));
-			}
-		}
+			},
+		},
 	};
 </script>
 <template lang="pug">

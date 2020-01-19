@@ -7,8 +7,8 @@
 			value: null,
 			disabled: {
 				type: Boolean,
-				default: false
-			}
+				default: false,
+			},
 		},
 		computed: {
 			date: {
@@ -18,15 +18,15 @@
 				set(v) {
 					if (!v && this.value !== null) this.$emit('input', null);
 					else if (v !== this.value) this.$emit('input', v);
-				}
-			}
+				},
+			},
 		},
 		created() {
 			if (this.value === 'now') {
 				let now = new Date();
 				this.$emit('input', now.toISOString().substr(0, 10));
 			}
-		}
+		},
 	};
 </script>
 <template lang="pug">

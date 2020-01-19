@@ -4,24 +4,24 @@
 			value: Object,
 			disabled: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			fields: {
 				type: Object,
-				required: true
+				required: true,
 			},
 			inline: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
-			errors: null
+			errors: null,
 		},
 		methods: {
 			updateItem(k, v) {
 				if (this.disabled) return;
 				this.$emit('input', this.value ? { ...this.value, [k]: v } : { [k]: v });
-			}
-		}
+			},
+		},
 	};
 </script>
 <template lang="pug">

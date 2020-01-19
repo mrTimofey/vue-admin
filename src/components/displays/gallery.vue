@@ -5,9 +5,9 @@
 			value: null,
 			pipe: {
 				type: String,
-				default: 'admin-thumb'
-			}
-		}
+				default: 'admin-thumb',
+			},
+		},
 	};
 </script>
 <template functional lang="pug">

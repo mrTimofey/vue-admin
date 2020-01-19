@@ -10,15 +10,15 @@
 			value: Array,
 			disabled: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			pipe: {
 				type: String,
-				default: 'admin-thumb'
-			}
+				default: 'admin-thumb',
+			},
 		},
 		data: () => ({
-			updating: false
+			updating: false,
 		}),
 		computed: {
 			...mapGetters(['imagePath']),
@@ -28,8 +28,8 @@
 				},
 				set(v) {
 					this.$emit('input', v);
-				}
-			}
+				},
+			},
 		},
 		methods: {
 			fileInputChanged(e) {
@@ -57,9 +57,9 @@
 				const value = this.value.slice();
 				value.splice(value.indexOf(item), 1);
 				this.$emit('input', value);
-			}
+			},
 		},
-		components: { Draggable }
+		components: { Draggable },
 	};
 </script>
 <template lang="pug">

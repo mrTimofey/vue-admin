@@ -11,34 +11,34 @@
 				type: Object,
 				default: () => ({
 					destroy: false,
-					update: false
-				})
+					update: false,
+				}),
 			},
 			sortable: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			bulk: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			entity: String,
 			primaryKey: {
 				type: String,
-				default: 'id'
+				default: 'id',
 			},
 			hasItemActions: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			hasBulkActions: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
-			sortParams: Object
+			sortParams: Object,
 		},
 		data: () => ({
-			selection: []
+			selection: [],
 		}),
 		computed: {
 			path() {
@@ -56,7 +56,7 @@
 						let dir = this.sortParams[field];
 						sort.push({
 							field,
-							dir: dir === '1' || dir === 'asc'
+							dir: dir === '1' || dir === 'asc',
 						});
 					}
 				}
@@ -80,20 +80,20 @@
 				set(v) {
 					// noinspection JSUnresolvedFunction
 					this.selection = v ? this.items.map(item => item[this.primaryKey]) : [];
-				}
-			}
+				},
+			},
 		},
 		watch: {
 			items() {
 				this.selection = [];
-			}
+			},
 		},
 		methods: {
 			makeField(definition) {
 				if (typeof definition === 'string') definition = {
 					name: definition,
 					sortable: this.sortable,
-					editable: false
+					editable: false,
 				};
 
 				let sort = null;
@@ -103,7 +103,7 @@
 					sort = {
 						as,
 						index: (this.sorted.length > 1 && sortedIndex > -1) ? sortedIndex : null,
-						dir: sortedIndex > -1 ? this.sorted[sortedIndex].dir : null
+						dir: sortedIndex > -1 ? this.sorted[sortedIndex].dir : null,
 					};
 				}
 
@@ -111,7 +111,7 @@
 					...definition,
 					name: definition.name,
 					title: definition.title || makeTitle(definition.name),
-					sort
+					sort,
 				};
 			},
 			sort(field, exclusive) {
@@ -144,8 +144,8 @@
 			},
 			emitBulkAction(name) {
 				this.$emit('bulk-' + name, this.selection);
-			}
-		}
+			},
+		},
 	};
 </script>
 <template lang="pug">

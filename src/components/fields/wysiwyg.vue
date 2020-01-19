@@ -11,16 +11,61 @@
 			value: String,
 			disabled: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			debounce: {
 				type: Number,
-				default: 100
+				default: 100,
 			},
-			stylesheet: String
+			stylesheet: String,
 		},
 		computed: {
-			...mapGetters(['wysiwygCss'])
+			...mapGetters(['wysiwygCss']),
+		},
+		watch: {
+			disabled(v) {
+				// noinspection JSUnresolvedFunction
+				this.ckeInstance.setReadOnly(v);
+			},
+			value(v) {
+				if (this.changedInside) {
+					this.changedInside = false;
+					return;
+				}
+
+				this.removeListeners();
+				clearTimeout(this.valueUpdatedTimeout);
+				this.valueUpdatedTimeout = setTimeout(() => {
+					this.ckeInstance.setData(v || '', { noSnapshot: true });
+					setTimeout(() => {
+						this.addListeners();
+					}, 0);
+				}, this.debounce);
+			},
+		},
+		beforeUpdate() {
+			// noinspection JSCheckFunctionSignatures
+			if (this.ckeInstance && this.value !== this.ckeInstance.getData()) {
+				this.ckeInstance.setData(this.value);
+			}
+		},
+		mounted() {
+			loadScript('https://cdn.ckeditor.com/4.7.2/full/ckeditor.js').then(() => {
+				if (!CKEDITOR.stylesSet.registered.admin) CKEDITOR.stylesSet.add('admin', ckeConfig.styleSet);
+				// noinspection ES6ModulesDependencies, NodeModulesDependencies, JSUnresolvedFunction
+				this.ckeInstance = CKEDITOR.replace(this.$el, {
+					filebrowserBrowseUrl: http.defaults.baseURL + 'wysiwyg/images/browse?api_token=' + getApiToken(),
+					filebrowserUploadUrl: http.defaults.baseURL + 'wysiwyg/images/upload?api_token=' + getApiToken(),
+					contentsCss: this.stylesheet || this.wysiwygCss || ckeStyle.toString(),
+					stylesSet: 'admin',
+					...ckeConfig.instanceConfig,
+				});
+				this.ckeInstance.setData(this.value || '');
+				this.addListeners();
+			});
+		},
+		beforeDestroy() {
+			if (this.ckeInstance) this.ckeInstance.destroy();
 		},
 		methods: {
 			addListeners() {
@@ -43,53 +88,8 @@
 					else // noinspection JSUnusedGlobalSymbols
 						this.changedInside = false;
 				}, this.debounce);
-			}
-		},
-		beforeUpdate() {
-			// noinspection JSCheckFunctionSignatures
-			if (this.ckeInstance && this.value !== this.ckeInstance.getData()) {
-				this.ckeInstance.setData(this.value);
-			}
-		},
-		mounted() {
-			loadScript('https://cdn.ckeditor.com/4.7.2/full/ckeditor.js').then(() => {
-				if (!CKEDITOR.stylesSet.registered.admin) CKEDITOR.stylesSet.add('admin', ckeConfig.styleSet);
-				// noinspection ES6ModulesDependencies, NodeModulesDependencies, JSUnresolvedFunction
-				this.ckeInstance = CKEDITOR.replace(this.$el, {
-					filebrowserBrowseUrl: http.defaults.baseURL + 'wysiwyg/images/browse?api_token=' + getApiToken(),
-					filebrowserUploadUrl: http.defaults.baseURL + 'wysiwyg/images/upload?api_token=' + getApiToken(),
-					contentsCss: this.stylesheet || this.wysiwygCss || ckeStyle.toString(),
-					stylesSet: 'admin',
-					...ckeConfig.instanceConfig
-				});
-				this.ckeInstance.setData(this.value || '');
-				this.addListeners();
-			});
-		},
-		beforeDestroy() {
-			if (this.ckeInstance) this.ckeInstance.destroy();
-		},
-		watch: {
-			disabled(v) {
-				// noinspection JSUnresolvedFunction
-				this.ckeInstance.setReadOnly(v);
 			},
-			value(v) {
-				if (this.changedInside) {
-					this.changedInside = false;
-					return;
-				}
-
-				this.removeListeners();
-				clearTimeout(this.valueUpdatedTimeout);
-				this.valueUpdatedTimeout = setTimeout(() => {
-					this.ckeInstance.setData(v || '', { noSnapshot: true });
-					setTimeout(() => {
-						this.addListeners();
-					}, 0);
-				}, this.debounce);
-			}
-		}
+		},
 	};
 </script>
 <template lang="pug">

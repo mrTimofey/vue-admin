@@ -7,24 +7,24 @@
 		props: {
 			options: {
 				type: [Array, Object],
-				required: true
+				required: true,
 			},
 			value: null,
 			disabled: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			labelField: String,
-			valueField: String
+			valueField: String,
 		},
 		computed: {
-			transformedOptions
+			transformedOptions,
 		},
 		methods: {
 			emitValue(v) {
 				this.$emit('input', v);
-			}
-		}
+			},
+		},
 	};
 </script>
 <template lang="pug">

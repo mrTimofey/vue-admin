@@ -4,8 +4,8 @@
 			title: String,
 			text: String,
 			button: String,
-			jsonData: Object
-		}
+			jsonData: Object,
+		},
 	};
 </script>
 <template lang="pug">

@@ -7,12 +7,15 @@
 	export default {
 		props: {
 			timeout: {
-				default: 2000
-			}
+				default: 2000,
+			},
 		},
 		data: () => ({
-			messages: []
+			messages: [],
 		}),
+		created() {
+			this.$notify.setMasterComponent(this);
+		},
 		methods: {
 			pushMessage(message, opts = {}) {
 				const obj = { message, opts },
@@ -32,11 +35,8 @@
 				clearTimeout(item.timeout);
 				this.messages.splice(i, 1);
 				item.resolve();
-			}
+			},
 		},
-		created() {
-			this.$notify.setMasterComponent(this);
-		}
 	};
 </script>
 <template lang="pug">

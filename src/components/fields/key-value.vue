@@ -5,17 +5,17 @@
 			value: Object,
 			disabled: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			keys: {
 				type: Array,
 				default: () => ([
 					'title',
 					'description',
-					'keywords'
-				])
+					'keywords',
+				]),
 			},
-			placeholder: [Object, String]
+			placeholder: [Object, String],
 		},
 		methods: {
 			trim(k, v) {
@@ -27,8 +27,8 @@
 				if (v) value[k] = v;
 				else delete value[k];
 				this.$emit('input', Object.keys(value).length > 0 ? value : null);
-			}
-		}
+			},
+		},
 	};
 </script>
 <template lang="pug">

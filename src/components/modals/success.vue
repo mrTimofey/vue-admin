@@ -3,8 +3,8 @@
 		props: {
 			title: String,
 			text: String,
-			button: String
-		}
+			button: String,
+		},
 	};
 </script>
 <template lang="pug">

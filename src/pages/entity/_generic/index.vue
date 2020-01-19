@@ -13,8 +13,8 @@
 				default() {
 					// try to guess entity name by route path ("/entity/{name}") if not explicitly provided
 					return this.$route.path.split('/')[2];
-				}
-			}
+				},
+			},
 		},
 		data() {
 			return {
@@ -24,7 +24,7 @@
 				error: null,
 				loading: false,
 				initialLoading: false,
-				limit: null
+				limit: null,
 			};
 		},
 		computed: {
@@ -35,9 +35,9 @@
 				set(v) {
 					v = v && v.trim();
 					this.$router.replace({ query: { ...this.$route.query,
-						search: v || undefined, page: undefined
+						search: v || undefined, page: undefined,
 					} });
-				}
+				},
 			},
 			selectedLimit: {
 				get() {
@@ -46,9 +46,9 @@
 				set(v) {
 					this.$router.replace({ query: { ...this.$route.query,
 						page: undefined,
-						limit: v === DEFAULT_LIMIT ? undefined : v
+						limit: v === DEFAULT_LIMIT ? undefined : v,
 					} });
-				}
+				},
 			},
 			page: {
 				get() {
@@ -56,9 +56,9 @@
 				},
 				set(v) {
 					this.$router.replace({ query: { ...this.$route.query,
-						page: v > 1 ? v : undefined
+						page: v > 1 ? v : undefined,
 					} });
-				}
+				},
 			},
 			filterParams: {
 				get() {
@@ -73,9 +73,9 @@
 				},
 				set(v) {
 					this.$router.replace({ query: { ...this.$route.query,
-						params: v ? JSON.stringify(v) : undefined, page: undefined
+						params: v ? JSON.stringify(v) : undefined, page: undefined,
 					} });
-				}
+				},
 			},
 			sortParams: {
 				get() {
@@ -83,9 +83,9 @@
 				},
 				set(v) {
 					this.$router.replace({ query: { ...this.$route.query,
-						sort: v ? v : undefined
+						sort: v ? v : undefined,
 					} });
-				}
+				},
 			},
 			apiParams() {
 				// mix existing query params with filters and scopes from computed.filterParams
@@ -114,7 +114,15 @@
 			},
 			primaryKey() {
 				return this.meta && this.meta.primary || 'id';
-			}
+			},
+		},
+		created() {
+			this.limitOptions = [10, 25, 50, 100];
+			this.searchStagger = 300;
+		},
+		beforeMount() {
+			this.initialLoading = true;
+			this.update();
 		},
 		methods: {
 			destroyApiPath(item) {
@@ -145,7 +153,7 @@
 			destroy(item) {
 				this.$modal.open('confirm', {
 					title: this.$t('deleteElement') + '?',
-					text: item.title || item.name
+					text: item.title || item.name,
 				}).then(result => {
 					if (result === true) {
 						this.loading = true;
@@ -156,7 +164,7 @@
 							.catch(err => {
 								this.$modal.open('error', {
 									...httpErrorModalData(err),
-									title: this.$t('errors.deleteElement')
+									title: this.$t('errors.deleteElement'),
 								});
 								this.loading = false;
 							});
@@ -166,7 +174,7 @@
 			bulkDestroy(keys) {
 				this.$modal.open('confirm', {
 					title: this.$t('deleteSelection') + '?',
-					text: this.$t('count') + ': ' + keys.length
+					text: this.$t('count') + ': ' + keys.length,
 				}).then(result => {
 					if (result === true) {
 						this.loading = true;
@@ -177,7 +185,7 @@
 							.catch(err => {
 								this.$modal.open('error', {
 									...httpErrorModalData(err),
-									title: this.$t('errors.deleteElement')
+									title: this.$t('errors.deleteElement'),
 								});
 								this.loading = false;
 							});
@@ -205,7 +213,7 @@
 					p.catch(err => {
 						this.$modal.open('error', {
 							...httpErrorModalData(err),
-							title: this.$t('errors.saveElement')
+							title: this.$t('errors.saveElement'),
 						});
 					});
 				}, 300);
@@ -235,15 +243,7 @@
 			callBulkAction(action, selection) {
 				if (typeof action === 'string') action = this[action];
 				action(selection);
-			}
-		},
-		created() {
-			this.limitOptions = [10, 25, 50, 100];
-			this.searchStagger = 300;
-		},
-		beforeMount() {
-			this.initialLoading = true;
-			this.update();
+			},
 		},
 		beforeRouteUpdate(to, old, next) {
 			if (to.path !== old.path) {
@@ -257,7 +257,7 @@
 			this.$nextTick(() => {
 				this.update();
 			});
-		}
+		},
 	};
 </script>
 <template lang="pug">

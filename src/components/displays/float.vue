@@ -5,9 +5,9 @@
 			value: null,
 			precision: {
 				type: Number,
-				default: 2
-			}
-		}
+				default: 2,
+			},
+		},
 	};
 </script>
 <template functional lang="pug">

@@ -5,8 +5,8 @@
 			value: Array,
 			disabled: {
 				type: Boolean,
-				default: false
-			}
+				default: false,
+			},
 		},
 		methods: {
 			emitValue(i, v) {
@@ -18,8 +18,8 @@
 				const value = this.value ? this.value.slice() : ['00:00', '00:00'];
 				value[i] = v;
 				this.$emit('input', !(value[0] || value[1]) ? null : value);
-			}
-		}
+			},
+		},
 	};
 </script>
 <template lang="pug">

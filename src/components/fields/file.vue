@@ -45,29 +45,29 @@
 			value: [String, File],
 			disabled: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			ajaxMode: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			size: {
 				type: String,
-				default: 'sm'
+				default: 'sm',
 			},
 			accept: String,
 			uploadMessage: String,
-			valueLabel: String
+			valueLabel: String,
 		},
 		data: () => ({
 			uploading: false,
 			uploadInQueue: false,
-			uploadProgress: 0
+			uploadProgress: 0,
 		}),
 		computed: {
 			uploaded() {
 				return typeof this.value === 'string';
-			}
+			},
 		},
 		methods: {
 			progressUpload(e) {
@@ -85,8 +85,8 @@
 			clearValue() {
 				if (this.disabled) return;
 				this.$emit('input', null);
-			}
-		}
+			},
+		},
 	};
 </script>
 <template lang="pug">

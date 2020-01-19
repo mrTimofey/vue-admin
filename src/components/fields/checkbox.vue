@@ -9,14 +9,14 @@
 			value: Boolean,
 			disabled: {
 				type: Boolean,
-				default: false
-			}
+				default: false,
+			},
 		},
 		methods: {
 			emitValue({ target }) {
 				this.$emit('input', target.checked);
-			}
-		}
+			},
+		},
 	};
 </script>
 <template lang="pug">

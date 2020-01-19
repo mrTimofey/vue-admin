@@ -6,7 +6,7 @@
 		fieldsProps = {};
 	requireAll([
 		require.context('src/components/fields', true, /\.(vue|js)$/),
-		require.context('_local/src/components/fields', true, /\.(vue|js)$/)
+		require.context('_local/src/components/fields', true, /\.(vue|js)$/),
 	], (comp, name) => {
 		components['Field' + filenameToCamelCase(name)] = comp;
 		if (comp.props) {
@@ -35,16 +35,24 @@
 			...fieldsProps,
 			type: {
 				type: String,
-				default: 'text'
+				default: 'text',
 			},
 			object: Object,
 			errors: [String, Array, Object],
 			title: String,
-			stagger: Number
+			stagger: Number,
 		},
 		data: () => ({
-			typeAliases
+			typeAliases,
 		}),
+		computed: {
+			errorsText() {
+				if (!this.errors) return null;
+				if (Array.isArray(this.errors)) return this.errors.join(', ');
+				if (typeof this.errors === 'string') return this.errors;
+				return null;
+			},
+		},
 		methods: {
 			update(value) {
 				if (this.stagger) {
@@ -54,16 +62,8 @@
 					}, this.stagger);
 				}
 				else this.$emit('input', value);
-			}
+			},
 		},
-		computed: {
-			errorsText() {
-				if (!this.errors) return null;
-				if (Array.isArray(this.errors)) return this.errors.join(', ');
-				if (typeof this.errors === 'string') return this.errors;
-				return null;
-			}
-		}
 	};
 </script>
 <template lang="pug">

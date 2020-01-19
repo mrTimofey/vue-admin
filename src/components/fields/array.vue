@@ -11,31 +11,43 @@
 			value: Array,
 			disabled: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			itemProps: Object,
 			itemDefault: null,
 			length: Number,
 			min: {
 				type: Number,
-				default: 0
+				default: 0,
 			},
 			max: {
 				type: Number,
-				default: Infinity
+				default: Infinity,
 			},
 			addLabel: String,
-			errors: null
+			errors: null,
 		},
 		data: () => ({
-			keys: null
+			keys: null,
 		}),
 		computed: {
 			valueLength() {
 				if (this.length) return this.length;
 				// noinspection JSCheckFunctionSignatures
 				return Math.max(this.value ? this.value.length : 0, this.min);
-			}
+			},
+		},
+		watch: {
+			value: {
+				immediate: true,
+				handler() {
+					if (!this.internalInput || !this.keys) {
+						this.keys = [];
+						while (this.keys.length !== this.valueLength) this.keys.push(uid());
+					}
+					this.internalInput = false;
+				},
+			},
 		},
 		methods: {
 			emitInternal(v) {
@@ -75,20 +87,8 @@
 				value.splice(i, 1);
 				this.emitInternal(value);
 				this.keys.splice(i, 1);
-			}
+			},
 		},
-		watch: {
-			value: {
-				immediate: true,
-				handler() {
-					if (!this.internalInput || !this.keys) {
-						this.keys = [];
-						while (this.keys.length !== this.valueLength) this.keys.push(uid());
-					}
-					this.internalInput = false;
-				}
-			}
-		}
 	};
 </script>
 <template lang="pug">

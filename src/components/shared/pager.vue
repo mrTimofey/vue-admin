@@ -8,25 +8,25 @@
 	// noinspection JSUnusedGlobalSymbols
 	export default {
 		name: 'Pager',
+		model: {
+			prop: 'page',
+			event: 'input',
+		},
 		props: {
 			page: {
 				type: Number,
-				required: true
+				required: true,
 			},
 			lastPage: {
 				type: Number,
-				required: true
+				required: true,
 			},
 			loading: {
 				type: Boolean,
-				default: false
+				default: false,
 			},
 			total: Number,
-			limit: Number
-		},
-		model: {
-			prop: 'page',
-			event: 'input'
+			limit: Number,
 		},
 		computed: {
 			noWindow() {
@@ -53,7 +53,7 @@
 				if (href.endsWith('&') || href.endsWith('?')) return href;
 				if (href.indexOf('?') === -1) return href + '?';
 				return href + '&';
-			}
+			},
 		},
 		methods: {
 			change(page) {
@@ -64,8 +64,8 @@
 			},
 			href(page) {
 				return page > 1 ? (this.hrefPrefix + 'page=' + page) : this.hrefPrefix.slice(0, -1);
-			}
-		}
+			},
+		},
 	};
 </script>
 <template lang="pug">

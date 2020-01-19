@@ -9,12 +9,12 @@
 			value: String,
 			disabled: {
 				type: Boolean,
-				default: false
-			}
+				default: false,
+			},
 		},
 		methods: {
-			emitValue, trimValue
-		}
+			emitValue, trimValue,
+		},
 	};
 </script>
 <template lang="pug">

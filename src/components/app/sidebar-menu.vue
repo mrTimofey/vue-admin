@@ -5,8 +5,8 @@
 	export default {
 		components: { SidebarMenuItem },
 		computed: {
-			...mapGetters(['mainNav'])
-		}
+			...mapGetters(['mainNav']),
+		},
 	};
 </script>
 <template lang="pug">

@@ -11,25 +11,25 @@
 			title: null,
 			zoom: {
 				type: Number,
-				default: 1
+				default: 1,
 			},
 			center: {
 				type: Array,
-				default: () => [0, 0]
+				default: () => [0, 0],
 			},
 			height: {
 				type: [Number, String],
-				default: 400
+				default: 400,
 			},
 			value: null,
 			disabled: {
 				type: Boolean,
-				default: false
-			}
+				default: false,
+			},
 		},
 		data: () => ({
 			apiLoaded: false,
-			noApiKey: false
+			noApiKey: false,
 		}),
 		computed: {
 			valuePoint() {
@@ -41,7 +41,20 @@
 			},
 			heightWithUnit() {
 				return typeof this.height === 'string' ? this.height : (this.height + 'px');
-			}
+			},
+		},
+		watch: {
+			value() {
+				this.updatePoint();
+			},
+		},
+		beforeMount() {
+			initGoogleMaps()
+				.then(this.init)
+				.catch(err => {
+					if (err.noApiKey) this.noApiKey = true;
+					else throw err;
+				});
 		},
 		methods: {
 			emitValue(obj) {
@@ -49,7 +62,7 @@
 				// noinspection JSUnresolvedFunction
 				this.$emit('input', {
 					zoom: obj.zoom || this.gmap.getZoom(),
-					point: obj.point || this.valuePoint
+					point: obj.point || this.valuePoint,
 				});
 			},
 			clearValue() {
@@ -67,7 +80,7 @@
 				// noinspection ES6ModulesDependencies
 				this.gmap = new google.maps.Map(this.$refs.map, {
 					zoom: this.valueZoom,
-					center: pointToObj(this.valuePoint)
+					center: pointToObj(this.valuePoint),
 				});
 				this.gmap.addListener('click', this.onClick);
 				this.gmap.addListener('zoom_changed', this.onZoomChange);
@@ -93,7 +106,7 @@
 						// noinspection JSUnresolvedFunction
 						this.emitValue({
 							zoom: this.gmap.getZoom(),
-							point: [place.geometry.location.lat(), place.geometry.location.lng()]
+							point: [place.geometry.location.lat(), place.geometry.location.lng()],
 						});
 					}
 				});
@@ -113,21 +126,8 @@
 						this.gmapPoint = new google.maps.Marker({ map: this.gmap });
 					this.gmapPoint.setPosition(pointToObj(this.value.point));
 				}
-			}
+			},
 		},
-		beforeMount() {
-			initGoogleMaps()
-				.then(this.init)
-				.catch(err => {
-					if (err.noApiKey) this.noApiKey = true;
-					else throw err;
-				});
-		},
-		watch: {
-			value() {
-				this.updatePoint();
-			}
-		}
 	};
 </script>
 <template lang="pug">

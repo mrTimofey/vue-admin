@@ -8,10 +8,10 @@
 	export default {
 		name: 'SidebarMenuItem',
 		props: {
-			item: [String, Object]
+			item: [String, Object],
 		},
 		data: () => ({
-			expanded: false
+			expanded: false,
 		}),
 		computed: {
 			...mapGetters(['entitiesData']),
@@ -21,21 +21,21 @@
 			},
 			href() {
 				return itemHref(this.item);
-			}
+			},
+		},
+		created() {
+			this.expanded = this.hasActiveItem;
 		},
 		methods: {
 			available(entity, action) {
 				return this.entitiesData[entity] &&
 					(!this.entitiesData[entity].permissions ||
-					this.entitiesData[entity].permissions[action] !== false);
+						this.entitiesData[entity].permissions[action] !== false);
 			},
 			toggle() {
 				this.expanded = !this.expanded;
-			}
+			},
 		},
-		created() {
-			this.expanded = this.hasActiveItem;
-		}
 	};
 </script>
 <template lang="pug">
