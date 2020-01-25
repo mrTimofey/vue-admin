@@ -1,8 +1,6 @@
 <script>
-	import { mapGetters } from 'vuex';
 	import ckeConfig from 'src/ckeditor-config';
 	import { loadScript } from 'src/utils';
-	import http, { getApiToken } from 'src/http';
 
 	// noinspection JSUnusedGlobalSymbols
 	export default{
@@ -17,6 +15,10 @@
 				default: 100,
 			},
 			fieldClass: [String, Array],
+			config: {
+				type: Object,
+				default: () => ({}),
+			},
 		},
 		watch: {
 			disabled(v) {
@@ -24,12 +26,12 @@
 				this.ckeInstance.isReadOnly = v;
 			},
 			value(v, old) {
-				if (old !== v) this.ckeInstance.setData(v || '');
+				if (old !== v && this._internalValue !== v) this.ckeInstance.setData(v || '');
 			},
 		},
 		mounted() {
 			loadScript('https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js').then(() => {
-				ClassicEditor.create(this.$refs.textarea, ckeConfig).then(editor => {
+				ClassicEditor.create(this.$refs.textarea, { ...ckeConfig, ...this.config }).then(editor => {
 					editor.setData(this.value || '');
 					editor.model.document.on('change:data', this.onChange);
 					editor.editing.view.document.on('focus', () => {
@@ -38,20 +40,10 @@
 					editor.editing.view.document.on('blur', () => {
 						this.$emit('blur');
 					});
+					editor.ckeInstance.isReadOnly = this.disabled;
 
 					this.ckeInstance = editor;
 				});
-				/*
-				if (!CKEDITOR.stylesSet.registered.admin) CKEDITOR.stylesSet.add('admin', ckeConfig.styleSet);
-				// noinspection ES6ModulesDependencies, NodeModulesDependencies, JSUnresolvedFunction
-				this.ckeInstance = CKEDITOR.replace(this.$el, {
-					filebrowserBrowseUrl: http.defaults.baseURL + 'wysiwyg/images/browse?api_token=' + getApiToken(),
-					filebrowserUploadUrl: http.defaults.baseURL + 'wysiwyg/images/upload?api_token=' + getApiToken(),
-					stylesSet: 'admin',
-					...ckeConfig.instanceConfig,
-				});
-				this.ckeInstance.setData(this.value || '');
-				this.addListeners();*/
 			});
 		},
 		beforeDestroy() {
@@ -63,9 +55,9 @@
 				this.changedInside = true;
 				clearTimeout(this.changedTimeout);
 				this.changedTimeout = setTimeout(() => {
-					const value = this.ckeInstance.getData();
-					if (!value && this.value !== null) this.$emit('input', null);
-					else if (value !== this.value) this.$emit('input', value);
+					const value = this.ckeInstance.getData() || null;
+					this._internalValue = value;
+					if (value !== this.value) this.$emit('input', value);
 				}, this.debounce);
 			},
 		},

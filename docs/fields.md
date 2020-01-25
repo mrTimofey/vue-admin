@@ -320,11 +320,12 @@ Time interval field.
 
 [Component sources](https://github.com/mrTimofey/vue-admin/blob/master/src/components/fields/ckeditor.vue)
 
-[CKEditor](https://ckeditor.com/) 5 WYSIWYG field.
+[CKEditor](https://ckeditor.com/) 5 WYSIWYG field (Classic).
 
 Supported props:
 * `debounce` - CKEditor->value update debounce timeout in ms (`100` by default)
 * `fieldClass` - field class or array of classes, can be used to provide different styles for different fields and entities
+* `config` - CKEditor instance config
 
 `v-model` is a string or `null` for empty string value.
 
