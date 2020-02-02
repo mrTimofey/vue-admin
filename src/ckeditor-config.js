@@ -1,11 +1,5 @@
 /* eslint-disable camelcase */
 export default {
-	ckfinder: {
-		uploadUrl: '/api/upload',
-		options: {
-			resourceType: 'Images',
-		},
-	},
 	heading: {
 		options: [
 			{ model: 'paragraph', title: 'Абзац', view: 'p' },
@@ -42,7 +36,7 @@ export default {
 			'outdent',
 			'|',
 			'mediaEmbed',
-			'CKFinder',
+			'imageUpload',
 			'|',
 			'undo',
 			'redo',

@@ -1,6 +1,7 @@
 <script>
 	import ckeConfig from 'src/ckeditor-config';
 	import { mapGetters } from 'vuex';
+	import { getApiToken } from 'src/http';
 
 	function loadCKEditor() {
 		return import(/* webpackChunkName: 'ckeditor5/editor' */ 'src/lib/ckeditor5/ckeditor').then(module => module.default);
@@ -43,11 +44,18 @@
 				loadCKEditor(),
 				loadLanguage(this.locale).catch(() => loadLanguage(this.fallbackLocale)),
 			]).then(([ClassicEditor, language]) => {
-				ClassicEditor.create(this.$refs.textarea, {
+				const config = {
 					language,
 					...ckeConfig,
 					...this.config,
-				}).then(editor => {
+				};
+				if (!config.simpleUpload) config.simpleUpload = {};
+				if (!config.simpleUpload.uploadUrl) config.simpleUpload.uploadUrl = apiRootPath + 'wysiwyg/images/upload';
+				if (!config.simpleUpload.headers) config.simpleUpload.headers = {};
+				if (!config.simpleUpload.headers.Authorization) config.simpleUpload.headers = {
+					Authorization: 'Bearer ' + getApiToken(),
+				};
+				ClassicEditor.create(this.$refs.textarea, config).then(editor => {
 					editor.setData(this.value || '');
 					editor.model.document.on('change:data', this.onChange);
 					editor.editing.view.document.on('focus', () => {
