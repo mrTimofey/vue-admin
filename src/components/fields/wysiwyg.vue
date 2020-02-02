@@ -1,6 +1,15 @@
 <script>
 	import ckeConfig from 'src/ckeditor-config';
-	import { loadScript } from 'src/utils';
+	import { mapGetters } from 'vuex';
+
+	function loadCKEditor() {
+		return import(/* webpackChunkName: 'ckeditor5/editor' */ 'src/lib/ckeditor5/ckeditor').then(module => module.default);
+	}
+
+	function loadLanguage(name) {
+		if (name === 'en') return Promise.resolve(name);
+		return import(/* webpackChunkName: 'ckeditor5/lang/[request]' */ `src/lib/ckeditor5/translations/${name}`).then(() => name);
+	}
 
 	// noinspection JSUnusedGlobalSymbols
 	export default{
@@ -20,9 +29,9 @@
 				default: () => ({}),
 			},
 		},
+		computed: mapGetters(['locale', 'fallbackLocale']),
 		watch: {
 			disabled(v) {
-				// noinspection JSUnresolvedFunction
 				this.ckeInstance.isReadOnly = v;
 			},
 			value(v, old) {
@@ -30,8 +39,15 @@
 			},
 		},
 		mounted() {
-			loadScript('https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js').then(() => {
-				ClassicEditor.create(this.$refs.textarea, { ...ckeConfig, ...this.config }).then(editor => {
+			Promise.all([
+				loadCKEditor(),
+				loadLanguage(this.locale).catch(() => loadLanguage(this.fallbackLocale)),
+			]).then(([ClassicEditor, language]) => {
+				ClassicEditor.create(this.$refs.textarea, {
+					language,
+					...ckeConfig,
+					...this.config,
+				}).then(editor => {
 					editor.setData(this.value || '');
 					editor.model.document.on('change:data', this.onChange);
 					editor.editing.view.document.on('focus', () => {
@@ -40,7 +56,7 @@
 					editor.editing.view.document.on('blur', () => {
 						this.$emit('blur');
 					});
-					editor.ckeInstance.isReadOnly = this.disabled;
+					editor.isReadOnly = this.disabled;
 
 					this.ckeInstance = editor;
 				});
