@@ -78,7 +78,11 @@ export function convert2date(str, fixTimezone) {
 	// JavaScript ms timestamp
 	else if (Number.isInteger(str) && str > 100000000000 && str < 9999999999999) date = new Date(str);
 	// string
-	else date = new Date(str.toString().split('-').join('/')) || null;
+	else {
+		date = new Date(str.toString().split('-').join('/').split('T').join(' ').substr(0, 19)) || null;
+		// UTC
+		if (str.indexOf('Z') !== -1) date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+	}
 
 	// fix timezone
 	if (fixTimezone) date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
