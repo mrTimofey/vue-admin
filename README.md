@@ -10,7 +10,7 @@ This is the last package you will ever need to build your custom dashboard or ad
 * Type-safe by design
 * Suitable for a fast prototyping
 
-[Demo with Laravel 5.6 backend](http://admin.shit-free.space)
+[Demo with Laravel 5.6 backend](http://admin-demo.shit-free.space)
 
 [Documentation](https://mr-timofey.gitbooks.io/vue-admin)
 
